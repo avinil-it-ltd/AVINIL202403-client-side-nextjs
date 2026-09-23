@@ -138,7 +138,7 @@ const DashboardHeader = ({ toggleSidebar, isSidebarOpen }) => {
             <FaUserShield />
             <span className="online-indicator" title="Connected"></span>
           </div>
-          <div className="user-details d-none d-lg-block">
+          <div className="user-details d-none d-lg-flex flex-column">
             <span className="user-name">{userName}</span>
             <span className="user-role">Super Admin</span>
           </div>

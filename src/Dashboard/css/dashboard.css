@@ -315,20 +315,28 @@
 }
 
 .user-details {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center;
+  line-height: 1.25;
+  text-align: left;
 }
 
 .user-name {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   color: #111827;
+  display: block !important;
+  line-height: 1.2;
 }
 
 .user-role {
-  font-size: 10.5px;
+  font-size: 11px;
+  font-weight: 500;
   color: #6b7280;
+  display: block !important;
+  line-height: 1.2;
+  margin-top: 2px;
 }
 
 /* --- Sidebar Internal Components --- */

@@ -15,6 +15,7 @@ import Clients from "./views/Home/Clients/Clients.js";
 import ContactInfo from "./views/Home/ContactInfo/ContactInfo.js";
 import Testimonial from "./views/Home/Testimonial/Testimonial.js";
 import FAQ from "./views/Home/FAQ/FAQ.js";
+import FeaturedProjects from "./views/Home/FeaturedProjects/FeaturedProjects.js";
 
 const IndexHome = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -35,6 +36,7 @@ const IndexHome = () => {
         <Banner />
         <Introduction />
         <Services />
+        <FeaturedProjects />
         <Process />
         <ThreeImg />
         <Clients />

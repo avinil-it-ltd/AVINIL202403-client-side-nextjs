@@ -1,0 +1,353 @@
+/* ==========================================================================
+   Featured Projects — Homepage Section
+   ========================================================================== */
+
+.featured-projects-section {
+  padding: 80px 0 60px;
+  background: #0e0f12;
+}
+
+/* Section Header */
+.fp-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.fp-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #c85a17;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.fp-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #c85a17;
+  display: inline-block;
+}
+
+.fp-main-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.fp-subtitle {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.05rem;
+  color: #94a3b8;
+  line-height: 1.65;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Category Filter Tabs */
+.fp-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.fp-filter-btn {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  padding: 8px 20px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.fp-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e5e7eb;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.fp-filter-btn.active {
+  background: #c85a17;
+  color: #ffffff;
+  border-color: #c85a17;
+}
+
+/* Project Grid */
+.fp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* Single Project Card */
+.fp-card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+.fp-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.fp-card:hover .fp-card-img {
+  transform: scale(1.07);
+}
+
+/* Gradient overlay for text */
+.fp-card-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(10, 10, 14, 0.92) 0%,
+    rgba(10, 10, 14, 0.4) 45%,
+    rgba(10, 10, 14, 0.1) 100%
+  );
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+
+.fp-card:hover .fp-card-scrim {
+  background: linear-gradient(
+    0deg,
+    rgba(10, 10, 14, 0.95) 0%,
+    rgba(10, 10, 14, 0.5) 50%,
+    rgba(10, 10, 14, 0.15) 100%
+  );
+}
+
+/* Card badges */
+.fp-card-top {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 2;
+}
+
+.fp-badge {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e5e7eb;
+}
+
+.fp-badge-office {
+  background: rgba(200, 90, 23, 0.85);
+  border-color: rgba(200, 90, 23, 0.6);
+  color: #ffffff;
+}
+
+.fp-badge-status {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #4ade80;
+  text-transform: capitalize;
+}
+
+/* Card bottom text */
+.fp-card-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 18px;
+  z-index: 2;
+}
+
+.fp-card-category {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: #c85a17;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.fp-card-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.fp-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.fp-card-meta-sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #64748b;
+}
+
+/* View arrow on hover */
+.fp-card-arrow {
+  position: absolute;
+  bottom: 20px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(200, 90, 23, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.8rem;
+  z-index: 2;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.3s ease;
+}
+
+.fp-card:hover .fp-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* View All Button */
+.fp-view-all-wrap {
+  text-align: center;
+  margin-top: 44px;
+}
+
+.fp-view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 13px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.fp-view-all-btn:hover {
+  background: #c85a17;
+  border-color: #c85a17;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(200, 90, 23, 0.3);
+}
+
+.fp-view-all-btn .cta-arrow {
+  font-size: 0.8rem;
+  transition: transform 0.25s ease;
+}
+
+.fp-view-all-btn:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Loading skeleton */
+.fp-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.fp-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #c85a17;
+  border-radius: 50%;
+  animation: fp-spin 0.8s linear infinite;
+}
+
+@keyframes fp-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .fp-main-title {
+    font-size: 2.1rem;
+  }
+  .fp-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .featured-projects-section {
+    padding: 50px 0 40px;
+  }
+  .fp-main-title {
+    font-size: 1.7rem;
+  }
+  .fp-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .fp-card {
+    aspect-ratio: 16 / 11;
+  }
+  .fp-filter-bar {
+    gap: 6px;
+  }
+  .fp-filter-btn {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+  }
+}

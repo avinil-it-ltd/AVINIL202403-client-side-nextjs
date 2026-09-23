@@ -1,14 +1,14 @@
 /* Modern Interior Design - Clients Section */
 .clients-section {
   background: linear-gradient(180deg, #fdfbf9 0%, #faf3ec 50%, #ffffff 100%);
-  padding: 80px 0 70px 0;
+  padding: 85px 0 75px 0;
   position: relative;
   overflow: hidden;
 }
 
 .clients-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 42px;
 }
 
 .clients-eyebrow {
@@ -39,50 +39,57 @@
   line-height: 1.6;
 }
 
-/* Marquee wrapper */
+/* Marquee wrapper with generous vertical room for the glow shadows */
 .clients-marquee-wrapper {
   position: relative;
-  padding: 24px 0;
+  padding: 28px 0;
   overflow: hidden;
 }
 
-/* B&W and Fade Overlays for Start (Left) and End (Right) Cards */
+/* Curved Left B&W / Fade Zone - Organic Elliptical Arc */
 .clients-marquee-wrapper::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 290px;
-  height: 100%;
+  top: -15%;
+  left: -40px;
+  width: 320px;
+  height: 130%;
+  border-radius: 0 50% 50% 0 / 0 100% 100% 0;
   backdrop-filter: grayscale(100%);
   -webkit-backdrop-filter: grayscale(100%);
-  background: linear-gradient(
-    to right,
-    rgba(250, 243, 236, 0.95) 0%,
-    rgba(250, 243, 236, 0.6) 45%,
+  background: radial-gradient(
+    ellipse 100% 100% at 0% 50%,
+    rgba(250, 243, 236, 0.98) 0%,
+    rgba(250, 243, 236, 0.7) 50%,
+    rgba(250, 243, 236, 0.3) 80%,
     transparent 100%
   );
   pointer-events: none;
   z-index: 5;
+  box-shadow: 20px 0 40px -10px rgba(250, 243, 236, 0.8);
 }
 
+/* Curved Right B&W / Fade Zone - Organic Elliptical Arc */
 .clients-marquee-wrapper::after {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 290px;
-  height: 100%;
+  top: -15%;
+  right: -40px;
+  width: 320px;
+  height: 130%;
+  border-radius: 50% 0 0 50% / 100% 0 0 100%;
   backdrop-filter: grayscale(100%);
   -webkit-backdrop-filter: grayscale(100%);
-  background: linear-gradient(
-    to left,
-    rgba(250, 243, 236, 0.95) 0%,
-    rgba(250, 243, 236, 0.6) 45%,
+  background: radial-gradient(
+    ellipse 100% 100% at 100% 50%,
+    rgba(250, 243, 236, 0.98) 0%,
+    rgba(250, 243, 236, 0.7) 50%,
+    rgba(250, 243, 236, 0.3) 80%,
     transparent 100%
   );
   pointer-events: none;
   z-index: 5;
+  box-shadow: -20px 0 40px -10px rgba(250, 243, 236, 0.8);
 }
 
 /* Glowing Client Card */
@@ -147,7 +154,7 @@
 
   .clients-marquee-wrapper::before,
   .clients-marquee-wrapper::after {
-    width: 130px;
+    width: 140px;
   }
 
   .client-logo-card {

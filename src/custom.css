@@ -139,10 +139,7 @@ html, body {
 /* home contact css end here  */
 
 
-/* Default styles for the home page modal */
-.modal_design {
-  background-color: #EEEEEE;
-}
+/* modal_design overridden by modern ContactModal */
 
 
 .detailsTitle {

@@ -2,343 +2,457 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaEye } from 'react-icons/fa';
+import { FaEye, FaTrash, FaSearch, FaFilePdf, FaCheck, FaTimes, FaUserTie } from 'react-icons/fa';
 import { Modal, Button } from 'react-bootstrap';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import Swal from 'sweetalert2';
 
-const AppList = () => {
+const ApplicationList = () => {
   const [applications, setApplications] = useState([]);
   const [careers, setCareers] = useState([]);
   const [selectedCareer, setSelectedCareer] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(null);
-  const [showShortlisted, setShowShortlisted] = useState(false); // New state for shortlisted filter
-  const [showModal, setShowModal] = useState(false); // State for controlling the resume modal
-  const [resumeUrl, setResumeUrl] = useState(''); // State to store the resume URL
-  const [loading, setLoading] = useState(true); // Loading state
-
-
-  useEffect(() => {
-    fetchApplications();
-    fetchCareers();
-  }, [selectedCareer, searchTerm, showShortlisted]);
-
-
+  const [showShortlisted, setShowShortlisted] = useState(false);
+  const [showResumeModal, setShowResumeModal] = useState(false);
+  const [resumeUrl, setResumeUrl] = useState('');
+  const [selectedApplication, setSelectedApplication] = useState(null);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchCareers = async () => {
     try {
       const response = await axios.get('https://3pcommunicationsserver.vercel.app/api/careers');
-      console.log(response.data);
-
-      setCareers(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching careers:', error);
-      setError('Failed to fetch careers.');
-      setLoading(false);
+      setCareers(Array.isArray(response.data) ? response.data : []);
+    } catch (err) {
+      console.error('Error fetching careers:', err);
     }
   };
 
-
-
-  const handleShortlist = async (id, isShortlisted) => {
-    try {
-      await axios.put(`https://3pcommunicationsserver.vercel.app/api/applications/shortlist/${id}`, {
-        isShortlisted: !isShortlisted,
-      });
-      fetchApplications(); // Refresh the list after updating shortlist status
-    } catch (error) {
-      console.error('Error updating shortlist status:', error);
-      setError('Failed to update shortlist status.');
-    }
-  };
-
-
-  // Example of the delete handler in your React component
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this application?')) {
-      try {
-        await axios.delete(`https://3pcommunicationsserver.vercel.app/api/applications/${id}`);
-        fetchApplications(); // Refresh the list after deleting
-      } catch (error) {
-        console.error('Error deleting application:', error);
-        setError('Failed to delete application.');
-      }
-    }
-  };
-
-
-
-  // Filter applications based on selected career and search term
-  const filteredApplications = applications.filter((application) => {
-    const matchesCareer = selectedCareer ? application.careerId._id === selectedCareer : true;
-    const matchesSearch = application.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      application.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesShortlisted = showShortlisted ? application.isShortlisted : true;
-
-    return matchesCareer && matchesSearch && matchesShortlisted;
-  });
-
-
-
-
-  // Open modal and set resume URL
-  const handleViewResume = (resume) => {
-    setResumeUrl(resume);
-    setShowModal(true);
-  };
-
-
-
-
-  const handleCloseModal = () => setShowModal(false);
-
-  // Fetch filtered applications
   const fetchApplications = async () => {
     try {
-      // Prepare parameters for the API request
       const params = {
-        careerId: selectedCareer || undefined, // Send as undefined if no career is selected
-        searchTerm: searchTerm || undefined, // Send as undefined if no search term is entered
-        showShortlisted: showShortlisted || undefined, // Send as undefined if the shortlisted filter is not applied
+        careerId: selectedCareer || undefined,
+        searchTerm: searchTerm || undefined,
+        showShortlisted: showShortlisted || undefined,
       };
 
-      // Fetch filtered applications
       const response = await axios.get('https://3pcommunicationsserver.vercel.app/api/applications/filtered', { params });
-      console.log(response.data);
-
-      setApplications(response.data);
-    } catch (error) {
-      console.error('Error fetching applications:', error);
-      setError('Failed to fetch applications. Please try again later.');
+      setApplications(Array.isArray(response.data) ? response.data : []);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error fetching applications:', err);
+      setError('Failed to fetch applications.');
+      setLoading(false);
     }
   };
 
-  // Re-fetch applications when filters change
-
-
-
+  useEffect(() => {
+    fetchCareers();
+  }, []);
 
   useEffect(() => {
     fetchApplications();
   }, [selectedCareer, searchTerm, showShortlisted]);
 
+  const handleShortlist = async (id, isShortlisted) => {
+    try {
+      const updatedStatus = !isShortlisted;
+      setApplications(prev =>
+        prev.map(app => (app._id === id ? { ...app, isShortlisted: updatedStatus } : app))
+      );
 
+      await axios.put(`https://3pcommunicationsserver.vercel.app/api/applications/shortlist/${id}`, {
+        isShortlisted: updatedStatus,
+      });
+    } catch (err) {
+      console.error('Error updating shortlist status:', err);
+      fetchApplications();
+    }
+  };
 
+  const handleDelete = (id, name) => {
+    Swal.fire({
+      title: `Delete Application?`,
+      text: `Are you sure you want to delete the application from ${name || 'this candidate'}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#64748b',
+      confirmButtonText: 'Yes, delete',
+      cancelButtonText: 'Cancel',
+      background: '#ffffff',
+      customClass: { popup: 'rounded-4' },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`https://3pcommunicationsserver.vercel.app/api/applications/${id}`);
+          setApplications(prev => prev.filter(app => app._id !== id));
+          Swal.fire({
+            icon: 'success',
+            title: 'Deleted',
+            text: 'Application removed.',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } catch (err) {
+          console.error('Error deleting application:', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to delete application.',
+          });
+        }
+      }
+    });
+  };
 
-  // Custom Loader Component
-  const Loader = () => (
-    <div className="loader-container text-center mt-5">
-      <div className="custom-loader"></div>
-    </div>
-  );
+  const handleViewResume = (url) => {
+    setResumeUrl(url);
+    setShowResumeModal(true);
+  };
+
+  const handleShowDetails = (application) => {
+    setSelectedApplication(application);
+    setShowDetailsModal(true);
+  };
+
+  const shortlistedCount = applications.filter(a => a.isShortlisted).length;
 
   if (loading) {
-    return <Loader />;
+    return (
+      <div className="dashboard-loading-container">
+        <div className="dashboard-spinner"></div>
+        <p className="loading-caption">Loading job applications...</p>
+      </div>
+    );
   }
 
-
-
-
-
-
   return (
-
-    <div className="container card shadow-lg p-3  mt-3">
-      <h2 className="text-center mb-4" style={{ fontFamily: "Times New Roman" }}>Applications by Career</h2>
-
-      {/* Filter Section */}
-      <div className="filter-container d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-4 p-3 bg-light rounded shadow-sm">
-        {/* Career Dropdown */}
-        <div className="filter-group me-3 mb-2 mb-md-0 w-50">
-          <label htmlFor="careerSelect" className="form-label fw-bold">Filter by Career</label>
-          <select
-            id="careerSelect"
-            className="form-select"
-            style={{ outline: "none", boxShadow: "none" }}
-            value={selectedCareer}
-            onChange={(e) => setSelectedCareer(e.target.value)}
-          >
-            <option value="">All Careers</option>
-            {careers?.map((career) => (
-              <option key={career._id} value={career._id}>
-                {career.title}
-              </option>
-            ))}
-          </select>
+    <div className="applications-dashboard-wrapper">
+      {/* Header */}
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+          <h2 className="m-0 fw-bold">Candidate Applications</h2>
+          <p className="text-muted small m-0 mt-1">
+            Review recruitment submissions ({applications.length} Total · {shortlistedCount} Shortlisted)
+          </p>
         </div>
-
-        {/* Search Input */}
-        <div className="filter-group me-3 mb-2 mb-md-0 w-50">
-          <label htmlFor="searchInput" className="form-label fw-bold">Search</label>
-          <input
-            id="searchInput"
-            style={{ outline: "none", boxShadow: "none" }}
-            type="text"
-            className="form-control"
-            placeholder="Name or Email"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-
-        {/* Shortlisted Button */}
-        <div className="filter-group">
-          <label className="form-label fw-bold">Shortlist Button</label>
+        <div className="d-flex gap-2">
           <button
-            className={`btn ${showShortlisted ? "btn-success" : "btn-outline-secondary"} w-100`}
-            onClick={() => setShowShortlisted(!showShortlisted)}
+            className={`btn btn-sm ${!showShortlisted ? 'dashboard_all_button' : 'btn-outline-secondary'}`}
+            onClick={() => setShowShortlisted(false)}
           >
-            {showShortlisted ? "Showing Shortlisted Only" : "Show Shortlisted Only"}
+            All Candidates
+          </button>
+          <button
+            className={`btn btn-sm ${showShortlisted ? 'dashboard_all_button' : 'btn-outline-secondary'}`}
+            onClick={() => setShowShortlisted(true)}
+          >
+            Shortlisted Only ({shortlistedCount})
           </button>
         </div>
       </div>
 
-      {error && <p className="text-danger text-center">{error}</p>}
+      {/* Filters Bar */}
+      <div className="card p-3 mb-4 border-0 shadow-sm rounded-4">
+        <div className="row g-2 align-items-center">
+          <div className="col-12 col-md-6">
+            <div className="input-group">
+              <span className="input-group-text bg-white border-end-0 text-muted">
+                <FaSearch />
+              </span>
+              <input
+                type="text"
+                placeholder="Search candidate name or email..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="form-control border-start-0 ps-0"
+              />
+              {searchTerm && (
+                <button className="btn btn-outline-secondary" onClick={() => setSearchTerm('')}>
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
+          <div className="col-12 col-md-4">
+            <select
+              value={selectedCareer}
+              onChange={(e) => setSelectedCareer(e.target.value)}
+              className="form-select"
+            >
+              <option value="">All Career Positions ({careers.length})</option>
+              {careers.map((career) => (
+                <option key={career._id} value={career._id}>
+                  {career.title}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col-12 col-md-2 text-md-end text-muted small">
+            <span>Showing {applications.length}</span>
+          </div>
+        </div>
+      </div>
 
-      {applications.length > 0 ? (
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Photo</th>
-              <th>Name</th>
-              <th>Career</th>
-              <th>Email</th>
-              <th>Resume</th>
-              <th>Shortlist</th>
-              <th>Actions</th>
-              <th>Details</th>
-            </tr>
-          </thead>
+      {error && <div className="alert alert-danger rounded-3 mb-4">{error}</div>}
 
-          <tbody>
-            {applications.map((application, index) => (
-              <tr key={application._id} className={application.isShortlisted ? "table-success" : ""}>
-                <td>{index + 1}</td>
-                <td>
-                  {application.photo ? (
-                    <img
-                      src={application.photo}
-                      alt={`${application.name}'s photo`}
-                      style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                    />
-                  ) : (
-                    "No Photo"
-                  )}
-                </td>
-                <td>{application.name}</td>
-                <td>{application.careerId?.title || "N/A"}</td>
-                <td>{application.email}</td>
-                <td>
-                  <button
-                    type="button"
-                    download=""
-                    className="btn btn-secondary btn-sm"
-                    onClick={() => handleViewResume(application.resume)}
-                  >
-                    View Resume
-                  </button>
-                </td>
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={application.isShortlisted}
-                    onChange={() => handleShortlist(application._id, application.isShortlisted)}
-                  />
-                </td>
-                <td>
-                  <button className="btn btn-danger btn-sm" onClick={() => handleDelete(application._id)}>
-                    Delete
-                  </button>
-                </td>
-                <td>
-                  {/* <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target={`#applicationDetailsModal-${application._id}`}>
-                    <FaEye />
-                  </button> */}
-                  <td>
-                    <button
-                      className="btn btn-primary btn-sm" // Change color as needed
-                      data-bs-toggle="modal"
-                      data-bs-target={`#applicationDetailsModal-${application._id}`}
-                    >
-                      <FaEye />
-                    </button>
-
-                    {/* Application details modal */}
-                    <div
-                      className="modal fade"
-                      id={`applicationDetailsModal-${application._id}`}
-                      tabIndex="-1"
-                      aria-labelledby={`applicationDetailsModalLabel-${application._id}`}
-                      aria-hidden="true"
-                    >
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <h5 className="modal-title" id={`applicationDetailsModalLabel-${application._id}`}>
-                              Application Details
-                            </h5>
-                            <button
-                              type="button"
-                              className="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div className="modal-body">
-                            <p><strong>Name:</strong> {application.name}</p>
-                            <p><strong>Email:</strong> {application.email}</p>
-                            <p><strong>Phone:</strong> {application.phoneNumber}</p>
-                            <p><strong>Career Position:</strong> {application.careerId?.title || 'N/A'}</p>
-                            <p><strong>Shortlisted:</strong> {application.isShortlisted ? 'Yes' : 'No'}</p>
-                            <p><strong>Resume:</strong> <a href={`${application.resume}`} target="_blank" rel="noopener noreferrer">View Resume</a></p>
-                            <p><strong>LinkedIn Profile:</strong> <a href={application.linkedinProfile} target="_blank" rel="noopener noreferrer">{application.linkedinProfile || 'N/A'}</a></p>
-                            <p><strong>Resume:</strong> <a href={application.resumePdfLink} target="_blank" rel="noopener noreferrer">{application.resumePdfLink || 'N/A'}</a></p>
-                            <p><strong>Portfolio:</strong> <a href={application.portfolioLink} target="_blank" rel="noopener noreferrer">{application.portfolioLink || 'N/A'}</a></p>
-                            <p><strong>Address:</strong> {application.address || 'N/A'}</p>
-                            <p><strong>Description:</strong> {application.description || 'N/A'}</p>
-                            <p><strong>Photo:</strong></p>
-                            {application.photo ? (
-                              <img
-                                src={application.photo}
-                                alt={`${application.name}'s photo`}
-                                style={{ width: '100px', height: '100px', borderRadius: '50%' }}
-                              />
-                            ) : (
-                              'No Photo Available'
-                            )}
-                            <p><strong>Created At:</strong> {new Date(application.createdAt).toLocaleString()}</p>
-                          </div>
+      {/* Applications Table */}
+      <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div className="table-responsive">
+          <table className="table table-hover align-middle mb-0">
+            <thead className="table-light">
+              <tr>
+                <th style={{ width: '6%' }}>#</th>
+                <th style={{ width: '24%' }}>Candidate</th>
+                <th style={{ width: '20%' }}>Position</th>
+                <th style={{ width: '16%' }}>Resume</th>
+                <th style={{ width: '14%' }} className="text-center">Shortlist</th>
+                <th style={{ width: '20%' }} className="text-end pe-4">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {applications.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="text-center py-5 text-muted">
+                    No candidate applications found matching criteria.
+                  </td>
+                </tr>
+              ) : (
+                applications.map((app, index) => (
+                  <tr key={app._id}>
+                    <td className="text-muted small">{index + 1}</td>
+                    <td>
+                      <div className="d-flex align-items-center gap-2">
+                        <div
+                          style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            backgroundColor: '#f1f5f9',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            overflow: 'hidden',
+                            border: '1px solid #e2e8f0',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {app.photo ? (
+                            <img
+                              src={app.photo}
+                              alt={app.name}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                          ) : (
+                            <FaUserTie className="text-muted" />
+                          )}
+                        </div>
+                        <div>
+                          <div className="fw-bold text-dark">{app.name}</div>
+                          <small className="text-muted">{app.email}</small>
                         </div>
                       </div>
+                    </td>
+                    <td>
+                      <span className="badge bg-light text-dark border">
+                        {app.careerId?.title || 'General Opening'}
+                      </span>
+                    </td>
+                    <td>
+                      {app.resume ? (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1 rounded-2"
+                          onClick={() => handleViewResume(app.resume)}
+                        >
+                          <FaFilePdf className="text-danger" /> View Resume
+                        </button>
+                      ) : app.resumePdfLink ? (
+                        <a
+                          href={app.resumePdfLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1 rounded-2"
+                        >
+                          <FaFilePdf className="text-danger" /> PDF Link
+                        </a>
+                      ) : (
+                        <span className="text-muted small">None</span>
+                      )}
+                    </td>
+                    <td className="text-center">
+                      <div className="form-check form-switch d-inline-block">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          role="switch"
+                          checked={app.isShortlisted || false}
+                          onChange={() => handleShortlist(app._id, app.isShortlisted)}
+                          title="Toggle shortlist status"
+                        />
+                      </div>
+                    </td>
+                    <td className="text-end pe-4">
+                      <div className="d-inline-flex gap-2">
+                        <button
+                          className="btn btn-sm btn-outline-secondary rounded-2"
+                          onClick={() => handleShowDetails(app)}
+                          title="View Application Details"
+                        >
+                          <FaEye />
+                        </button>
+                        <button
+                          className="btn btn-sm btn-outline-danger rounded-2"
+                          onClick={() => handleDelete(app._id, app.name)}
+                          title="Delete Application"
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Details Modal */}
+      <Modal show={showDetailsModal} onHide={() => setShowDetailsModal(false)} size="lg" centered>
+        <Modal.Header closeButton>
+          <Modal.Title className="fw-bold">Candidate Profile: {selectedApplication?.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedApplication && (
+            <div className="row g-4">
+              <div className="col-12 col-md-4 text-center">
+                <div
+                  className="mx-auto mb-3"
+                  style={{
+                    width: '110px',
+                    height: '110px',
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    backgroundColor: '#f1f5f9',
+                    border: '3px solid #ff6600',
+                  }}
+                >
+                  {selectedApplication.photo ? (
+                    <img
+                      src={selectedApplication.photo}
+                      alt={selectedApplication.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <div className="d-flex align-items-center justify-content-center h-100 text-muted">
+                      <FaUserTie size={48} />
                     </div>
-                  </td>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p className="text-center">No applications available.</p>
-      )}
+                  )}
+                </div>
+                <h5 className="fw-bold m-0">{selectedApplication.name}</h5>
+                <span className="badge bg-light text-dark border mt-1">
+                  {selectedApplication.careerId?.title || 'Applicant'}
+                </span>
+                <div className="mt-3">
+                  {selectedApplication.isShortlisted ? (
+                    <span className="badge-pill-shortlisted">Shortlisted</span>
+                  ) : (
+                    <span className="badge-pill-pending">Review Pending</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="col-12 col-md-8">
+                <h6 className="fw-bold text-dark border-bottom pb-2">Contact Details</h6>
+                <div className="row g-2 mb-3 small">
+                  <div className="col-6">
+                    <span className="text-muted d-block">Email:</span>
+                    <a href={`mailto:${selectedApplication.email}`} className="text-primary fw-medium">
+                      {selectedApplication.email}
+                    </a>
+                  </div>
+                  <div className="col-6">
+                    <span className="text-muted d-block">Phone:</span>
+                    <span>{selectedApplication.phoneNumber || 'N/A'}</span>
+                  </div>
+                  {selectedApplication.address && (
+                    <div className="col-12">
+                      <span className="text-muted d-block">Address:</span>
+                      <span>{selectedApplication.address}</span>
+                    </div>
+                  )}
+                </div>
+
+                <h6 className="fw-bold text-dark border-bottom pb-2">Professional Profiles & Links</h6>
+                <div className="d-flex flex-wrap gap-2 mb-3">
+                  {selectedApplication.linkedinProfile && (
+                    <a
+                      href={selectedApplication.linkedinProfile}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-sm btn-outline-primary"
+                    >
+                      LinkedIn Profile
+                    </a>
+                  )}
+                  {selectedApplication.portfolioLink && (
+                    <a
+                      href={selectedApplication.portfolioLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-sm btn-outline-dark"
+                    >
+                      Portfolio Link
+                    </a>
+                  )}
+                  {selectedApplication.resumePdfLink && (
+                    <a
+                      href={selectedApplication.resumePdfLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-sm btn-outline-danger"
+                    >
+                      Resume PDF
+                    </a>
+                  )}
+                </div>
+
+                {selectedApplication.description && (
+                  <>
+                    <h6 className="fw-bold text-dark border-bottom pb-2">Cover Note / Self Description</h6>
+                    <p className="small text-secondary">{selectedApplication.description}</p>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDetailsModal(false)} className="rounded-3">
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       {/* Resume Modal */}
-      <Modal show={showModal} onHide={handleCloseModal} size="lg" centered>
+      <Modal show={showResumeModal} onHide={() => setShowResumeModal(false)} size="lg" centered>
         <Modal.Header closeButton>
-          <Modal.Title>View Resume</Modal.Title>
+          <Modal.Title className="fw-bold">Candidate Resume Preview</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-center">
+        <Modal.Body className="text-center p-4">
           <Zoom>
-            <img src={resumeUrl} alt={resumeUrl} className="img-fluid" />
+            <img src={resumeUrl} alt="Resume Preview" className="img-fluid rounded-3 shadow-sm" />
           </Zoom>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" href={resumeUrl} target="_blank" download>
-            Download Resume
+          <Button variant="primary" href={resumeUrl} target="_blank" download className="rounded-3">
+            Download File
           </Button>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button variant="secondary" onClick={() => setShowResumeModal(false)} className="rounded-3">
             Close
           </Button>
         </Modal.Footer>
@@ -347,4 +461,4 @@ const AppList = () => {
   );
 };
 
-export default AppList;
+export default ApplicationList;

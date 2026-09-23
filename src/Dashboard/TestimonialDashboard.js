@@ -129,7 +129,7 @@ const TestimonialDashboard = () => {
 
     return (
         <div className='card shadow-lg m-3 p-3 '>
-            <h2 style={{ fontFamily: "Times New Roman" }} className='text-center my-2'>Testimonial Management</h2>
+            <h2 className='text-center my-2 fw-bold'>Testimonial Management</h2>
             <div className='text-end'>
                 <Button variant='' onClick={() => handleShowModal()} className="mb-3 dashboard_all_button">
                     Add New Testimonial

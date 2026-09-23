@@ -60,7 +60,7 @@ const PolicyDashboard = () => {
 
     return (
         <div className='card shadow-lg p-4 m-3'>
-            <h2 className='text-center my-3' style={{ fontFamily: "Times New Roman" }}>Privacy Policy Management</h2>
+            <h2 className='text-center my-3 fw-bold'>Privacy Policy Management</h2>
 
             <div className="text-end">
                 <Button variant='' onClick={() => handleShowModal()} className="mb-3 dashboard_all_button px-5">

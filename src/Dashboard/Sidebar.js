@@ -1,131 +1,154 @@
 'use client';
 
 import React from 'react';
-import { Nav } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
-    FaClipboardList,
-    FaTachometerAlt,
-    FaImage,
-    FaUserEdit,
-    FaPlusCircle,
-    FaListAlt,
-    FaBriefcase,
-    FaQuestionCircle
+  FaTachometerAlt,
+  FaFolderOpen,
+  FaPlusCircle,
+  FaThList,
+  FaEnvelopeOpenText,
+  FaBriefcase,
+  FaUserGraduate,
+  FaBullhorn,
+  FaComments,
+  FaQuestionCircle,
+  FaInfoCircle,
+  FaAddressBook,
+  FaShieldAlt,
+  FaCogs,
+  FaTimes,
+  FaExternalLinkAlt
 } from 'react-icons/fa';
 
-import './css/dashboard.css';
+const navSections = [
+  {
+    title: 'Core',
+    items: [
+      { href: '/dashboard', label: 'Overview', icon: FaTachometerAlt, exact: true },
+    ]
+  },
+  {
+    title: 'Portfolio & Services',
+    items: [
+      { href: '/dashboard/projects', label: 'All Projects', icon: FaFolderOpen },
+      { href: '/dashboard/addProject', label: 'New Project', icon: FaPlusCircle },
+      { href: '/dashboard/categories', label: 'Categories', icon: FaThList },
+    ]
+  },
+  {
+    title: 'Inquiries & Recruitment',
+    items: [
+      { href: '/dashboard/contactDashboard', label: 'Client Leads', icon: FaEnvelopeOpenText },
+      { href: '/dashboard/careers', label: 'Job Openings', icon: FaBriefcase },
+      { href: '/dashboard/addCareer', label: 'Post Career', icon: FaPlusCircle },
+      { href: '/dashboard/applications', label: 'Applications', icon: FaUserGraduate },
+    ]
+  },
+  {
+    title: 'Content & CMS',
+    items: [
+      { href: '/dashboard/headlineDashboard', label: 'Headlines', icon: FaBullhorn },
+      { href: '/dashboard/testimonialDashboard', label: 'Testimonials', icon: FaComments },
+      { href: '/dashboard/faqDashboard', label: 'FAQs', icon: FaQuestionCircle },
+      { href: '/dashboard/UpdateAboutDetails', label: 'About Info', icon: FaInfoCircle },
+      { href: '/dashboard/UpdateContactDetails', label: 'Contact Info', icon: FaAddressBook },
+      { href: '/dashboard/changePrivacyPolicy', label: 'Privacy Policy', icon: FaShieldAlt },
+    ]
+  },
+  {
+    title: 'System & Security',
+    items: [
+      { href: '/dashboard/settings', label: 'Admin Credentials', icon: FaCogs },
+    ]
+  }
+];
 
-const Sidebar = () => {
-    const location = useLocation();
+const Sidebar = ({ isOpen, onClose }) => {
+  const pathname = usePathname();
 
-    // Helper function to apply active style if the link is the current path
-    const isActive = (path) => location.pathname === path;
+  const isItemActive = (href, exact) => {
+    if (exact) {
+      return pathname === href;
+    }
+    return pathname === href || pathname?.startsWith(`${href}/`);
+  };
 
-    return (
-        <div className="d-flex flex-column sidebar">
-            <Nav className="flex-column p-3">
-                <h5 className="mt-4">Dashboard</h5>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard"
-                    className={`mb-2 ${isActive('/dashboard') ? 'active-link' : ''}`}
-                >
-                    <FaTachometerAlt /> Overall Dashboard
-                </Nav.Link>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/categories"
-                    className={`mb-2 ${isActive('/dashboard/categories') ? 'active-link' : ''}`}
-                >
-                    <FaPlusCircle /> Services Categories
-                </Nav.Link>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/projects"
-                    className={`mb-2 ${isActive('/dashboard/projects') ? 'active-link' : ''}`}
-                >
-                    <FaListAlt /> View All Projects
-                </Nav.Link>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/contactDashboard"
-                    className={`mb-2 ${isActive('/dashboard/contactDashboard') ? 'active-link' : ''}`}
-                >
-                    <FaBriefcase /> View Contact Leads
-                </Nav.Link>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/careers"
-                    className={`mb-2 ${isActive('/dashboard/careers') ? 'active-link' : ''}`}
-                >
-                    <FaBriefcase /> View Careers
-                </Nav.Link>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/applications"
-                    className={`mb-2 ${isActive('/dashboard/applications') ? 'active-link' : ''}`}
-                >
-                    <FaClipboardList /> View Applications
-                </Nav.Link>
+  return (
+    <>
+      {/* Mobile Backdrop */}
+      {isOpen && (
+        <div 
+          className="sidebar-backdrop d-lg-none" 
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
 
-                <h5 className="mt-4">Update Management</h5>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/changePrivacyPolicy"
-                    className={`mb-2 ${isActive('/dashboard/changePrivacyPolicy') ? 'active-link' : ''}`}
-                >
-                    <FaClipboardList /> Change Privacy Policy
-                </Nav.Link>
-
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/UpdateAboutDetails"
-                    className={`mb-2 ${isActive('/dashboard/UpdateAboutDetails') ? 'active-link' : ''}`}
-                >
-                    <FaUserEdit /> Change About Details
-                </Nav.Link>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/UpdateContactDetails"
-                    className={`mb-2 ${isActive('/dashboard/UpdateContactDetails') ? 'active-link' : ''}`}
-                >
-                    <FaBriefcase /> Change Contact Details
-                </Nav.Link>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/faqDashboard"
-                    className={`mb-2 ${isActive('/dashboard/faqDashboard') ? 'active-link' : ''}`}
-                >
-                    <FaQuestionCircle /> Manage FAQs
-                </Nav.Link>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/testimonialDashboard"
-                    className={`mb-2 ${isActive('/dashboard/testimonialDashboard') ? 'active-link' : ''}`}
-                >
-                    <FaClipboardList /> Manage Testimonials
-                </Nav.Link>
-
-                <h5 className="mt-4">Settings</h5>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/headlineDashboard"  // Link to the Headline Management page
-                    className={`mb-2 ${isActive('/dashboard/headlineDashboard') ? 'active-link' : ''}`}
-                >
-                    <FaClipboardList /> Manage Headlines
-                </Nav.Link>
-                <Nav.Link
-                    as={Link}
-                    to="/dashboard/settings" // Link to the combined settings page
-                    className={`mb-2 ${isActive('/dashboard/settings') ? 'active-link' : ''}`}
-                >
-                    <FaUserEdit /> Manage Credentials
-                </Nav.Link>
-
-            </Nav>
+      <aside className={`admin-sidebar ${isOpen ? 'sidebar-open' : ''}`}>
+        <div className="sidebar-header d-flex justify-content-between align-items-center">
+          <div className="sidebar-brand-box">
+            <span className="brand-dot"></span>
+            <div>
+              <div className="brand-heading">3P PORTAL</div>
+              <small className="brand-subheading">Administration</small>
+            </div>
+          </div>
+          <button 
+            className="sidebar-close-btn d-lg-none" 
+            onClick={onClose}
+            aria-label="Close sidebar"
+          >
+            <FaTimes />
+          </button>
         </div>
-    );
+
+        <nav className="sidebar-nav-container">
+          {navSections.map((section, idx) => (
+            <div key={idx} className="sidebar-section">
+              <div className="section-title">{section.title}</div>
+              <ul className="section-list">
+                {section.items.map((item, itemIdx) => {
+                  const Icon = item.icon;
+                  const active = isItemActive(item.href, item.exact);
+                  return (
+                    <li key={itemIdx} className="section-item">
+                      <Link
+                        href={item.href}
+                        onClick={() => {
+                          if (window.innerWidth < 992 && onClose) {
+                            onClose();
+                          }
+                        }}
+                        className={`sidebar-link ${active ? 'sidebar-link-active' : ''}`}
+                      >
+                        <span className="link-icon-box">
+                          <Icon className="link-icon" />
+                        </span>
+                        <span className="link-text">{item.label}</span>
+                        {active && <span className="active-glow-bar" />}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </nav>
+
+        <div className="sidebar-footer">
+          <div className="sidebar-status-card">
+            <div className="status-indicator-live"></div>
+            <div>
+              <div className="status-title">System Live</div>
+              <div className="status-sub">Vercel API Connected</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </>
+  );
 };
 
 export default Sidebar;

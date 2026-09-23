@@ -82,7 +82,7 @@ const UpdateContactDetails = () => {
 
   return (
     <Container className="my-5 card p-5 shadow-lg">
-      <h2 className="text-center mb-4" style={{ fontFamily: "Times New Roman" }}>Update Contact Details</h2>
+      <h2 className="text-center mb-4 fw-bold">Update Contact Details</h2>
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col md={6} className="mb-3">

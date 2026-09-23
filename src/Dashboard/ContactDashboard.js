@@ -1,238 +1,49 @@
 'use client';
 
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import Swal from "sweetalert2";
-
-// const ContactDashboard = () => {
-//   const [contacts, setContacts] = useState([]);
-//   const [error, setError] = useState(false);
-//   const [searchTerm, setSearchTerm] = useState("");
-//   const [showShortlistedOnly, setShowShortlistedOnly] = useState(false);
-
-//   const fetchContacts = async () => {
-//     try {
-//       const response = await axios.get(
-//         "https://3pcommunicationsserver.vercel.app/api/contacts"
-//       );
-//       setContacts(response.data);
-//     } catch (err) {
-//       console.error("Error fetching contacts:", err);
-//       setError(true);
-//     }
-//   };
-
-//   const handleDelete = async (id) => {
-//     // Show confirmation alert before deletion
-//     const result = await Swal.fire({
-//       title: "Are you sure?",
-//       text: "This will permanently delete the contact.",
-//       icon: "warning",
-//       showCancelButton: true,
-//       confirmButtonColor: "#007bff", // Green color for confirm button
-//       cancelButtonColor: "#dc3545", // Red color for cancel button
-//       confirmButtonText: "Yes, delete it!",
-//       cancelButtonText: "No, keep it",
-//     });
-
-//     if (result.isConfirmed) {
-//       try {
-//         await axios.delete(
-//           `https://3pcommunicationsserver.vercel.app/api/contacts/${id}`
-//         );
-//         fetchContacts(); // Refresh contacts after deletion
-//         Swal.fire({
-//           icon: "success",
-//           title: "Deleted successfully!",
-//           text: "The contact has been deleted.",
-//           confirmButtonText: "OK",
-//           confirmButtonColor: "#28a745", // Green color for confirm button
-//         });
-//       } catch (err) {
-//         console.error("Error deleting contact:", err);
-//         setError(true);
-//         Swal.fire({
-//           icon: "error",
-//           title: "Error!",
-//           text: "There was an error deleting the contact.",
-//         });
-//       }
-//     }
-//   };
-
-//   const handleSearch = (event) => {
-//     setSearchTerm(event.target.value);
-//   };
-
-//   const handleShortlistToggle = async (contact) => {
-//     try {
-//       const updatedContact = {
-//         ...contact,
-//         shortlisted: !contact.shortlisted, // Toggle shortlisted status
-//       };
-
-//       await axios.put(
-//         `https://3pcommunicationsserver.vercel.app/api/contacts/${contact._id}/shortlisted`,
-//         {
-//           shortlisted: updatedContact.shortlisted,
-//         }
-//       );
-
-//       fetchContacts(); // Refresh contacts to reflect changes
-//     } catch (err) {
-//       console.error("Error updating shortlisted status:", err);
-//       setError(true);
-//     }
-//   };
-
-//   const filteredContacts = contacts.filter(
-//     (contact) =>
-//       contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//       contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//       contact.phoneNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//       contact.message.toLowerCase().includes(searchTerm.toLowerCase())
-//   );
-
-//   const renderContacts = () => {
-//     const contactsToDisplay = showShortlistedOnly
-//       ? filteredContacts.filter((contact) => contact.shortlisted)
-//       : filteredContacts;
-
-//     return contactsToDisplay.map((contact) => (
-//       <tr key={contact._id}>
-//         <td>{contact.name}</td>
-//         <td>{contact.email}</td>
-//         <td>{contact.phoneNumber}</td>
-//         <td>{contact.message}</td>
-//         <td>
-//           {/* Bootstrap toggle switch */}
-//           <div className="form-check form-switch">
-//             <input
-//               className="form-check-input"
-//               type="checkbox"
-//               id={`shortlistSwitch${contact._id}`}
-//               checked={contact.shortlisted}
-//               onChange={() => handleShortlistToggle(contact)}
-//             />
-//             <label
-//               className="form-check-label"
-//               htmlFor={`shortlistSwitch${contact._id}`}
-//             >
-//               {contact.shortlisted ? "Shortlisted" : "Not Shortlisted"}
-//             </label>
-//           </div>
-//         </td>
-//         <td>
-//           <button
-//             onClick={() => handleDelete(contact._id)}
-//             className="btn btn-danger"
-//           >
-//             Delete
-//           </button>
-//         </td>
-//       </tr>
-//     ));
-//   };
-
-//   useEffect(() => {
-//     fetchContacts();
-//   }, []);
-
-//   return (
-//     <div className="container">
-//       <h2 className="mt-4 text-center mb-4">Contact Messages</h2>
-
-//       {error && (
-//         <div className="alert alert-danger">Error loading contacts</div>
-//       )}
-
-//       <div className="row mb-4 align-items-center">
-//         <div className="col-md-8">
-//           <input
-//             type="text"
-//             className="form-control form-control-lg"
-//             placeholder="Search by name, email, phone, or message..."
-//             value={searchTerm}
-//             onChange={handleSearch}
-//             style={{ borderRadius: "0.375rem", border: "1px solid #ced4da" }} // For a more polished look
-//           />
-//         </div>
-//         <div className="col-md-4 text-md-end text-center mt-3 mt-md-0">
-//           <button
-//             className={`btn btn-lg ${
-//               showShortlistedOnly ? "btn-primary" : "btn-outline-secondary"
-//             }`}
-//             onClick={() => setShowShortlistedOnly(!showShortlistedOnly)}
-//             style={{ width: "100%" }} // Makes the button full-width on smaller screens for a clean layout
-//           >
-//             {showShortlistedOnly
-//               ? "Show All Contacts"
-//               : "Show Shortlisted Only"}
-//           </button>
-//         </div>
-//       </div>
-
-//       <table className="table table-hover table-bordered align-middle">
-//         <thead className="table-light">
-//           <tr>
-//             <th>Name</th>
-//             <th>Email</th>
-//             <th>Phone Number</th>
-//             <th>Message</th>
-//             <th>Shortlist</th>
-//             <th>Actions</th>
-//           </tr>
-//         </thead>
-//         <tbody>{renderContacts()}</tbody>
-//       </table>
-//     </div>
-//   );
-// };
-
-// export default ContactDashboard;
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-// import "./Loader.css"; // Ensure you have the loader CSS file
+import { FaSearch, FaTrash, FaEnvelope, FaPhoneAlt, FaCheckCircle, FaFilter } from "react-icons/fa";
 
 const ContactDashboard = () => {
   const [contacts, setContacts] = useState([]);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [showShortlistedOnly, setShowShortlistedOnly] = useState(false);
-
-  // Loader Component
-  const Loader = () => (
-    <div className="loader-container text-center mt-5">
-      <div className="custom-loader"></div>
-    </div>
-  );
 
   const fetchContacts = async () => {
     try {
       const response = await axios.get(
         "https://3pcommunicationsserver.vercel.app/api/contacts"
       );
-      setContacts(response.data);
+      setContacts(Array.isArray(response.data) ? response.data : []);
     } catch (err) {
       console.error("Error fetching contacts:", err);
       setError(true);
     } finally {
-      setLoading(false); // Set loading to false when data is fetched
+      setLoading(false);
     }
   };
 
-  const handleDelete = async (id) => {
+  useEffect(() => {
+    fetchContacts();
+  }, []);
+
+  const handleDelete = async (id, name) => {
     const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "This will permanently delete the contact.",
+      title: "Delete Lead?",
+      text: `Are you sure you want to delete the inquiry from ${name || 'this client'}?`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#007bff",
-      cancelButtonColor: "#dc3545",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, keep it",
+      confirmButtonColor: "#dc2626",
+      cancelButtonColor: "#64748b",
+      confirmButtonText: "Yes, delete",
+      cancelButtonText: "Cancel",
+      background: "#ffffff",
+      customClass: {
+        popup: "rounded-4"
+      }
     });
 
     if (result.isConfirmed) {
@@ -243,152 +54,206 @@ const ContactDashboard = () => {
         fetchContacts();
         Swal.fire({
           icon: "success",
-          title: "Deleted successfully!",
-          text: "The contact has been deleted.",
-          confirmButtonText: "OK",
-          confirmButtonColor: "#28a745",
+          title: "Deleted",
+          text: "The contact lead has been removed.",
+          timer: 1500,
+          showConfirmButton: false
         });
       } catch (err) {
         console.error("Error deleting contact:", err);
-        setError(true);
         Swal.fire({
           icon: "error",
-          title: "Error!",
-          text: "There was an error deleting the contact.",
+          title: "Error",
+          text: "Failed to delete the contact lead.",
         });
       }
     }
   };
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
   const handleShortlistToggle = async (contact) => {
+    const updatedStatus = !contact.shortlisted;
     try {
-      const updatedContact = {
-        ...contact,
-        shortlisted: !contact.shortlisted,
-      };
+      // Optimistic update
+      setContacts(prev => prev.map(c => c._id === contact._id ? { ...c, shortlisted: updatedStatus } : c));
 
       await axios.put(
         `https://3pcommunicationsserver.vercel.app/api/contacts/${contact._id}/shortlisted`,
         {
-          shortlisted: updatedContact.shortlisted,
+          shortlisted: updatedStatus,
         }
       );
-
-      fetchContacts();
     } catch (err) {
       console.error("Error updating shortlisted status:", err);
-      setError(true);
+      // Revert on failure
+      fetchContacts();
     }
   };
 
-  const filteredContacts = contacts.filter(
-    (contact) =>
-      contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.phoneNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.message.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredContacts = contacts.filter((contact) => {
+    const nameMatch = (contact.name || "").toLowerCase().includes(searchTerm.toLowerCase());
+    const emailMatch = (contact.email || "").toLowerCase().includes(searchTerm.toLowerCase());
+    const phoneMatch = (contact.phoneNumber || "").toLowerCase().includes(searchTerm.toLowerCase());
+    const messageMatch = (contact.message || "").toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = nameMatch || emailMatch || phoneMatch || messageMatch;
 
-  const renderContacts = () => {
-    const contactsToDisplay = showShortlistedOnly
-      ? filteredContacts.filter((contact) => contact.shortlisted)
-      : filteredContacts;
+    if (showShortlistedOnly) {
+      return matchesSearch && contact.shortlisted;
+    }
+    return matchesSearch;
+  });
 
-    return contactsToDisplay.map((contact) => (
-      <tr key={contact._id}>
-        <td>{contact.name}</td>
-        <td>{contact.email}</td>
-        <td>{contact.phoneNumber}</td>
-        <td>{contact.message}</td>
-        <td>
-          <div className="form-check form-switch">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id={`shortlistSwitch${contact._id}`}
-              checked={contact.shortlisted}
-              onChange={() => handleShortlistToggle(contact)}
-            />
-            <label
-              className="form-check-label"
-              htmlFor={`shortlistSwitch${contact._id}`}
-            >
-              {contact.shortlisted ? "Shortlisted" : "Not Shortlisted"}
-            </label>
-          </div>
-        </td>
-        <td>
-          <button
-            onClick={() => handleDelete(contact._id)}
-            className="btn btn-danger"
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
-    ));
-  };
-
-  useEffect(() => {
-    fetchContacts();
-  }, []);
+  const shortlistedCount = contacts.filter(c => c.shortlisted).length;
 
   if (loading) {
-    return <Loader />; // Show loader while loading
+    return (
+      <div className="dashboard-loading-container">
+        <div className="dashboard-spinner"></div>
+        <p className="loading-caption">Loading client inquiries...</p>
+      </div>
+    );
   }
 
   return (
-    <div className="container card shadow-lg">
-      <h2 className="mt-4 text-center mb-4">Contact Messages</h2>
-
-      {error && <div className="alert alert-danger">Error loading contacts</div>}
-
-      <div className="row mb-4 align-items-center">
-        <div className="col-md-8">
-          <input
-            type="text"
-            className="form-control form-control"
-            placeholder="Search by name, email, phone, or message..."
-            value={searchTerm}
-            onChange={handleSearch}
-            style={{ borderRadius: "0.375rem", border: "1px solid #ced4da", outline: "none", boxShadow: "none"}}
-          />
+    <div className="contact-dashboard-wrapper">
+      {/* Header and Controls */}
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+          <h2 className="m-0 fw-bold">Client Inquiries & Leads</h2>
+          <p className="text-muted small m-0 mt-1">
+            Total {contacts.length} inquiries received · {shortlistedCount} marked for follow-up
+          </p>
         </div>
-        <div className="col-md-4 text-md-end text-center mt-3 mt-md-0 ">
+        <div className="d-flex gap-2">
           <button
-            className={`btn  ${
-              showShortlistedOnly ? "btn-primary" : "btn-outline-secondary"
-            }`}
-            onClick={() => setShowShortlistedOnly(!showShortlistedOnly)}
-            style={{ width: "100%", outline: "none", boxShadow: "none" }}
+            className={`btn btn-sm ${!showShortlistedOnly ? 'dashboard_all_button' : 'btn-outline-secondary'}`}
+            onClick={() => setShowShortlistedOnly(false)}
           >
-            {showShortlistedOnly
-              ? "Show All Contacts"
-              : "Show Shortlisted Only"}
+            All Leads ({contacts.length})
+          </button>
+          <button
+            className={`btn btn-sm ${showShortlistedOnly ? 'dashboard_all_button' : 'btn-outline-secondary'}`}
+            onClick={() => setShowShortlistedOnly(true)}
+          >
+            <FaCheckCircle className="me-1" /> Shortlisted ({shortlistedCount})
           </button>
         </div>
       </div>
 
-      <table className="table table-hover table-bordered align-middle">
-        <thead className="table-light">
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Message</th>
-            <th>Shortlist</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>{renderContacts()}</tbody>
-      </table>
+      {/* Search Bar */}
+      <div className="card p-3 mb-4 border-0 shadow-sm rounded-3">
+        <div className="input-group">
+          <span className="input-group-text bg-white border-end-0 text-muted">
+            <FaSearch />
+          </span>
+          <input
+            type="text"
+            className="form-control border-start-0 ps-0"
+            placeholder="Search by client name, email, phone, or inquiry message..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          {searchTerm && (
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => setSearchTerm('')}
+            >
+              Clear
+            </button>
+          )}
+        </div>
+      </div>
+
+      {error && (
+        <div className="alert alert-danger rounded-3 mb-4">
+          Failed to synchronize with server. Please try refreshing.
+        </div>
+      )}
+
+      {/* Contacts Table */}
+      <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div className="table-responsive">
+          <table className="table table-hover align-middle mb-0">
+            <thead className="table-light">
+              <tr>
+                <th style={{ width: '22%' }}>Client</th>
+                <th style={{ width: '24%' }}>Contact Details</th>
+                <th style={{ width: '34%' }}>Inquiry Message</th>
+                <th style={{ width: '10%' }} className="text-center">Shortlist</th>
+                <th style={{ width: '10%' }} className="text-end pe-4">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredContacts.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="text-center py-5 text-muted">
+                    No inquiries found matching your filter criteria.
+                  </td>
+                </tr>
+              ) : (
+                filteredContacts.map((contact) => (
+                  <tr key={contact._id}>
+                    <td>
+                      <div className="fw-bold text-dark">{contact.name || 'Anonymous'}</div>
+                      <small className="text-muted">
+                        {contact.createdAt ? new Date(contact.createdAt).toLocaleDateString() : 'Direct Lead'}
+                      </small>
+                    </td>
+                    <td>
+                      <div>
+                        <a
+                          href={`mailto:${contact.email}`}
+                          className="text-decoration-none text-primary d-inline-flex align-items-center gap-1 small fw-semibold"
+                        >
+                          <FaEnvelope className="text-muted" /> {contact.email}
+                        </a>
+                      </div>
+                      {contact.phoneNumber && (
+                        <div>
+                          <a
+                            href={`tel:${contact.phoneNumber}`}
+                            className="text-decoration-none text-secondary d-inline-flex align-items-center gap-1 small mt-1"
+                          >
+                            <FaPhoneAlt className="text-muted" style={{ fontSize: '10px' }} /> {contact.phoneNumber}
+                          </a>
+                        </div>
+                      )}
+                    </td>
+                    <td>
+                      <p className="m-0 text-secondary small" style={{ lineHeight: '1.4' }}>
+                        {contact.message || '—'}
+                      </p>
+                    </td>
+                    <td className="text-center">
+                      <div className="form-check form-switch d-inline-block">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          role="switch"
+                          id={`shortlist-${contact._id}`}
+                          checked={contact.shortlisted || false}
+                          onChange={() => handleShortlistToggle(contact)}
+                          title="Toggle shortlisted"
+                        />
+                      </div>
+                    </td>
+                    <td className="text-end pe-4">
+                      <button
+                        onClick={() => handleDelete(contact._id, contact.name)}
+                        className="btn btn-sm btn-outline-danger border-0 rounded-circle p-2"
+                        title="Delete Inquiry"
+                      >
+                        <FaTrash />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default ContactDashboard;
-

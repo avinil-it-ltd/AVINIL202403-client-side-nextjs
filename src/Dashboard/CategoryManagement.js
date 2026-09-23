@@ -1,319 +1,381 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Form, Button, Table, Alert } from 'react-bootstrap';
-import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import { Form, Button, Alert } from 'react-bootstrap';
+import { FaEdit, FaTrash, FaPlus, FaCheck, FaTimes, FaLayerGroup } from 'react-icons/fa';
 import axios from 'axios';
-
-
+import Swal from 'sweetalert2';
 
 const CategoryManagement = () => {
-    const [categories, setCategories] = useState([]);
-    const [categoryName, setCategoryName] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [subCategoryInputs, setSubCategoryInputs] = useState({});
+  const [editingCategoryId, setEditingCategoryId] = useState(null);
+  const [editingCategoryName, setEditingCategoryName] = useState('');
+  const [editingSubCategoryId, setEditingSubCategoryId] = useState(null);
+  const [editingSubCategoryName, setEditingSubCategoryName] = useState('');
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
+  const [loading, setLoading] = useState(true);
 
-    const [editingCategoryName, setEditingCategoryName] = useState('');
-    const [subCategoryNames, setSubCategoryNames] = useState({}); // Object for subcategory names by category ID
-    const [editingSubCategoryId, setEditingSubCategoryId] = useState(null);
-    const [editingSubCategoryName, setEditingSubCategoryName] = useState('');
-    const [message, setMessage] = useState('');
-    const [messageType, setMessageType] = useState('');
-    const [editingCategoryId, setEditingCategoryId] = useState(null);
-    const [loading, setLoading] = useState(true); // Loading state
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
-
-
-
-    useEffect(() => {
-        fetchCategories();
-    }, []);
-
-    const fetchCategories = async () => {
-        try {
-            const response = await axios.get('https://3pcommunicationsserver.vercel.app/api/categories');
-            setCategories(response.data);
-            setLoading(false);
-        } catch (error) {
-            setMessage('Error fetching categories');
-            setMessageType('danger');
-            setLoading(false);
-        }
-    };
-
-
-    const handleUpdateCategory = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.put(`https://3pcommunicationsserver.vercel.app/api/categories/${editingCategoryId}`, { name: editingCategoryName });
-            setCategories(categories.map(category =>
-                category._id === editingCategoryId ? { ...category, name: editingCategoryName } : category
-            ));
-            setEditingCategoryId(null);
-            setEditingCategoryName('');
-            setMessage('Category updated successfully');
-            setMessageType('success');
-        } catch (error) {
-            setMessage('Error updating category');
-            setMessageType('danger');
-        }
-    };
-
-    const handleAddCategory = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('https://3pcommunicationsserver.vercel.app/api/categories', { name: categoryName });
-            setCategories([...categories, response.data]);
-            setCategoryName(''); // Clear category input
-            setMessage('Category added successfully');
-            setMessageType('success');
-        } catch (error) {
-            setMessage('Error adding category');
-            setMessageType('danger');
-        }
-    };
-
-    const handleAddSubCategory = async (e, categoryId) => {
-        e.preventDefault();
-        try {
-            const subCategoryName = subCategoryNames[categoryId] || ''; // Get the subcategory name for this category
-            const response = await axios.post(`https://3pcommunicationsserver.vercel.app/api/categories/${categoryId}/subcategory`, { name: subCategoryName });
-
-            // Ensure subcategories array exists and create a new reference to trigger re-render
-            setCategories(categories.map(category =>
-                category._id === categoryId
-                    ? {
-                        ...category,
-                        subcategories: [...(category.subcategories || []), response.data] // Shallow copy with fallback
-                    }
-                    : category
-            ));
-
-            setSubCategoryNames({ ...subCategoryNames, [categoryId]: '' }); // Clear the subcategory input for this category
-            setMessage('Subcategory added successfully');
-            setMessageType('success');
-
-            window.location.reload();
-        } catch (error) {
-            setMessage('Error adding subcategory');
-            setMessageType('danger');
-        }
-    };
-
-    const handleUpdateSubCategory = async (e, categoryId, subCategoryId) => {
-        e.preventDefault();
-
-        console.log('Editing Category ID:', categoryId);
-        console.log('Editing Subcategory ID:', subCategoryId);
-
-        if (!categoryId) {
-            setMessage('Invalid category or subcategory ID');
-            setMessageType('danger');
-            return;
-        }
-
-        try {
-            await axios.put(`https://3pcommunicationsserver.vercel.app/api/categories/${categoryId}/subcategories/${subCategoryId}`, { name: editingSubCategoryName });
-            // Update state logic...
-        } catch (error) {
-            setMessage('Error updating subcategory');
-            setMessageType('danger');
-        }
-    };
-
-
-
-
-    const handleDeleteSubCategory = async (categoryId, subCategoryId) => {
-        try {
-            await axios.delete(`https://3pcommunicationsserver.vercel.app/api/categories/${categoryId}/subcategories/${subCategoryId}`);
-            setCategories(categories.map(category =>
-                category._id === categoryId ? { ...category, subcategories: category.subcategories.filter(sub => sub._id !== subCategoryId) } : category
-            ));
-            setMessage('Subcategory deleted successfully');
-            setMessageType('success');
-        } catch (error) {
-            setMessage('Error deleting subcategory');
-            setMessageType('danger');
-        }
-    };
-
-    const handleDeleteCategory = async (categoryId) => {
-        try {
-            await axios.delete(`https://3pcommunicationsserver.vercel.app/api/categories/${categoryId}`);
-            setCategories(categories.filter(category => category._id !== categoryId));
-            setMessage('Category deleted successfully');
-            setMessageType('success');
-        } catch (error) {
-            setMessage('Error deleting category');
-            setMessageType('danger');
-        }
-    };
-    const handleEditSubCategory = (categoryId, subCategoryId, subCategoryName) => {
-        setEditingCategoryId(categoryId); // Set the editing category ID
-        setEditingSubCategoryId(subCategoryId); // Set the editing subcategory ID
-        setEditingSubCategoryName(subCategoryName); // Set the name for editing
-    };
-
-
-
-
-    // Custom Loader Component
-    const Loader = () => (
-        <div className="loader-container text-center mt-5">
-            <div className="custom-loader"></div>
-        </div>
-    );
-
-    if (loading) {
-        return <Loader />;
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get('https://3pcommunicationsserver.vercel.app/api/categories');
+      setCategories(Array.isArray(response.data) ? response.data : []);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+      setMessage('Error fetching categories');
+      setMessageType('danger');
+      setLoading(false);
     }
+  };
 
+  const handleAddCategory = async (e) => {
+    e.preventDefault();
+    if (!newCategoryName.trim()) return;
+    try {
+      const response = await axios.post('https://3pcommunicationsserver.vercel.app/api/categories', {
+        name: newCategoryName.trim(),
+      });
+      setCategories(prev => [...prev, response.data]);
+      setNewCategoryName('');
+      setMessage('Category created successfully');
+      setMessageType('success');
+    } catch (error) {
+      setMessage('Error creating category');
+      setMessageType('danger');
+    }
+  };
 
+  const handleUpdateCategory = async (e, categoryId) => {
+    e.preventDefault();
+    if (!editingCategoryName.trim()) return;
+    try {
+      await axios.put(`https://3pcommunicationsserver.vercel.app/api/categories/${categoryId}`, {
+        name: editingCategoryName.trim(),
+      });
+      setCategories(prev =>
+        prev.map(c => (c._id === categoryId ? { ...c, name: editingCategoryName.trim() } : c))
+      );
+      setEditingCategoryId(null);
+      setEditingCategoryName('');
+      setMessage('Category updated');
+      setMessageType('success');
+    } catch (error) {
+      setMessage('Error updating category');
+      setMessageType('danger');
+    }
+  };
 
+  const handleDeleteCategory = (categoryId, categoryName) => {
+    Swal.fire({
+      title: `Delete "${categoryName}"?`,
+      text: 'This will remove the category and all associated subcategories.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#64748b',
+      confirmButtonText: 'Yes, delete',
+      cancelButtonText: 'Cancel',
+      background: '#ffffff',
+      customClass: { popup: 'rounded-4' },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`https://3pcommunicationsserver.vercel.app/api/categories/${categoryId}`);
+          setCategories(prev => prev.filter(c => c._id !== categoryId));
+          Swal.fire({
+            icon: 'success',
+            title: 'Deleted',
+            text: 'Category deleted.',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } catch (error) {
+          setMessage('Error deleting category');
+          setMessageType('danger');
+        }
+      }
+    });
+  };
 
+  const handleAddSubCategory = async (e, categoryId) => {
+    e.preventDefault();
+    const subName = subCategoryInputs[categoryId]?.trim();
+    if (!subName) return;
 
+    try {
+      const response = await axios.post(
+        `https://3pcommunicationsserver.vercel.app/api/categories/${categoryId}/subcategory`,
+        { name: subName }
+      );
+      setCategories(prev =>
+        prev.map(cat =>
+          cat._id === categoryId
+            ? {
+                ...cat,
+                subcategories: [...(cat.subcategories || []), response.data],
+              }
+            : cat
+        )
+      );
+      setSubCategoryInputs({ ...subCategoryInputs, [categoryId]: '' });
+      setMessage('Subcategory added');
+      setMessageType('success');
+    } catch (error) {
+      setMessage('Error adding subcategory');
+      setMessageType('danger');
+    }
+  };
+
+  const handleUpdateSubCategory = async (e, categoryId, subCategoryId) => {
+    e.preventDefault();
+    if (!editingSubCategoryName.trim()) return;
+
+    try {
+      await axios.put(
+        `https://3pcommunicationsserver.vercel.app/api/categories/${categoryId}/subcategories/${subCategoryId}`,
+        { name: editingSubCategoryName.trim() }
+      );
+      setCategories(prev =>
+        prev.map(cat =>
+          cat._id === categoryId
+            ? {
+                ...cat,
+                subcategories: cat.subcategories.map(sub =>
+                  sub._id === subCategoryId ? { ...sub, name: editingSubCategoryName.trim() } : sub
+                ),
+              }
+            : cat
+        )
+      );
+      setEditingSubCategoryId(null);
+      setEditingSubCategoryName('');
+      setMessage('Subcategory updated');
+      setMessageType('success');
+    } catch (error) {
+      setMessage('Error updating subcategory');
+      setMessageType('danger');
+    }
+  };
+
+  const handleDeleteSubCategory = async (categoryId, subCategoryId) => {
+    try {
+      await axios.delete(
+        `https://3pcommunicationsserver.vercel.app/api/categories/${categoryId}/subcategories/${subCategoryId}`
+      );
+      setCategories(prev =>
+        prev.map(cat =>
+          cat._id === categoryId
+            ? {
+                ...cat,
+                subcategories: cat.subcategories.filter(sub => sub._id !== subCategoryId),
+              }
+            : cat
+        )
+      );
+      setMessage('Subcategory deleted');
+      setMessageType('success');
+    } catch (error) {
+      setMessage('Error deleting subcategory');
+      setMessageType('danger');
+    }
+  };
+
+  if (loading) {
     return (
-        <div className="container my-4 card  p-3 m-3 shadow-lg ">
-            <h2 className="text-center mb-4" style={{ fontFamily: "Times New Roman" }}>Manage Categories</h2>
-
-            {message && (
-                <Alert variant={messageType} onClose={() => setMessage('')} dismissible>
-                    {message}
-                </Alert>
-            )}
-
-            <Form onSubmit={handleAddCategory} className="mb-4">
-                <Form.Group controlId="formCategoryName" className="d-flex justify-content-between">
-                    {/* <Form.Label className="mr-2">Category Name</Form.Label> */}
-                    <Form.Control
-                        type="text"
-                        placeholder="Search By category name Or Add Category"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
-                        required
-                        className="w-75 " // Makes the input take up available space
-                        style={{ borderColor: '#003366', outline: "none", boxShadow: "none" }}// Dark blue border color
-                    />
-                    <Button className='w-25 ms-2  dashboard_all_button' variant="" type="submit">Add Category</Button>
-                </Form.Group>
-            </Form>
-
-
-            {/* <h5>Categories</h5> */}
-            <Table className='mt-4' striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Subcategories</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {categories.map(category => (
-                        <tr key={category._id}>
-                            <td>
-                                {editingCategoryId === category._id ? (
-                                    <Form onSubmit={handleUpdateCategory} className="d-flex align-items-center">
-                                        <Form.Control
-                                            type="text"
-                                            value={editingCategoryName}
-                                            onChange={(e) => setEditingCategoryName(e.target.value)}
-                                            required
-                                            className="me-2"
-                                        />
-                                        <Button variant="success" type="submit" className="me-2">Update</Button>
-                                        <Button variant="secondary" onClick={() => { setEditingCategoryId(null); setEditingCategoryName(''); }}>Cancel</Button>
-                                    </Form>
-                                ) : (
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <span>{category.name}</span>
-                                        <Button variant="warning" onClick={() => { setEditingCategoryId(category._id); setEditingCategoryName(category.name); }} className="ms-2" title="Edit Category">
-                                            <FaEdit />
-                                        </Button>
-                                    </div>
-                                )}
-                            </td>
-                            <td>
-                                <ul className="list-unstyled">
-                                    {category.subcategories.map((sub, index) => (
-
-
-                                        <li key={sub._id} className="d-flex justify-content-between align-items-center mb-2">
-                                            {editingSubCategoryId === sub._id ? (
-                                                <Form onSubmit={(e) => handleUpdateSubCategory(e, category._id, sub._id)} className="d-flex align-items-center">
-                                                    <Form.Control
-                                                        type="text"
-                                                        value={editingSubCategoryName}
-                                                        onChange={(e) => setEditingSubCategoryName(e.target.value)}
-                                                        required
-                                                        className="me-2"
-                                                    />
-                                                    <Button variant="success" type="submit" className="me-2">Update</Button>
-                                                    <Button variant="secondary" onClick={() => { setEditingSubCategoryId(null); setEditingSubCategoryName(''); }}>Cancel</Button>
-                                                </Form>
-
-                                            ) : (
-                                                <div className="d-flex justify-content-between align-items-center w-100">
-                                                    <span>{sub.name}</span>
-                                                    <div>
-                                                        <Button
-                                                            variant="danger"
-                                                            size="sm"
-                                                            onClick={() => handleDeleteSubCategory(category._id, sub._id)}
-                                                            className="me-1"
-                                                            title="Delete Subcategory"
-                                                        >
-                                                            <FaTrash />
-                                                        </Button>
-                                                        <Button
-                                                            variant="warning"
-                                                            size="sm"
-                                                            onClick={() => {
-                                                                setEditingSubCategoryId(sub._id);
-                                                                setEditingSubCategoryName(sub.name);
-                                                            }}
-                                                            title="Edit Subcategory"
-                                                        >
-                                                            <FaEdit />
-                                                        </Button>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </td>
-                            <td className="text-center">
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <Form onSubmit={(e) => handleAddSubCategory(e, category._id)} className="d-flex align-items-center">
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Add Subcategory"
-                                            value={subCategoryNames[category._id] || ''} // Access subcategory name for the specific category
-                                            onChange={(e) => setSubCategoryNames({ ...subCategoryNames, [category._id]: e.target.value })}
-                                            required
-                                            className="me-2"
-                                        />
-                                        <Button variant="primary" size="sm" type="submit" title="Add Subcategory">
-                                            <FaPlus />
-                                        </Button>
-                                    </Form>
-                                    <Button
-                                        variant="danger"
-                                        onClick={() => handleDeleteCategory(category._id)}
-                                        className="ms-2"
-                                        title="Delete Category"
-                                    >
-                                        <FaTrash />
-                                    </Button>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </div>
+      <div className="dashboard-loading-container">
+        <div className="dashboard-spinner"></div>
+        <p className="loading-caption">Loading service categories...</p>
+      </div>
     );
+  }
+
+  return (
+    <div className="category-dashboard-wrapper">
+      {/* Header */}
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+          <h2 className="m-0 fw-bold">Service Categories</h2>
+          <p className="text-muted small m-0 mt-1">
+            Organize interior, exterior, and commercial architecture divisions and project classifications
+          </p>
+        </div>
+      </div>
+
+      {message && (
+        <Alert variant={messageType} onClose={() => setMessage('')} dismissible className="rounded-3 mb-4">
+          {message}
+        </Alert>
+      )}
+
+      {/* Add New Category Box */}
+      <div className="card p-4 mb-4 border-0 shadow-sm rounded-4">
+        <h5 className="fw-bold mb-3 d-flex align-items-center gap-2">
+          <FaPlus className="text-primary small" /> Add New Service Category
+        </h5>
+        <Form onSubmit={handleAddCategory} className="d-flex flex-column flex-sm-row gap-2">
+          <Form.Control
+            type="text"
+            placeholder="e.g. Commercial Architecture, Luxury Residential, Landscaping..."
+            value={newCategoryName}
+            onChange={(e) => setNewCategoryName(e.target.value)}
+            className="flex-grow-1"
+          />
+          <Button type="submit" className="dashboard_all_button d-inline-flex align-items-center gap-2 justify-content-center">
+            <FaPlus /> Add Category
+          </Button>
+        </Form>
+      </div>
+
+      {/* Categories Cards Grid */}
+      <div className="row g-4">
+        {categories.map((category) => (
+          <div key={category._id} className="col-12 col-lg-6">
+            <div className="card h-100 border-0 shadow-sm rounded-4 p-4">
+              {/* Category Header */}
+              <div className="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3">
+                {editingCategoryId === category._id ? (
+                  <Form onSubmit={(e) => handleUpdateCategory(e, category._id)} className="d-flex align-items-center gap-2 flex-grow-1 me-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      value={editingCategoryName}
+                      onChange={(e) => setEditingCategoryName(e.target.value)}
+                      autoFocus
+                    />
+                    <Button variant="success" size="sm" type="submit" className="d-flex align-items-center">
+                      <FaCheck />
+                    </Button>
+                    <Button variant="secondary" size="sm" onClick={() => setEditingCategoryId(null)} className="d-flex align-items-center">
+                      <FaTimes />
+                    </Button>
+                  </Form>
+                ) : (
+                  <div className="d-flex align-items-center gap-2">
+                    <span className="p-2 rounded-3 bg-light text-primary">
+                      <FaLayerGroup />
+                    </span>
+                    <div>
+                      <h5 className="m-0 fw-bold text-dark">{category.name}</h5>
+                      <small className="text-muted">
+                        {(category.subcategories || []).length} Subcategories
+                      </small>
+                    </div>
+                  </div>
+                )}
+
+                <div className="d-flex gap-1">
+                  <button
+                    className="btn btn-sm btn-outline-secondary border-0 p-2 rounded-circle"
+                    onClick={() => {
+                      setEditingCategoryId(category._id);
+                      setEditingCategoryName(category.name);
+                    }}
+                    title="Edit Category Name"
+                  >
+                    <FaEdit />
+                  </button>
+                  <button
+                    className="btn btn-sm btn-outline-danger border-0 p-2 rounded-circle"
+                    onClick={() => handleDeleteCategory(category._id, category.name)}
+                    title="Delete Category"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              </div>
+
+              {/* Subcategories List */}
+              <div className="mb-3 flex-grow-1">
+                <span className="text-muted small d-block mb-2 text-uppercase fw-semibold" style={{ fontSize: '11px', letterSpacing: '0.5px' }}>
+                  Subcategories
+                </span>
+                {(!category.subcategories || category.subcategories.length === 0) ? (
+                  <p className="text-muted small fst-italic">No subcategories created yet.</p>
+                ) : (
+                  <div className="d-flex flex-wrap gap-2">
+                    {category.subcategories.map((sub) => (
+                      <div key={sub._id}>
+                        {editingSubCategoryId === sub._id ? (
+                          <Form
+                            onSubmit={(e) => handleUpdateSubCategory(e, category._id, sub._id)}
+                            className="d-flex align-items-center gap-1"
+                          >
+                            <Form.Control
+                              type="text"
+                              size="sm"
+                              value={editingSubCategoryName}
+                              onChange={(e) => setEditingSubCategoryName(e.target.value)}
+                              style={{ width: '130px' }}
+                              autoFocus
+                            />
+                            <Button variant="success" size="sm" type="submit" className="p-1 px-2">
+                              <FaCheck style={{ fontSize: '10px' }} />
+                            </Button>
+                            <Button variant="secondary" size="sm" onClick={() => setEditingSubCategoryId(null)} className="p-1 px-2">
+                              <FaTimes style={{ fontSize: '10px' }} />
+                            </Button>
+                          </Form>
+                        ) : (
+                          <div className="d-inline-flex align-items-center gap-2 bg-light border rounded-pill px-3 py-1">
+                            <span className="small text-dark fw-medium">{sub.name}</span>
+                            <button
+                              className="btn btn-link p-0 text-muted"
+                              onClick={() => {
+                                setEditingSubCategoryId(sub._id);
+                                setEditingSubCategoryName(sub.name);
+                              }}
+                              title="Edit Subcategory"
+                            >
+                              <FaEdit style={{ fontSize: '11px' }} />
+                            </button>
+                            <button
+                              className="btn btn-link p-0 text-danger"
+                              onClick={() => handleDeleteSubCategory(category._id, sub._id)}
+                              title="Delete Subcategory"
+                            >
+                              <FaTrash style={{ fontSize: '11px' }} />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Add Subcategory Input */}
+              <div className="pt-2 border-top">
+                <Form onSubmit={(e) => handleAddSubCategory(e, category._id)} className="d-flex gap-2">
+                  <Form.Control
+                    type="text"
+                    size="sm"
+                    placeholder="Add subcategory..."
+                    value={subCategoryInputs[category._id] || ''}
+                    onChange={(e) =>
+                      setSubCategoryInputs({
+                        ...subCategoryInputs,
+                        [category._id]: e.target.value,
+                      })
+                    }
+                  />
+                  <Button variant="outline-primary" size="sm" type="submit" className="d-inline-flex align-items-center gap-1">
+                    <FaPlus /> Add
+                  </Button>
+                </Form>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default CategoryManagement;
-

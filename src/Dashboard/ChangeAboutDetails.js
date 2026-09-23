@@ -164,7 +164,7 @@ const ChangeAboutDetails = () => {
 
     return (
         <div className="container card w-75 shadow-sm p-5">
-            <h2 className="my-4 text-center " style={{ fontFamily: "Times New Roman" }}>Update About Us Page</h2>
+            <h2 className="my-4 text-center fw-bold">Update About Us Page</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group mb-3">
                     <label className='fw-bold'>CEO Name</label>

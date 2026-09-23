@@ -431,7 +431,7 @@ html, body {
 /* CSS for Background and Overlay */
 .servicebg {
   position: relative;
-  background-image: url('/src/assets/images/servicesImg.jpeg');
+  background-image: url('/assets/images/servicesImg.jpeg');
   background-size: cover;
   background-position: center;
   opacity: 1;

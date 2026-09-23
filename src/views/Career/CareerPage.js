@@ -1,156 +1,241 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getAllCareers } from '../../services/careerService';
+import Link from 'next/link';
 import TopMenu from '../../core/TopMenu';
 import Footer from '../../core/Footer';
-// import CustomLoader from '../../components/CustomLoader'; // Import the custom loader component
-// Custom Loader Component
-const Loader = () => (
-  <div className="loader-container text-center mt-5">
-      <div className="custom-loader"></div>
-  </div>
-);
+import {
+  FaArrowRight,
+  FaEnvelope,
+  FaWhatsapp,
+  FaMapMarkerAlt
+} from 'react-icons/fa';
+import studioPhoto from '../../assets/images/interiorPage/feature-ergonomic-spaces.jpg';
+import './CSS/CareerPage.css';
+
+const MANIFESTO = [
+  {
+    index: "01 / TACTILE RIGOR",
+    title: "Materials Over Gimmicks",
+    body: "We design for human touch, daylight, spatial acoustic balance, and genuine physical durability — not fleeting 3D screen illusions."
+  },
+  {
+    index: "02 / TURNKEY OWNERSHIP",
+    title: "From Sketch to Handover",
+    body: "Our designers don't just sit behind desks. You work directly with master carpenters, metal fabricators, and site engineers on live construction sites."
+  },
+  {
+    index: "03 / AUTHENTIC GROWTH",
+    title: "Mentorship & Direct Voice",
+    body: "You will collaborate shoulder-to-shoulder with our principal leads. Good ideas win, credit is shared openly, and craft is rewarded."
+  }
+];
 
 const CareerPage = () => {
   const [careers, setCareers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // State for error handling
 
   useEffect(() => {
-      const fetchCareers = async () => {
-          try {
-              const response = await fetch('https://3pcommunicationsserver.vercel.app/api/careers');
-              const data = await response.json();
-
-              if (response.ok) {
-                  setCareers(data); // Access careers from the response
-              } else {
-                  throw new Error(data.message || 'Failed to fetch careers.');
-              }
-          } catch (error) {
-              console.error('Error fetching careers:', error);
-              setError('Failed to fetch job openings. Please try again later.');
-          } finally {
-              setLoading(false); // Stop loading regardless of success or failure
+    const fetchCareers = async () => {
+      try {
+        const response = await fetch('https://3pcommunicationsserver.vercel.app/api/careers');
+        if (response.ok) {
+          const data = await response.json();
+          if (Array.isArray(data)) {
+            setCareers(data);
           }
-      };
+        }
+      } catch (error) {
+        console.error('Error fetching careers:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      fetchCareers();
+    fetchCareers();
   }, []);
 
-  const filteredCareers = careers.filter(
-      (career) =>
-          career.status && // Check if the career is active
-          career.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const activeCareers = careers.filter((career) => career.status);
 
-  if (loading) {
-      return <Loader />; // Show the custom loader while data is being fetched
-  }
+  const filteredCareers = activeCareers.filter((career) => {
+    const query = searchTerm.toLowerCase();
+    const titleMatch = career.title?.toLowerCase().includes(query);
+    const descMatch = career.description?.toLowerCase().includes(query);
+    const locMatch = Array.isArray(career.location)
+      ? career.location.some(l => l.toLowerCase().includes(query))
+      : career.location?.toLowerCase().includes(query);
+    return titleMatch || descMatch || locMatch;
+  });
 
-    return (
-      <div className="container-fluid d-flex flex-column min-vh-100 p-0">
-        {/* Top Menu */}
-        <TopMenu />
+  return (
+    <div className="career-page-wrapper">
+      <TopMenu />
 
-        <div className="container my-5">
-          {/* Search Input */}
-          <div className="input-group mb-4 mt-5 d-flex justify-content-between">
-            <h2 className="mb-4">Job Openings</h2>
-            <div className="d-flex">
+      {/* Editorial Split Hero */}
+      <section className="career-editorial-hero">
+        <div className="container">
+          <div className="row align-items-center g-5">
+            {/* Left: Manifesto Headline */}
+            <div className="col-12 col-lg-7">
+              <div className="hero-micro-label">
+                3P Communication Atelier &bull; Recruitment &bull; Dhaka
+              </div>
+              <h1 className="hero-editorial-headline">
+                Crafting Spaces That Endure.
+              </h1>
+              <p className="hero-editorial-subtext">
+                We are assembling a deliberate, multidisciplinary collective of interior architects, visualizers, and project supervisors who take genuine pride in craftsmanship, materials, and built environments.
+              </p>
+              <div className="hero-telemetry-strip">
+                <div className="telemetry-item">
+                  <FaMapMarkerAlt className="text-secondary" />
+                  <span>Studio: <strong>Mohammadpur, Dhaka</strong></span>
+                </div>
+                <div className="telemetry-item">
+                  <span>Practice: <strong>Interior &bull; Exterior &bull; Events</strong></span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Authentic Studio Frame */}
+            <div className="col-12 col-lg-5">
+              <div className="hero-visual-frame">
+                <img
+                  src={studioPhoto?.src || studioPhoto}
+                  alt="3P Communication Design Atelier"
+                  className="hero-visual-img"
+                />
+                <div className="hero-visual-caption">
+                  <div>
+                    <p className="caption-label">Studio Practice &amp; Detail Fabrication</p>
+                    <span className="caption-spec">Asad Gate, Dhaka &bull; Since 2014</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Studio Principles (3-Column Editorial Strip) */}
+      <section className="career-manifesto-section">
+        <div className="container">
+          <div className="manifesto-header">
+            <span className="manifesto-section-num">Our Working Ethos</span>
+            <h2 className="manifesto-main-title">How We Practice Architecture &amp; Design</h2>
+          </div>
+
+          <div className="manifesto-grid">
+            {MANIFESTO.map((item, idx) => (
+              <div key={idx} className="manifesto-column">
+                <span className="manifesto-index">{item.index}</span>
+                <h3 className="manifesto-title">{item.title}</h3>
+                <p className="manifesto-body">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The Positions Directory */}
+      <section className="career-directory-section">
+        <div className="container">
+          <div className="directory-header-row">
+            <div>
+              <span className="manifesto-section-num">Available Opportunities</span>
+              <h2 className="directory-title">Open Atelier Positions</h2>
+            </div>
+            <div>
               <input
                 type="text"
-                placeholder="Search for a job..."
+                placeholder="Filter by role or skill..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="form-control py-0 my-0 "
-                aria-label="Search for a job"
+                className="directory-search-input"
               />
-              <button
-                className="btn btn-secondary text-white fw-bold px-4 ms-2"
-                type="button"
-              >
-                Search
-              </button>
             </div>
           </div>
 
-          <hr />
+          {loading ? (
+            <div className="text-center py-5">
+              <div className="spinner-border text-dark" role="status">
+                <span className="visually-hidden">Loading opportunities...</span>
+              </div>
+            </div>
+          ) : filteredCareers.length > 0 ? (
+            <div className="directory-list">
+              {filteredCareers.map((career) => {
+                const locationText = Array.isArray(career.location)
+                  ? career.location.join(', ')
+                  : (career.location || 'Mohammadpur, Dhaka');
 
-          {/* Career Cards */}
-          {filteredCareers.length > 0 ? (
-            <div className="row">
-              {filteredCareers.map((career) => (
-                <div key={career._id} className="col-12 my-4">
-                  <div className="card shadow-sm border-0">
-                    <div className="card-body shadow-sm p-4 d-flex justify-content-between align-items-center">
-                      <div className="w-100">
-                        <h5 className="card-title  fs-3 mb-4">{career.title}</h5>
-                        <div className="row my-2 w-full">
-                          {/* Left Column: Vacancy and Salary */}
-                          <div className="col-md-4 mb-2">
-                            <p className="mb-1">
-                              <strong>Vacancy:</strong>{" "}
-                              {career.vacancy || "Not specified"}
-                            </p>
-                            <p className="mb-1">
-                              <strong>Experience:</strong>{" "}
-                              {career.experience || "Not specified"}
-                            </p>
-                          </div>
-
-                          {/* center Column: Location and Experience */}
-                          <div className="col-md-4 mb-2">
-                            <p className="mb-1">
-                              <strong>Location:</strong> {career.location}
-                            </p>
-                            <p className="mb-1">
-                              <strong>Salary:</strong>{" "}
-                              {career.salary || "Negotiable"}
-                            </p>
-                          </div>
-
-                          {/* right Column: Location and Experience */}
-                          <div className="col-md-4 mb-2 text-center">
-                            <Link
-                              to={`/applyCareer/${career._id}`}
-                              className="btn  text-white  px-4"
-                              style={{
-                                backgroundColor: "#FFA500",
-                                border: "none",
-                                fontWeight:"bold"
-                              }}
-                            >
-                              View Details
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
+                return (
+                  <Link
+                    key={career._id}
+                    href={`/applyCareer/${career._id}`}
+                    className="directory-row"
+                  >
+                    <div className="row-primary-cell">
+                      <h3 className="row-job-title">{career.title}</h3>
+                      <span className="row-job-category">
+                        {career.employmentStatus || 'Full-Time'} &bull; Interior &amp; Exterior Atelier
+                      </span>
                     </div>
-                  </div>
-                </div>
-              ))}
+
+                    <div className="row-spec-cell">
+                      <div><strong>Location:</strong> {locationText}</div>
+                      <div><strong>Experience:</strong> {career.experience || '2+ Years'}</div>
+                    </div>
+
+                    <div className="row-meta-cell">
+                      <div><strong>Vacancy:</strong> {career.vacancy || '1'} Position</div>
+                      <div><strong>Remuneration:</strong> {career.salary || 'Negotiable'}</div>
+                    </div>
+
+                    <div className="row-action-cell">
+                      <span className="row-apply-link">
+                        View Role ↗
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           ) : (
-            <div className="text-center mt-5">
-              <h5>No job openings found. Please check back later!</h5>
+            <div className="p-5 text-center bg-white border rounded">
+              <h4 className="fw-bold mb-2">No Active Openings Matching "{searchTerm}"</h4>
+              <p className="text-muted mb-0">Check back soon or send us an open portfolio submission below.</p>
             </div>
           )}
-        </div>
 
-        {/* Footer */}
-        <Footer />
-      </div>
-    );
+          {/* Open Talent Submission Card */}
+          <div className="open-talent-card">
+            <div>
+              <div className="open-talent-label">Spontaneous Applications</div>
+              <h3 className="open-talent-title">Don't See Your Exact Discipline?</h3>
+              <p className="open-talent-desc">
+                We are always eager to meet exceptional 3D visualizers, draftsmen, site engineers, and event producers. Send your portfolio and CV directly to our creative directors.
+              </p>
+            </div>
+            <div className="open-talent-cta">
+              <a href="mailto:3pcommunication@gmail.com?subject=Open%20Application%20-%20Design%20Portfolio" className="talent-btn-primary">
+                <FaEnvelope />
+                <span>Submit Portfolio</span>
+              </a>
+              <a href="https://wa.me/+8801722728272" target="_blank" rel="noopener noreferrer" className="talent-btn-secondary">
+                <FaWhatsapp />
+                <span>Direct WhatsApp</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
 };
 
 export default CareerPage;
-
-
-
-
-
-

@@ -4,11 +4,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TopMenu from '../../core/TopMenu';
 import Footer from '../../core/Footer';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'next/navigation';
+import ReactQuill from '../../Components/ReactQuillWrapper';
 
 const CareerApplicationForm = () => {
     const params = useParams();
-    const careerId = params?.careerId || params?.id;
+    const careerId = params?.id || params?.careerId;
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');

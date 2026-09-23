@@ -1,77 +1,453 @@
-/* CareerPage.css */
-.career-page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+/* ==========================================================================
+   3P Communication - Human-Crafted Architectural Careers (CareerPage.css)
+   Non-AI Design SOP: Editorial typography, asymmetrical grid, tactile tones
+   ========================================================================== */
+
+.career-page-wrapper {
+  background-color: #faf9f5;
+  min-height: 100vh;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif);
+  color: #141414;
+  -webkit-font-smoothing: antialiased;
 }
 
-.career-content {
-    flex: 1;
-    padding: 20px;
-    margin: 80px auto; /* Adjusts the top margin to avoid overlapping with the Top Menu */
-    max-width: 1200px;
+/* --------------------------------------------------------------------------
+   Editorial Split Hero
+   -------------------------------------------------------------------------- */
+.career-editorial-hero {
+  background: #ffffff;
+  border-bottom: 1px solid #e7e3da;
+  padding: 80px 0 70px;
 }
 
-.career-heading {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2rem;
-    color: #333;
+.hero-micro-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #78716c;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
 }
 
-.career-search-input {
-    display: block;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto 30px auto;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.hero-micro-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: #ea580c;
+  border-radius: 50%;
 }
 
-.career-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+.hero-editorial-headline {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 3.4rem;
+  font-weight: 700;
+  color: #141414;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+  text-align: left;
 }
 
-.career-item {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.hero-editorial-subtext {
+  font-size: 1.12rem;
+  color: #44403c;
+  line-height: 1.68;
+  max-width: 580px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.hero-telemetry-strip {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-top: 24px;
+  border-top: 1px solid #ede8e1;
+  font-size: 12.5px;
+  color: #78716c;
+}
+
+.telemetry-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.telemetry-item strong {
+  color: #1f1e1d;
+  font-weight: 600;
+}
+
+/* Hero Right Visual Anchor */
+.hero-visual-frame {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(20, 20, 20, 0.08);
+  border: 1px solid #e7e3da;
+  background: #f4f0e8;
+}
+
+.hero-visual-img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-visual-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(20, 20, 20, 0.85) 0%, transparent 100%);
+  padding: 30px 20px 16px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.caption-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #f5f5f4;
+  margin: 0;
+}
+
+.caption-spec {
+  font-size: 11px;
+  color: #d6d3d1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* --------------------------------------------------------------------------
+   Studio Manifesto & Principles (Asymmetrical 3-Col, No Cheesy Icons)
+   -------------------------------------------------------------------------- */
+.career-manifesto-section {
+  padding: 80px 0 60px;
+  border-bottom: 1px solid #e7e3da;
+}
+
+.manifesto-header {
+  margin-bottom: 45px;
+}
+
+.manifesto-section-num {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #ea580c;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.manifesto-main-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #141414;
+  letter-spacing: -0.3px;
+}
+
+.manifesto-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.manifesto-column {
+  border-top: 2px solid #141414;
+  padding-top: 22px;
+}
+
+.manifesto-index {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ea580c;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.manifesto-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #141414;
+  margin-bottom: 12px;
+}
+
+.manifesto-body {
+  font-size: 14px;
+  color: #57534e;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Positions Directory (Architectural Specification List)
+   -------------------------------------------------------------------------- */
+.career-directory-section {
+  padding: 70px 0 90px;
+}
+
+.directory-header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.directory-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #141414;
+  margin: 0;
+}
+
+.directory-search-input {
+  background: #ffffff;
+  border: 1px solid #d6d0c4;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  color: #1f1e1d;
+  width: 320px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.directory-search-input:focus {
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+}
+
+/* Directory Rows */
+.directory-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #141414;
+}
+
+.directory-row {
+  display: grid;
+  grid-template-columns: 2.2fr 1.8fr 1.2fr auto;
+  align-items: center;
+  padding: 26px 14px;
+  border-bottom: 1px solid #e7e3da;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.directory-row:hover {
+  background: #fdfcf9;
+  border-bottom-color: #ea580c;
+  transform: translateX(4px);
+}
+
+.row-primary-cell {
+  padding-right: 20px;
+}
+
+.row-job-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #141414;
+  margin-bottom: 6px;
+}
+
+.row-job-category {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #ea580c;
+}
+
+.row-spec-cell {
+  font-size: 13.5px;
+  color: #57534e;
+  line-height: 1.5;
+}
+
+.row-spec-cell strong {
+  color: #1f1e1d;
+}
+
+.row-meta-cell {
+  font-size: 13px;
+  color: #78716c;
+}
+
+.row-action-cell {
+  text-align: right;
+}
+
+.row-apply-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #141414;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.directory-row:hover .row-apply-link {
+  background: #ea580c;
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Open Talent Submission (Letterpress Minimalist Box)
+   -------------------------------------------------------------------------- */
+.open-talent-card {
+  margin-top: 50px;
+  background: #f4f0e8;
+  border: 1px solid #e0d8cc;
+  border-radius: 12px;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.open-talent-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ea580c;
+  margin-bottom: 8px;
+}
+
+.open-talent-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #141414;
+  margin-bottom: 6px;
+}
+
+.open-talent-desc {
+  font-size: 14px;
+  color: #57534e;
+  margin: 0;
+  max-width: 580px;
+  line-height: 1.6;
+}
+
+.open-talent-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.talent-btn-primary {
+  background: #141414;
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.talent-btn-primary:hover {
+  background: #ea580c;
+  color: #ffffff;
+}
+
+.talent-btn-secondary {
+  background: #ffffff;
+  border: 1px solid #d6d0c4;
+  color: #141414;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.talent-btn-secondary:hover {
+  border-color: #ea580c;
+  color: #ea580c;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Adaptations
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  .hero-editorial-headline {
+    font-size: 2.5rem;
+  }
+
+  .manifesto-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .directory-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 22px 14px;
+  }
+
+  .row-action-cell {
     text-align: left;
+  }
+
+  .directory-search-input {
+    width: 100%;
+  }
+
+  .open-talent-card {
+    padding: 28px 20px;
+  }
 }
 
-.career-title {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
-}
+@media (max-width: 576px) {
+  .hero-editorial-headline {
+    font-size: 2rem;
+  }
 
-.career-description {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 10px;
-}
+  .manifesto-main-title {
+    font-size: 1.6rem;
+  }
 
-.career-location {
-    font-size: 0.9rem;
-    color: #444;
-    margin-bottom: 15px;
-}
-
-.apply-button {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.apply-button:hover {
-    background-color: #0056b3;
+  .directory-title {
+    font-size: 1.6rem;
+  }
 }

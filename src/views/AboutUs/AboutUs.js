@@ -1,330 +1,391 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import TopMenu from "../../core/TopMenu";
 import Footer from "../../core/Footer";
 import axios from "axios";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { zoomIn } from 'react-animations';
-import styled, { keyframes } from 'styled-components';
-import profile from '../../assets/images/about/ceo.png'; // Placeholder for CEO image
-import projectComplete from '../../assets/images/project.png';
-import award from '../../assets/images/award.png';
-import client from '../../assets/images/happyClient.png';
-import servicespic from '../../assets/images/customer-service.png';
-import './About.css'
+import {
+  FaDraftingCompass,
+  FaBuilding,
+  FaGlassCheers,
+  FaAward,
+  FaCheckCircle,
+  FaPhoneAlt,
+  FaQuoteLeft,
+  FaUsers,
+  FaCalendarAlt,
+  FaArrowRight,
+  FaLightbulb,
+  FaLeaf,
+  FaShieldAlt,
+  FaBriefcase,
+  FaHeart
+} from "react-icons/fa";
+import ceoFallback from "../../assets/images/about/ceo.png";
+import "./About.css";
+
+const DISCIPLINES_SHOWCASE = [
+  {
+    badge: "01 / INTERIOR",
+    title: "Interior Architecture & Styling",
+    icon: <FaDraftingCompass />,
+    desc: "Bespoke residential sanctuaries, luxury executive corporate suites, and experiential retail environments crafted with harmonious materials and refined lighting.",
+    features: [
+      "Custom Millwork & Spatial Ergonomics",
+      "Lighting & Acoustic Optimization",
+      "Full Material & FF&E Sourcing"
+    ]
+  },
+  {
+    badge: "02 / EXTERIOR",
+    title: "Exterior & Structural Elevation",
+    icon: <FaBuilding />,
+    desc: "Monumental building facades, commercial entryway landmarks, and landscape integrations engineered to withstand weathering while projecting bold architectural prestige.",
+    features: [
+      "Modern Facade Cladding & Paneling",
+      "Architectural Canopy & Gate Architecture",
+      "Landscape & Illuminative Staging"
+    ]
+  },
+  {
+    badge: "03 / EVENTS",
+    title: "Event Scenography & Production",
+    icon: <FaGlassCheers />,
+    desc: "High-caliber corporate summits, brand activations, international expo pavilions, and thematic experiential stages executed with uncompromising theatrical precision.",
+    features: [
+      "Structural Truss & Custom Stage Fabrication",
+      "Smart Interactive Visual AV Integration",
+      "Turnkey Production & On-Site Protocol"
+    ]
+  }
+];
+
+const DEFAULT_WHY_CHOOSE_US = [
+  {
+    title: "Expert Architectural Designers",
+    description: "Our studio brings together veteran spatial designers, CAD technicians, and interior stylists with over a decade of proven excellence.",
+    imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925067/3pcom/uploads/designer_re5rov.jpg"
+  },
+  {
+    title: "Custom Tailored Solutions",
+    description: "Every blueprint is personalized to the client's cultural, operational, and aesthetic aspirations—never recycled or templated.",
+    imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925091/3pcom/uploads/soultion_ttcxbt.jpg"
+  },
+  {
+    title: "Sustainable & Enduring Materials",
+    description: "We prioritize ethically sourced timbers, energy-efficient fixtures, and low-VOC finishes that guarantee longevity and health.",
+    imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925094/3pcom/uploads/sustainability_pgcrrf.jpg"
+  },
+  {
+    title: "Comprehensive Turnkey Services",
+    description: "From 3D photorealistic visualization to on-site civil fabrication and handover, we handle every detail end-to-end.",
+    imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925111/3pcom/uploads/service_pabyxm.jpg"
+  },
+  {
+    title: "Proven Milestone Track Record",
+    description: "Decades of successful handovers for Bangladesh's leading institutions, corporations, and discerning private homeowners.",
+    imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925117/3pcom/uploads/track_zwmnab.jpg"
+  },
+  {
+    title: "Passion for Spatial Betterment",
+    description: "Continuous innovation in modern architecture, acoustic design, and ergonomic living ensures every finished space elevates human experience.",
+    imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925846/3pcom/uploads/better_yisx6j.jpg"
+  }
+];
+
 const AboutUs = () => {
   const [aboutData, setAboutData] = useState(null);
-  const ZoomIn = styled.div`animation: 3s ${keyframes`${zoomIn}`}`;
+  const [contactData, setContactData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
-    const fetchAboutData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('https://3pcommunicationsserver.vercel.app/api/about'); // Adjust the API endpoint as necessary
-        setAboutData(response.data);
+        const [aboutRes, contactRes] = await Promise.allSettled([
+          axios.get("https://3pcommunicationsserver.vercel.app/api/about"),
+          axios.get("https://3pcommunicationsserver.vercel.app/api/myContact")
+        ]);
+
+        if (aboutRes.status === "fulfilled" && aboutRes.value.data) {
+          setAboutData(aboutRes.value.data);
+        }
+        if (contactRes.status === "fulfilled" && contactRes.value.data) {
+          setContactData(contactRes.value.data);
+        }
       } catch (error) {
+        console.error("Error fetching about page datasets:", error);
+      } finally {
         setLoading(false);
-        console.error("Error fetching about data:", error);
       }
     };
 
-    fetchAboutData();
+    fetchData();
   }, []);
 
-  const process = () => (
-    <div className="mt-0" style={{ height: "auto" }}>
-      <div style={{ opacity: "0.9", height: "auto" }}>
-        <h1 className="text-center mt-0 p-5 heading_color" style={{ fontFamily: "'Aref Ruqaa', serif" }}>Our Process</h1>
-        <div className="row p-5">
-          <div className="col-12 col-md-3 text-center p-2">
-            <div className="mx-auto row align-items-center" style={{ height: "150px", width: "150px" }}>
-              <img src={projectComplete?.src || projectComplete} alt="" />
-            </div>
-            <div className="mt-4 h5 heading_color text-center" style={{ fontFamily: "'Aref Ruqaa', serif" }}>{aboutData?.statistics?.projectsCompleted}+ PROJECTS COMPLETED</div>
-          </div>
-          <div className="col-12 col-md-3 text-center p-2">
-            <div className="mx-auto row align-items-center" style={{ height: "150px", width: "150px" }}>
-              <img src={award?.src || award} alt="" />
-            </div>
-            <div className="mt-4 h5 heading_color text-center" style={{ fontFamily: "'Aref Ruqaa', serif" }}>{aboutData?.statistics?.awardsReceived}+ AWARDS RECEIVED</div>
-          </div>
-          <div className="col-12 col-md-3 text-center p-2">
-            <div className="mx-auto row align-items-center" style={{ height: "150px", width: "150px" }}>
-              <img src={client?.src || client} alt="" />
-            </div>
-            <div className="mt-4 h5 heading_color text-center" style={{ fontFamily: "'Aref Ruqaa', serif" }}>{aboutData?.statistics?.happyCustomers}+ HAPPY CUSTOMERS</div>
-          </div>
-          <div className="col-12 col-md-3 text-center p-2">
-            <div className="mx-auto row align-items-center" style={{ height: "150px", width: "150px" }}>
-              <img src={servicespic?.src || servicespic} alt="" />
-            </div>
-            <div className="mt-4 h5 heading_color text-center" style={{ fontFamily: "'Aref Ruqaa', serif" }}>{aboutData?.statistics?.yearsInService}+  YEARS IN SERVICE</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  const stats = {
+    projectsCompleted: aboutData?.statistics?.projectsCompleted ?? 20,
+    awardsReceived: aboutData?.statistics?.awardsReceived ?? 10,
+    happyCustomers: aboutData?.statistics?.happyCustomers ?? 100,
+    yearsInService: aboutData?.statistics?.yearsInService ?? 10
+  };
 
-  // const ChooseMe = () => (
-  //   <div className="container my-5 pt-5">
-  //     <h2 className="heading_color py-5 text-center">Why Choose Us?</h2>
-  //     <div className="row justify-content-center align-items-center">
-  //       {/* Left Circle Sections */}
-  //       <div className="col-4">
-  //         {aboutData?.whyChooseUs?.slice(0, 3).map((item, index) => (
-  //           <div key={index} className="circle-section mb-4">
-  //             <img
-  //               src={item.imageUrl} // Use the image URL from your backend
-  //               alt={`Why Choose Us - ${item.title}`} // Descriptive alt text
-  //               className="circle-img"
-  //             />
-  //             <div className="text-start ps-3">
-  //               <h5 className="fs-6 fw-bold">{item.title}</h5>
-  //               <p className="fs-6">{item.description}</p>
-  //             </div>
-  //           </div>
-  //         ))}
-  //       </div>
+  const director = {
+    name: aboutData?.profile?.name || "Prokash Banik",
+    position: aboutData?.profile?.position || "CEO & Managing Director, 3P Communication",
+    introduction: aboutData?.profile?.introduction ||
+      "At 3P Communication, we blend creativity, structural engineering, and uncompromising aesthetic rigor to transform raw spaces into inspiring habitats. With an unwavering passion for innovative spatial design, we turn complex blueprints into enduring architectural legacies.",
+    profilePicture: aboutData?.profile?.profilePicture || (ceoFallback?.src || ceoFallback)
+  };
 
-  //       {/* Center Circle Image with Border */}
-  //       <div className="col-4 text-center">
-  //         <div className="center-circle-container">
-  //           <img
-  //             src={aboutData?.centralImage} // Assuming you might have a central image in your data
-  //             alt="Center Circle"
-  //             className="center-circle"
-  //           />
-  //         </div>
-  //       </div>
+  const whyChooseList = (aboutData?.whyChooseUs && aboutData.whyChooseUs.length > 0)
+    ? aboutData.whyChooseUs
+    : DEFAULT_WHY_CHOOSE_US;
 
-  //       {/* Right Circle Sections */}
-  //       <div className="col-4 text-center">
-  //         {aboutData?.whyChooseUs?.slice(3).map((item, index) => (
-  //           <div key={index} className="circle-section mb-4">
-  //             <img
-  //               src={item.imageUrl} // Use the image URL from your backend
-  //               alt={`Why Choose Us - ${item.title}`} // Descriptive alt text
-  //               className="circle-img"
-  //             />
-  //             <div className="text-start ps-3">
-  //               <h4>{item.title}</h4>
-  //               <p>{item.description}</p>
-  //             </div>
-  //           </div>
-  //         ))}
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-
-  const ChooseMe = () => (
-    <div className="container my-5 pt-5">
-      <h2 className="heading_color py-5 text-center">Why Choose Us?</h2>
-      <div className="row justify-content-center align-items-center">
-
-        {/* Left Circle Sections */}
-        <div className="col-12 col-md-4 text-center text-md-start">
-          {aboutData?.whyChooseUs?.slice(0, 3).map((item, index) => (
-            <div key={index} className="circle-section mb-4 d-flex align-items-center justify-content-center">
-              <img
-                src={item.imageUrl}
-                alt={`Why Choose Us - ${item.title}`}
-                className="circle-img img-fluid"
-              />
-              <div className="text-start ps-3">
-                <h5 className="fs-6 fw-bold">{item.title}</h5>
-                <p className="fs-6">{item.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Center Circle Image with Border */}
-        <div className="col-12 col-md-4 text-center my-4 my-md-0">
-          <div className="center-circle-container">
-            <img
-              src={aboutData?.centralImage}
-              alt="Center Circle"
-              className="center-circle img-fluid"
-            />
-          </div>
-        </div>
-
-        {/* Right Circle Sections */}
-        <div className="col-12 col-md-4 text-center text-md-start">
-          {aboutData?.whyChooseUs?.slice(3).map((item, index) => (
-            <div key={index} className="circle-section mb-4 d-flex align-items-center justify-content-center">
-              <img
-                src={item.imageUrl}
-                alt={`Why Choose Us - ${item.title}`}
-                className="circle-img img-fluid"
-              />
-              <div className="text-start ps-3">
-                <h5 className="fs-6 fw-bold">{item.title}</h5>
-                <p className="fs-6">{item.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-
-
-
-
-  // State to hold contact details, loading, and error
-  const [contactDetails, setContactDetails] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchContactDetails = async () => {
-      try {
-        const response = await fetch("https://3pcommunicationsserver.vercel.app/api/myContact"); // Adjust the URL as needed
-        if (!response.ok) {
-          throw new Error("Failed to fetch contact details");
-        }
-        const data = await response.json();
-        setContactDetails(data); // Set contact details
-      } catch (error) {
-        console.error("Error fetching contact details:", error);
-        setError("Failed to load contact details.");
-      } finally {
-        setLoading(false); // Set loading to false after fetching
-      }
-    };
-
-    fetchContactDetails();
-  }, []); // Empty dependency array to run only once
-
-
-
-  const callNow = () => (
-    <div className="w-100 bg-dark my-5 py-5">
-      <div className="d-flex flex-column flex-md-row justify-content-around align-items-center text-center text-md-start text-black fw-bolder px-3 px-md-5 callNow_font">
-
-        {/* Column 1 - Text */}
-        <div className="col-md-4 mb-3 mb-md-0 text-white">
-          <h3>CONTACT NOW FOR YOUR DREAM INTO REALITY</h3>
-        </div>
-
-        {/* Column 2 - Phone Number with Icon */}
-        <div className="col-md-4 mb-3 mb-md-0 d-flex align-items-center justify-content-center">
-          <div className="d-flex align-items-center justify-content-center">
-            <div className="icon-circle">
-              <i className="bi bi-telephone-fill"></i> {/* Bootstrap phone icon */}
-            </div>
-            <div className="px-3 pt-5">
-              <p className="text-warning"> CALL US<br />
-                <span className="text-white"> {contactDetails ? contactDetails?.mobile : "+880000000000"}</span>
-              </p>
-              <p className="ms-2 fw-bold"></p>
-            </div>
-          </div>
-        </div>
-
-        {/* Column 3 - Email with Icon */}
-        <div className="col-md-4 d-flex align-items-center justify-content-center">
-          <div>
-            <div className="d-flex align-items-center justify-content-center">
-              <div className="icon-circle">
-                <i className="bi bi-envelope-fill"></i> {/* Bootstrap envelope icon */}
-              </div>
-              <div className="px-3 pt-3">
-                <p className="text-warning">PLEASE SEND EMAIL<br />
-                  <span className="fw-bold text-white">{contactDetails ? contactDetails?.email : "info@example.com"}</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  );
-
-
-
-  // Custom Loader JSX
-  const Loader = () => (
-    <div className="loader-container">
-      <div className="custom-loader"></div>
-    </div>
-  );
-
-
-  if (loading) {
-    return <Loader />; // Use your custom loader here
-  }
-
-
-
-
-  // if (!aboutData) {
-  //   return <div>Loading...</div>; // Loading state
-  // }
+  const hotline = contactData?.mobile || "+8801722728272";
+  const email = contactData?.email || "3pcommunication@gmail.com";
 
   return (
-    <div>
-
+    <div className="about-page-wrapper">
       <TopMenu />
-      <div className="container" style={{ maxWidth: "100vw" }}>
 
-        <div className="row">
-          <div className="col-12 pt-5 mt-5 d-flex justify-content-center">
-            <div className="col-md-4 text-center">
-              <div className="profile-card  rounded bg-light p-4 shadow mx-auto">
-                <img
-                  src={profile?.src || profile} // Optionally replace with dynamic profile image from backend
-                  alt="Profile"
-                  className="img-fluid rounded-circle border border-white mb-3 mt-3"
-                  style={{ width: "100%", height: "270px", objectFit: "cover" }}
-                />
-                <h4
-                  className="heading_color mb-0"
-                  style={{ fontFamily: "'Aref Ruqaa', serif" }}
-                >
-                  {aboutData?.profile?.name}
-                </h4>
-                <p
-                  className="text-muted"
-                  style={{ fontFamily: "'Aref Ruqaa', serif" }}
-                >
-                  {aboutData?.profile?.position}
-                </p>
-              </div>
-            </div>
+      {/* Hero Header */}
+      <section className="about-hero-banner">
+        <div className="container">
+          <div className="about-hero-tag">
+            <span>✦</span> ABOUT 3P COMMUNICATION
           </div>
+          <h1 className="about-hero-title">
+            Crafting Spatial Legacies &amp; <span>Iconic Experiences</span>
+          </h1>
+          <p className="about-hero-subtitle">
+            A premier multidisciplinary studio dedicated to elevating architectural interiors, monumental exteriors, and high-production event environments across Bangladesh.
+          </p>
+        </div>
+      </section>
 
-          <div className="col-12 text-center mt-4">
-            <h3
-              className="heading_color mt-3 mb-3"
-              style={{ fontFamily: "'Aref Ruqaa', serif" }}
-            >
-              Get To Know Our Director
-            </h3>
-            <div className="introduction-text my-auto" style={{ maxWidth: "600px", margin: "0 auto" }}>
-              <p className="text-black">
-                {aboutData?.profile?.introduction}
-              </p>
+      {/* Executive Leadership (Director Philosophy) */}
+      <section className="about-section">
+        <div className="container">
+          <div className="about-director-card">
+            <div className="row align-items-center">
+              
+              {/* Left: Portrait */}
+              <div className="col-12 col-lg-5 text-center mb-4 mb-lg-0">
+                <div className="director-img-wrapper">
+                  <img
+                    src={director.profilePicture}
+                    alt={director.name}
+                    className="director-portrait"
+                    onError={(e) => {
+                      e.target.src = ceoFallback?.src || ceoFallback;
+                    }}
+                  />
+                  <div className="director-experience-badge">
+                    <span className="badge-number">{stats.yearsInService}+</span>
+                    <span className="badge-text">Years of Visionary Spatial Leadership</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Leadership Content */}
+              <div className="col-12 col-lg-7">
+                <div className="director-content">
+                  <div className="director-role-tag">Director &amp; Principal Visionary</div>
+                  <h2 className="director-name">{director.name}</h2>
+                  <div className="director-position">{director.position}</div>
+
+                  <div className="director-quote-box">
+                    <FaQuoteLeft className="quote-icon" />
+                    <p className="director-quote">
+                      "{director.introduction}"
+                    </p>
+                  </div>
+
+                  <div className="director-philosophy-list">
+                    <div className="philosophy-item">
+                      <FaCheckCircle className="philosophy-icon" />
+                      <span>
+                        <strong>Precision Engineering &amp; Aesthetic Harmony:</strong> Ensuring every millwork detail and lighting fixture serves both functional longevity and experiential beauty.
+                      </span>
+                    </div>
+                    <div className="philosophy-item">
+                      <FaCheckCircle className="philosophy-icon" />
+                      <span>
+                        <strong>End-to-End Turnkey Execution:</strong> From 3D photorealistic renderings to turnkey site civil execution, eliminating client friction and unforeseen delays.
+                      </span>
+                    </div>
+                    <div className="philosophy-item">
+                      <FaCheckCircle className="philosophy-icon" />
+                      <span>
+                        <strong>Client-First Transparent Collaboration:</strong> Direct access to lead architects and real-time fabrication updates throughout every phase.
+                      </span>
+                    </div>
+                  </div>
+
+                  <Link href="/contactus" className="btn cta-btn-primary">
+                    <span>Connect with Leadership</span>
+                    <FaArrowRight />
+                  </Link>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
+      </section>
 
+      {/* KPI Impact Statistics Bar */}
+      <section className="about-stats-section">
+        <div className="container">
+          <div className="stats-grid">
+            
+            <div className="stat-metric-card">
+              <div className="stat-icon-circle">
+                <FaDraftingCompass />
+              </div>
+              <div className="stat-number">
+                {stats.projectsCompleted}<span>+</span>
+              </div>
+              <div className="stat-label">Projects Completed</div>
+              <p className="stat-desc">Residential, corporate &amp; commercial landmarks</p>
+            </div>
 
-        <div>{ChooseMe()}</div>
-        <div>{callNow()}</div>
-        <div>{process()}</div>
+            <div className="stat-metric-card">
+              <div className="stat-icon-circle">
+                <FaAward />
+              </div>
+              <div className="stat-number">
+                {stats.awardsReceived}<span>+</span>
+              </div>
+              <div className="stat-label">Awards &amp; Honors</div>
+              <p className="stat-desc">Recognized architectural &amp; design excellence</p>
+            </div>
 
+            <div className="stat-metric-card">
+              <div className="stat-icon-circle">
+                <FaUsers />
+              </div>
+              <div className="stat-number">
+                {stats.happyCustomers}<span>+</span>
+              </div>
+              <div className="stat-label">Delighted Clients</div>
+              <p className="stat-desc">Leading corporations, brands &amp; private homeowners</p>
+            </div>
 
+            <div className="stat-metric-card">
+              <div className="stat-icon-circle">
+                <FaCalendarAlt />
+              </div>
+              <div className="stat-number">
+                {stats.yearsInService}<span>+</span>
+              </div>
+              <div className="stat-label">Years In Service</div>
+              <p className="stat-desc">A decade of pioneering multidisciplinary execution</p>
+            </div>
 
-      </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The 3 Core Disciplines (3P DNA) */}
+      <section className="about-section">
+        <div className="container">
+          <div className="about-section-header">
+            <span className="about-section-tag">Multidisciplinary Practice</span>
+            <h2 className="about-section-title">The Three Pillars of 3P</h2>
+            <p className="about-section-subtitle">
+              We seamlessly integrate architecture, facade engineering, and experiential production under one unified creative atelier.
+            </p>
+          </div>
+
+          <div className="disciplines-grid">
+            {DISCIPLINES_SHOWCASE.map((item, idx) => (
+              <div key={idx} className="discipline-card">
+                <div className="discipline-card-header">
+                  <span className="discipline-badge">{item.badge}</span>
+                  <div className="discipline-icon-box">{item.icon}</div>
+                </div>
+                <div className="discipline-card-body">
+                  <h3 className="discipline-title">{item.title}</h3>
+                  <p className="discipline-desc">{item.desc}</p>
+                  <ul className="discipline-features">
+                    {item.features.map((feat, fIdx) => (
+                      <li key={fIdx}>{feat}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose 3P (6 Value Pillars Grid) */}
+      <section className="about-section" style={{ backgroundColor: "#f3ede3" }}>
+        <div className="container">
+          <div className="about-section-header">
+            <span className="about-section-tag">Studio Values &amp; Standards</span>
+            <h2 className="about-section-title">Why Discerning Clients Choose Us</h2>
+            <p className="about-section-subtitle">
+              Built on uncompromising work ethics, sustainable materials, and a proven track record of architectural distinction.
+            </p>
+          </div>
+
+          <div className="why-grid">
+            {whyChooseList.map((item, idx) => (
+              <div key={item._id || idx} className="why-pillar-card">
+                <div className="why-card-thumb-wrap">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className="why-card-thumb"
+                    loading="lazy"
+                  />
+                  <div className="why-pillar-num">0{idx + 1}</div>
+                </div>
+                <div className="why-card-content">
+                  <h3 className="why-card-title">{item.title}</h3>
+                  <p className="why-card-desc">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Executive Call to Action Banner */}
+      <section className="about-cta-section">
+        <div className="container">
+          <div className="about-cta-card">
+            <div className="row align-items-center">
+              <div className="col-12 col-lg-7 mb-4 mb-lg-0">
+                <h3 className="cta-title">
+                  Ready to Turn Your Dream Space Into <span>Reality?</span>
+                </h3>
+                <p className="cta-desc">
+                  Schedule an on-site consultation or visit our Mohammadpur design studio to discuss your interior, exterior facade, or corporate event production with our principal leads.
+                </p>
+              </div>
+              <div className="col-12 col-lg-5 text-lg-end">
+                <div className="cta-actions justify-content-lg-end">
+                  <Link href="/contactus" className="cta-btn-primary">
+                    <span>Book Consultation ↗</span>
+                  </Link>
+                  <a href={`tel:${hotline}`} className="cta-btn-secondary">
+                    <FaPhoneAlt />
+                    <span>{hotline}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
-}
+};
 
 export default AboutUs;

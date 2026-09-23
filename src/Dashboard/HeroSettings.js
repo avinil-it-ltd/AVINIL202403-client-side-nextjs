@@ -17,6 +17,7 @@ import {
   FaSpinner,
   FaTrash
 } from 'react-icons/fa';
+import defaultHeroBg from '../assets/Banner.jpg';
 
 const DEFAULT_HERO_SETTINGS = {
   bgImage: '',
@@ -232,6 +233,8 @@ const HeroSettings = () => {
       </span>
     );
   };
+
+  const activeBgUrl = imagePreview || formData.bgImage || (defaultHeroBg?.src || defaultHeroBg);
 
   return (
     <div className="hero-settings-wrapper">
@@ -599,167 +602,77 @@ const HeroSettings = () => {
         {/* RIGHT COLUMN: Real-Time Live Device Mockup Preview */}
         <div className="col-12 col-xl-5">
           <div
-            className="card border-0 shadow-sm rounded-4 overflow-hidden position-sticky"
+            className="hero-mockup-frame position-sticky"
             style={{ top: '24px' }}
           >
-            <div className="p-3 bg-dark text-white d-flex align-items-center justify-content-between">
-              <span className="fw-bold small d-inline-flex align-items-center gap-2">
-                <FaDesktop className="text-warning" /> Real-Time Live Desktop Mockup
-              </span>
+            {/* Browser / Device Chrome Header */}
+            <div className="hero-mockup-bar">
+              <div className="hero-mockup-dots">
+                <span className="hero-mockup-dot dot-red"></span>
+                <span className="hero-mockup-dot dot-yellow"></span>
+                <span className="hero-mockup-dot dot-green"></span>
+              </div>
+              <div className="hero-mockup-urlbar">
+                <span>3pcommunication.com</span>
+              </div>
               <span className="badge bg-secondary" style={{ fontSize: '10px' }}>
-                Instant Preview
+                Live Desktop
               </span>
             </div>
 
-            {/* Mockup Screen Viewport */}
+            {/* Mockup Screen Viewport with Active Background */}
             <div
+              className="hero-mockup-viewport"
               style={{
-                position: 'relative',
-                minHeight: '420px',
-                backgroundImage: imagePreview
-                  ? `url(${imagePreview})`
-                  : `url(/_next/static/media/Banner.015c7a26.jpg)`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                padding: '36px 24px',
-                display: 'flex',
-                alignItems: 'center',
-                color: '#ffffff',
-                backgroundColor: '#121316'
+                backgroundImage: `url(${activeBgUrl})`
               }}
             >
               {/* Scrim Overlay */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background:
-                    'linear-gradient(135deg, rgba(14, 15, 18, 0.90) 0%, rgba(14, 15, 18, 0.80) 50%, rgba(14, 15, 18, 0.90) 100%)',
-                  zIndex: 1
-                }}
-              />
+              <div className="hero-mockup-scrim" />
 
-              <div style={{ position: 'relative', zIndex: 2, width: '100%' }}>
+              <div className="hero-mockup-content">
                 {/* Provenance Badge */}
-                <div
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(255, 255, 255, 0.18)',
-                    borderRadius: '4px',
-                    padding: '4px 10px',
-                    fontSize: '0.65rem',
-                    fontWeight: 700,
-                    letterSpacing: '1px',
-                    marginBottom: '14px',
-                    color: '#e5e7eb'
-                  }}
-                >
-                  <span
-                    style={{
-                      width: '5px',
-                      height: '5px',
-                      borderRadius: '50%',
-                      backgroundColor: '#ff6600',
-                      display: 'inline-block'
-                    }}
-                  ></span>
+                <div className="hero-mockup-badge">
+                  <span className="dot"></span>
                   <span>{formData.provenance}</span>
                 </div>
 
                 {/* Master Title */}
-                <h3
-                  style={{
-                    fontFamily: 'serif',
-                    fontSize: '1.5rem',
-                    fontWeight: 600,
-                    lineHeight: 1.25,
-                    marginBottom: '12px',
-                    color: '#ffffff'
-                  }}
-                >
+                <h3 className="hero-mockup-title">
                   {formData.title}
                 </h3>
 
                 {/* Subtitle */}
-                <p
-                  style={{
-                    fontSize: '0.82rem',
-                    color: '#cbd5e1',
-                    lineHeight: 1.5,
-                    marginBottom: '20px',
-                    maxWidth: '92%'
-                  }}
-                >
+                <p className="hero-mockup-sub">
                   {formData.subtitle}
                 </p>
 
                 {/* Buttons */}
-                <div className="d-flex gap-2 mb-3">
-                  <span
-                    className="btn btn-sm"
-                    style={{
-                      background: '#ff6600',
-                      color: '#ffffff',
-                      fontSize: '0.75rem',
-                      fontWeight: 700,
-                      borderRadius: '4px'
-                    }}
-                  >
-                    {formData.primaryCtaText} &rarr;
+                <div className="hero-mockup-cta-wrap">
+                  <span className="hero-mockup-cta-primary">
+                    <span>{formData.primaryCtaText}</span>
+                    <span>&rarr;</span>
                   </span>
-                  <span
-                    className="btn btn-sm btn-outline-light"
-                    style={{ fontSize: '0.75rem', borderRadius: '4px' }}
-                  >
-                    {formData.secondaryCtaText}
+                  <span className="hero-mockup-cta-secondary">
+                    <span>{formData.secondaryCtaText}</span>
                   </span>
                 </div>
 
                 {/* Spec Strip */}
-                <div
-                  className="d-flex align-items-center gap-3 pt-2"
-                  style={{ borderTop: '1px solid rgba(255, 255, 255, 0.15)' }}
-                >
-                  <div>
-                    <strong style={{ fontSize: '0.8rem', display: 'block' }}>
-                      {formData.metric1Number}
-                    </strong>
-                    <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>
-                      {formData.metric1Label}
-                    </span>
+                <div className="hero-mockup-spec-box">
+                  <div className="hero-mockup-spec-item">
+                    <strong>{formData.metric1Number}</strong>
+                    <span>{formData.metric1Label}</span>
                   </div>
-                  <div
-                    style={{
-                      width: '1px',
-                      height: '20px',
-                      background: 'rgba(255,255,255,0.2)'
-                    }}
-                  ></div>
-                  <div>
-                    <strong style={{ fontSize: '0.8rem', display: 'block' }}>
-                      {formData.metric2Number}
-                    </strong>
-                    <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>
-                      {formData.metric2Label}
-                    </span>
+                  <div className="hero-mockup-spec-divider"></div>
+                  <div className="hero-mockup-spec-item">
+                    <strong>{formData.metric2Number}</strong>
+                    <span>{formData.metric2Label}</span>
                   </div>
-                  <div
-                    style={{
-                      width: '1px',
-                      height: '20px',
-                      background: 'rgba(255,255,255,0.2)'
-                    }}
-                  ></div>
-                  <div>
-                    <strong style={{ fontSize: '0.8rem', display: 'block' }}>
-                      {formData.metric3Number}
-                    </strong>
-                    <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>
-                      {formData.metric3Label}
-                    </span>
+                  <div className="hero-mockup-spec-divider"></div>
+                  <div className="hero-mockup-spec-item">
+                    <strong>{formData.metric3Number}</strong>
+                    <span>{formData.metric3Label}</span>
                   </div>
                 </div>
               </div>
@@ -767,7 +680,7 @@ const HeroSettings = () => {
 
             <div className="p-3 bg-white text-muted small border-top">
               <div className="d-flex align-items-center gap-1 mb-1 text-dark fw-bold">
-                <FaInfoCircle className="text-primary" /> Live Typography Verification
+                <FaInfoCircle className="text-primary" /> Live Typography &amp; Contrast Verification
               </div>
               <div>
                 Text updates render in real-time above. Check that your headline stays under 3 lines and that text contrast is clean over the background.

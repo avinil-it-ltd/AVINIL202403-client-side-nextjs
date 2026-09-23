@@ -1,0 +1,292 @@
+/* ==========================================================================
+   Admin Login Page Styles - Responsive & Executive Luxury
+   ========================================================================== */
+
+.admin-login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #0f172a;
+  overflow-x: hidden;
+}
+
+/* Background Stage with Depth Scrim */
+.admin-login-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.85);
+  z-index: 1;
+}
+
+.admin-login-scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.75) 100%);
+  z-index: 2;
+}
+
+/* Header Bar */
+.admin-login-nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+}
+
+.admin-login-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.admin-login-logo {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+}
+
+.admin-login-logo .brand-accent {
+  color: #ff6600;
+}
+
+.admin-login-badge {
+  background: rgba(255, 102, 0, 0.18);
+  color: #ff6600;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 102, 0, 0.3);
+}
+
+.admin-login-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+}
+
+.admin-login-back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  transform: translateX(-2px);
+}
+
+/* Centered Card Viewport */
+.admin-login-content {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px 48px;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 18px;
+  padding: 36px 32px;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.6);
+  color: #1e293b;
+  position: relative;
+}
+
+/* Card Header */
+.admin-card-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.admin-icon-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ff6600 0%, #c85a17 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 16px;
+  box-shadow: 0 8px 20px rgba(255, 102, 0, 0.35);
+}
+
+.admin-card-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.admin-card-subtitle {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Input Fields */
+.admin-login-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-login-input-icon {
+  position: absolute;
+  left: 14px;
+  color: #94a3b8;
+  font-size: 16px;
+  pointer-events: none;
+  z-index: 2;
+  transition: color 0.2s ease;
+}
+
+.admin-login-input {
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  padding-left: 42px !important;
+  padding-right: 42px !important;
+  font-size: 15px;
+  background: #f8fafc;
+  color: #0f172a;
+  transition: all 0.2s ease;
+}
+
+.admin-login-input:focus {
+  background: #ffffff;
+  border-color: #ff6600;
+  box-shadow: 0 0 0 4px rgba(255, 102, 0, 0.12);
+  outline: none;
+}
+
+.admin-login-input-group:focus-within .admin-login-input-icon {
+  color: #ff6600;
+}
+
+.admin-eye-toggle {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+  z-index: 3;
+}
+
+.admin-eye-toggle:hover {
+  color: #0f172a;
+}
+
+/* Submit Button */
+.admin-login-submit-btn {
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff6600 0%, #c85a17 100%);
+  color: #ffffff;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 6px 18px rgba(255, 102, 0, 0.35);
+  margin-top: 10px;
+}
+
+.admin-login-submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ff771a 0%, #d96219 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 102, 0, 0.45);
+}
+
+.admin-login-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Security Note */
+.admin-login-footer-note {
+  text-align: center;
+  font-size: 0.76rem;
+  color: #94a3b8;
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 575.98px) {
+  .admin-login-nav {
+    padding: 16px 16px 8px;
+  }
+
+  .admin-login-logo {
+    font-size: 17px;
+  }
+
+  .admin-login-back-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .admin-login-card {
+    padding: 26px 20px;
+    border-radius: 14px;
+  }
+
+  .admin-card-title {
+    font-size: 1.4rem;
+  }
+
+  .admin-login-input {
+    font-size: 16px !important; /* Prevents iOS auto-zoom */
+    height: 46px;
+  }
+
+  .admin-login-submit-btn {
+    height: 46px;
+    font-size: 0.92rem;
+  }
+}

@@ -91,12 +91,14 @@ const Footer = () => {
           {/* Column 1: Brand Profile & Social Channels */}
           <Col lg={4} md={6} className="mb-4 mb-lg-0">
             <div className="footer-brand-header">
-              <img 
-                src={logo.src || logo} 
-                alt="3P Communication Logo" 
-                className="footer-brand-logo" 
-              />
-              <div>
+              <div className="footer-brand-logo-frame">
+                <img 
+                  src={logo.src || logo} 
+                  alt="3P Communication Logo" 
+                  className="footer-brand-logo" 
+                />
+              </div>
+              <div className="footer-brand-text">
                 <div className="footer-brand-title">3P Communication</div>
                 <div className="footer-brand-tagline">Interior • Exterior • Events</div>
               </div>

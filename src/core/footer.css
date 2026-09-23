@@ -1,18 +1,18 @@
 /* ==========================================================================
-   3P Communication - Rich Architectural Sandstone Footer (footer.css)
-   Differentiated from page sections with high contrast for orange & black logo
+   3P Communication - Deep Architectural Obsidian Footer (footer.css)
+   Rich, high-contrast, bold aesthetic with crisp white logo plaque
    ========================================================================== */
 
 .luxury-footer {
-  background: #E8E1D5;
-  color: #434c58;
-  border-top: 2px solid #c85a17;
+  background: #0d0e11;
+  color: #94a3b8;
+  border-top: 2px solid #ff6600;
   position: relative;
   overflow: hidden;
   font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
 }
 
-/* Architectural top highlight line */
+/* Subtle architectural top glow */
 .luxury-footer::before {
   content: '';
   position: absolute;
@@ -20,11 +20,11 @@
   left: 0;
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, #c85a17, rgba(200, 90, 23, 0.4), transparent);
+  background: linear-gradient(90deg, #ff6600 0%, rgba(255, 102, 0, 0.5) 40%, transparent 100%);
 }
 
 .footer-main-content {
-  padding-top: 70px;
+  padding-top: 75px;
   padding-bottom: 50px;
 }
 
@@ -36,18 +36,43 @@
   margin-bottom: 18px;
 }
 
+/* Crisp White Plaque for Logo (ensuring 100% visibility for black & orange mark) */
+.footer-brand-logo-frame {
+  width: 52px;
+  height: 52px;
+  background: #ffffff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.footer-brand-logo-frame:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 102, 0, 0.35);
+}
+
 .footer-brand-logo {
-  width: 48px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
+}
+
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .footer-brand-title {
   font-family: var(--font-cinzel, 'Cinzel', serif);
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  color: #111215;
+  color: #ffffff;
   line-height: 1.2;
 }
 
@@ -56,14 +81,14 @@
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 1.4px;
-  color: #c85a17;
+  color: #ff6600;
   text-transform: uppercase;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .footer-brand-bio {
-  font-size: 0.9rem;
-  color: #434c58;
+  font-size: 0.92rem;
+  color: #94a3b8;
   line-height: 1.65;
   margin-bottom: 22px;
 }
@@ -73,15 +98,14 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid rgba(37, 211, 102, 0.6);
-  color: #15803d;
+  background: rgba(37, 211, 102, 0.12);
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  color: #25d366;
   padding: 8px 18px;
   border-radius: 20px;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   transition: all 0.25s ease;
   margin-bottom: 24px;
 }
@@ -90,7 +114,7 @@
   background: #25d366;
   color: #ffffff;
   border-color: #25d366;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
   transform: translateY(-2px);
 }
 
@@ -105,33 +129,32 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid #D4C9BB;
-  color: #111215;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   text-decoration: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   transition: all 0.25s ease;
 }
 
 .footer-social-btn:hover {
-  background: #c85a17;
-  border-color: #c85a17;
+  background: #ff6600;
+  border-color: #ff6600;
   color: #ffffff;
   transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(200, 90, 23, 0.3);
+  box-shadow: 0 4px 14px rgba(255, 102, 0, 0.45);
 }
 
 /* Column Headings */
 .footer-heading {
   font-family: var(--font-cinzel, 'Cinzel', serif);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  color: #111215;
-  letter-spacing: 0.5px;
+  color: #ffffff;
+  letter-spacing: 0.6px;
   margin-bottom: 22px;
   position: relative;
   display: inline-block;
@@ -144,7 +167,7 @@
   left: 0;
   width: 28px;
   height: 2px;
-  background: #c85a17;
+  background: #ff6600;
   border-radius: 2px;
 }
 
@@ -160,7 +183,7 @@
 
 .footer-nav-link {
   font-size: 13.5px;
-  color: #434c58;
+  color: #94a3b8;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -169,7 +192,7 @@
 }
 
 .footer-nav-link:hover {
-  color: #c85a17;
+  color: #ff771a;
   transform: translateX(4px);
 }
 
@@ -178,8 +201,8 @@
   font-weight: 800;
   padding: 2px 6px;
   border-radius: 10px;
-  background: rgba(16, 185, 129, 0.14);
-  color: #047857;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
   border: 1px solid rgba(16, 185, 129, 0.3);
   letter-spacing: 0.5px;
   margin-left: 6px;
@@ -199,25 +222,25 @@
   gap: 11px;
   font-size: 13px;
   line-height: 1.45;
-  color: #434c58;
+  color: #94a3b8;
 }
 
 .footer-contact-icon {
-  color: #c85a17;
+  color: #ff6600;
   font-size: 14px;
   margin-top: 3px;
   flex-shrink: 0;
 }
 
 .footer-contact-row a {
-  color: #111215;
-  font-weight: 600;
+  color: #e2e8f0;
+  font-weight: 500;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .footer-contact-row a:hover {
-  color: #c85a17;
+  color: #ff771a;
 }
 
 /* Newsletter Box */
@@ -228,7 +251,7 @@
 .footer-newsletter-label {
   font-size: 12px;
   font-weight: 700;
-  color: #111215;
+  color: #ffffff;
   margin-bottom: 8px;
   display: block;
 }
@@ -238,15 +261,14 @@
   position: relative;
   border-radius: 30px;
   overflow: hidden;
-  border: 1px solid #D4C9BB;
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .footer-newsletter-form:focus-within {
-  border-color: #c85a17;
-  box-shadow: 0 0 10px rgba(200, 90, 23, 0.2);
+  border-color: #ff6600;
+  box-shadow: 0 0 12px rgba(255, 102, 0, 0.3);
 }
 
 .footer-newsletter-input {
@@ -255,19 +277,19 @@
   border: none;
   padding: 10px 16px;
   font-size: 12.5px;
-  color: #111215;
+  color: #ffffff;
   outline: none;
 }
 
 .footer-newsletter-input::placeholder {
-  color: #8c97a7;
+  color: #64748b;
 }
 
 .footer-newsletter-btn {
-  background: #c85a17;
+  background: #ff6600;
   border: none;
   color: #ffffff;
-  padding: 0 18px;
+  padding: 0 20px;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
@@ -278,14 +300,14 @@
 }
 
 .footer-newsletter-btn:hover {
-  background: #ad4b0f;
+  background: #e65100;
 }
 
 /* Bottom Bar */
 .footer-bottom-bar {
-  border-top: 1px solid #CEBFAC;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
   padding: 22px 0;
-  background: #DDD3C3;
+  background: #08090b;
 }
 
 .footer-bottom-flex {
@@ -298,46 +320,45 @@
 
 .footer-copyright {
   font-size: 12.5px;
-  color: #525c68;
+  color: #64748b;
   margin: 0;
 }
 
 .footer-attribution {
   font-size: 12px;
-  color: #525c68;
+  color: #64748b;
   margin: 0;
 }
 
 .footer-attribution a {
-  color: #c85a17;
+  color: #ff6600;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.2s ease;
 }
 
 .footer-attribution a:hover {
-  color: #ad4b0f;
+  color: #ffa34d;
 }
 
 .footer-back-to-top {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid #D4C9BB;
-  color: #111215;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
 }
 
 .footer-back-to-top:hover {
-  background: #c85a17;
-  border-color: #c85a17;
+  background: #ff6600;
+  border-color: #ff6600;
   color: #ffffff;
   transform: translateY(-2px);
 }

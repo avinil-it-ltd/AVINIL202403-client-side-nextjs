@@ -1,0 +1,87 @@
+/* Image Container */
+.three_image-container {
+    position: relative;
+    width: 100%; /* Full width of the parent column */
+    height: 100%; /* Full height of the parent column */
+    min-height: 250px; /* Minimum height to ensure visibility */
+    background-size: cover; /* Ensures the image covers the container */
+    background-position: center; /* Centers the image */
+    overflow: hidden; /* Ensures the overlay text does not overflow the image */
+    border-radius: 8px; /* Optional: adds rounded corners */
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    /* background: rgba(0, 0, 0, 0.5); */
+    opacity: 50%; /* Black overlay with transparency */
+    z-index: 1; /* Ensure the overlay is above the image */
+}
+
+
+
+
+
+
+/* Background Images */
+.left-bg {
+    background-image: url('../../../../src/assets/images/interiorPage/left.jpg'); /* Left image */
+}
+
+.center-bg {
+    background-image: url('../../../../src/assets/images/interiorPage/center.jpg'); /* Center image */
+}
+
+.right-bg {
+    background-image: url('../../../../src/assets/images/interiorPage/right.jpg'); /* Right image */
+}
+
+/* Overlay Text Styles */
+.three_overlay-text {
+    position: absolute;
+    top: 50%; /* Center text vertically */
+    left: 50%; /* Center text horizontally */
+    transform: translate(-50%, -50%); /* Translate to adjust for text size */
+    color: rgb(255, 255, 255); /* Text color */
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8), /* Outer shadow */
+                 0px 0px 15px rgba(0, 0, 0, 0.6); /* Additional depth */
+    text-align: center; /* Centers text */
+    width: 90%; /* Ensures text is responsive */
+    z-index: 2; /* Ensure text is above the overlay */
+    padding: 10px; /* Add padding for better aesthetics */
+    background: rgba(255, 165, 0, 0.2); /* Orange color with 70% opacity */
+    border-radius: 5px; /* Optional: Rounded corners */
+}
+
+.three_overlay-text h2 {
+    font-size: 2.5rem; /* Large font size */
+    font-family: 'Aref Ruqaa', serif; /* Use your desired font */
+    font-weight: bold; /* Make the text bold */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+
+/* Responsive Text Size */
+@media (max-width: 768px) {
+    .three_image-container {
+        min-height: 300px; /* Adjust minimum height for tablets */
+    }
+
+    .three_overlay-text h2 {
+        font-size: 2rem; /* Adjust font size for tablets */
+    }
+}
+
+@media (max-width: 576px) {
+    .three_overlay-text h2 {
+        font-size: 1.5rem; /* Adjust font size for mobile */
+    }
+
+    .three_image-container {
+        min-height: 200px; /* Adjust minimum height for mobile */
+    }
+}

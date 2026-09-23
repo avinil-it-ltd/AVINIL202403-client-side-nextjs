@@ -1,0 +1,81 @@
+/* General Styling */
+.intro-section {
+    background-size: cover;
+    background-position: center;
+    padding: 50px 0;
+}
+
+.body_background {
+    background-color: rgba(255, 255, 255, 0.95); /* Light background with opacity */
+    padding: 20px;
+}
+
+/* Text Section */
+.text-section h2 {
+    font-family: "Times New Roman", serif;
+    font-size: 2rem;
+    color: #333;
+}
+
+.text-section p {
+    color: #666;
+    font-size: 1rem;
+}
+
+.special_button {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.special_button:hover {
+    background-color: #e65c00;
+}
+
+/* Image Section */
+.image-section img {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+    border: 3px solid #ff6600;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .text-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .text-section p {
+        font-size: 0.9rem;
+    }
+
+    .special_button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .text-section h2 {
+        font-size: 1.2rem;
+    }
+
+    .text-section p {
+        font-size: 0.85rem;
+    }
+
+    .special_button {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .image-section img {
+        margin-top: 15px;
+    }
+}

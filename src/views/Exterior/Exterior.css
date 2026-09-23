@@ -1,0 +1,106 @@
+.image-item {
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+    width: 100%;
+    margin-bottom: 10px; /* Adjust to add space between image and title */
+}
+
+.image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.imageTitle {
+    text-align: left;  
+    margin-top: 10px;  
+    /* font-size: 0.3rem;    */
+    color: #333;         
+}
+
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #EEEEEE;
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    opacity: 10;
+    transition: height 0.5s ease;
+}
+
+.image-item:hover .overlay {
+    height: 100%; /* Show the overlay when hovered */
+}
+
+/* .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+} */
+
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Use a semi-transparent black */
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    opacity: 0; /* Start with 0 opacity */
+    transition: height 0.5s ease, opacity 0.5s ease; /* Animate both height and opacity */
+}
+
+.image-item:hover .overlay {
+    height: 100%; /* Expand the overlay on hover */
+    opacity: 1;   /* Fully visible when hovered */
+}
+
+
+/* Details page css start */
+.detailsPageReview{
+    background-color: rgb(226 232 240);
+}
+.detailsTitle{
+    /* background-color: #42556E; */
+    /* background-color: #42556E; */
+    color: white;
+}
+
+.more-details-btn {
+    padding: 10px;
+    color: white ;
+    font-weight: bold;
+    outline: none !important;
+    background-color: #F79735;
+}
+
+.more-details-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+/* 
+.dashboard_all_button{
+    color: black ;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #F79735;
+}
+
+.dashboard_all_button:hover{
+    background-color: black;
+    color: white;
+} */
+
+

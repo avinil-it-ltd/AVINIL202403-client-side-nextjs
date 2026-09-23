@@ -1,0 +1,157 @@
+*{
+  box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
+  
+}
+
+
+html, body {
+  /* background-color: #343a40; */
+  overflow-x: hidden;
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari, Edge and Opera */
+*::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.control-dots {
+  visibility: hidden;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+.topCarousel {
+  height: 90vh;
+}
+
+.servicebg{
+  background-color:#3a5b9e34
+}
+
+.contact-modal .modal-content {
+  background-color: #ffc720;
+  /* opacity: 0.7; */
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .topCarousel {
+    height: 60vh;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .topCarousel {
+    height: 40vh;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .topCarousel {
+    height: 30vh;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .topCarousel {
+    height: 20vh;
+  }
+}
+
+
+
+
+.slider-container {
+  margin-top: 30px;
+}
+
+.testimonial-card {
+  background: #f8f7f0; /* Light background for the card */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 20px; /* Inner padding for content */
+  transition: transform 0.2s; /* Smooth transition on hover */
+  width: 80%; /* Adjust width of the cards */
+  margin: 0 auto; /* Center the cards */
+  border-color: goldenrod;
+  border: 2px gold solid;
+}
+
+.testimonial-card:hover {
+  transform: scale(1.02); /* Scale effect on hover */
+}
+
+.testimonial-header {
+  display: flex; /* Flexbox for aligning items */
+  justify-content: space-between; /* Space between name/designation and image */
+  align-items: center; /* Center vertically */
+}
+
+
+
+.testimonial-image {
+  border-radius: 80%; /* Circular image */
+  width: 100px; /* Fixed width */
+  height: 100px; /* Fixed height */
+  object-fit: cover; /* Ensure the image covers the area */
+  border: 2px solid #C39835; /* Optional border color */
+  margin-left: 20px; /* Space between text and image */
+}
+
+.card-description {
+  margin-top: 10px; /* Space between header and description */
+  color: #343a40; /* Dark text color */
+  margin-bottom: 0; /* Remove bottom margin for better alignment */
+  font-style: normal; /* Italic style for testimonial text */
+}
+
+.heading_color {
+  color: #C39835; /* Heading color */
+}

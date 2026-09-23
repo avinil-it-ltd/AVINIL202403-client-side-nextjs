@@ -1,0 +1,81 @@
+.circle-section {
+  display: flex;
+  align-items: center;
+}
+
+.circle-img {
+  width: 60px; /* Adjust size */
+  height: 60px;
+  border-radius: 50%;
+}
+
+.center-circle-container {
+  position: relative;
+}
+
+.center-circle {
+  width: 150px;
+  height: 150px;
+  border: 5px solid #ddd; /* Add border */
+  border-radius: 50%;
+}
+
+
+
+
+
+.circle-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .circle-img {
+    width: 100px; /* Set a fixed width for the circle */
+    height: 100px; /* Set a fixed height for the circle */
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the circle without distortion */
+    border: 2px solid #fff; /* Optional: adds a white border around the image */
+  }
+  
+  .center-circle-container {
+    width: 90%; /* Adjust to desired size */
+    height: 80%; /* Match width to maintain a circle */
+    border-radius: 20%; /* Makes the circle */
+    overflow: hidden; /* Hides overflow if image is too large */
+    display: inline-block; /* Centers the circle */
+    border: 2px solid #000; /* Optional: border around the center circle */
+  }
+  
+  .center-circle {
+    width: 100%; /* Makes the image responsive */
+    height: auto; /* Keeps the aspect ratio */
+    object-fit: cover; /* Ensures the image fills the circle */
+  }
+  
+
+
+
+
+
+  .profile-card {
+    width: 100%; /* Full width for responsiveness */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 450px; /* Set a max width for larger screens */
+    transition: transform 0.3s; /* Smooth hover effect */
+    border: 2px solid rgb(235, 206, 61);
+    border-radius: 5% !important;
+  }
+  
+  .profile-card:hover {
+    transform: scale(1.05); /* Slightly scale up on hover */
+  }
+  
+  .introduction-text {
+    padding: 0 15px; /* Add padding for better readability */
+  }
+  
+  /* Ensure heading colors are consistent and visually appealing */
+  .heading_color {
+    color: #007bff; /* Change to your desired color */
+  }
+  

@@ -1,0 +1,310 @@
+.dashboard_all_button{
+    color: black ;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #F79735;
+}
+
+.dashboard_all_button:hover{
+    background-color: black;
+    color: white;
+}
+
+
+.sidebar .nav-link.active-link {
+    /* background-color: #F79735;  */
+    background-color: rgb(219 234 254); 
+    color: black;
+    border-radius: 4px;
+}
+
+.sidebar .nav-link.active-link:hover {
+    color: black; /* Keep color on hover */
+}
+
+
+/* style={{ fontFamily: "Times New Roman" }} */
+/* outline: "none", boxShadow: "none" */
+
+
+
+
+
+.sidebar {
+    width: 270px;
+    /* Set a fixed width for the sidebar */
+    background-color: #f8f9fa;
+    /* Background color */
+    transition: width 0.3s;
+    /* Smooth transition for width changes */
+    position: fixed;
+    /* Fixed position to prevent scrolling with the content */
+    top: 40px;
+    /* Adjust this according to your top menu height */
+    height: calc(100vh - 40px);
+    /* Full height minus the top menu */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    z-index: 1000;
+    /* Ensure it stays above other elements */
+    padding-top: 50px;
+}
+
+.sidebar .nav-link {
+    display: flex;
+    /* Align items horizontally */
+    align-items: center;
+    /* Center items vertically */
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    overflow: hidden;
+    /* Hide overflow text */
+    text-overflow: ellipsis;
+    /* Add ellipsis for overflow text */
+}
+
+.sidebar .nav-link svg {
+    margin-right: 10px;
+    /* Space between icon and text */
+}
+
+.sidebar h5 {
+    margin-left: 15px;
+    /* Space for heading */
+}
+
+/* Optional: Add padding to body to prevent content being hidden behind the sidebar */
+
+
+
+
+.dashboard-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    /* Light background for contrast */
+    border-radius: 10px;
+    /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
+}
+
+.cards-row {
+    margin-bottom: 20px;
+    /* Space between card rows */
+}
+
+.quote-section {
+    background-color: #e9ecef;
+    /* Slightly darker background for quote */
+    padding: 20px;
+    border-radius: 10px;
+    /* Rounded corners for quote card */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
+}
+
+.quote-card {
+    border-left: 5px solid #007bff;
+    /* Highlight quote card */
+}
+
+blockquote {
+    font-style: italic;
+    /* Italic style for the quote */
+}
+
+
+.dashboard-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    /* Light background for contrast */
+    border-radius: 10px;
+    /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
+}
+
+.cards-row {
+    margin-bottom: 20px;
+    /* Space between card rows */
+}
+
+.quote-section {
+    border-radius: 10px;
+    /* Rounded corners for quote card */
+}
+
+.quote-card {
+    border-left: 5px solid #007bff;
+    /* Highlight quote card */
+}
+
+blockquote {
+    font-style: italic;
+    /* Italic style for the quote */
+}
+
+
+
+
+/* about update modal css */
+
+
+.custom-modal .modal-content {
+    background-color: #f8f9fa;
+    /* Light grey background */
+    border-radius: 10px;
+    /* Rounded corners */
+    padding: 20px;
+    /* Inner padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Soft shadow */
+    border: 2px solid #007bff;
+    /* Border with primary color */
+    transition: transform 0.3s ease-in-out;
+    /* Smooth open animation */
+}
+
+.custom-modal .modal-header {
+    background-color: #007bff;
+    /* Primary color background */
+    color: #fff;
+    /* White text */
+    border-bottom: none;
+    /* Remove default border */
+    padding: 1rem;
+    /* Custom padding */
+}
+
+.custom-modal .modal-footer {
+    border-top: none;
+    /* Remove default border */
+    justify-content: center;
+    /* Center-align buttons */
+}
+
+.custom-modal .modal-footer .btn {
+    padding: 0.5rem 1.5rem;
+    /* Custom button padding */
+    border-radius: 50px;
+    /* Rounded buttons */
+}
+
+.custom-modal .modal-content:hover {
+    transform: scale(1.03);
+    /* Slight zoom effect on hover */
+}
+
+.custom-modal .modal-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+/* Modal backdrop customization */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Darken the backdrop */
+}
+
+/* Animations for smooth modal appearance */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.custom-modal .modal-content {
+    animation: modalFadeIn 0.5s ease-in-out;
+    /* Fade-in animation */
+}
+
+
+
+
+
+.custom-modal p {
+    white-space: nowrap;
+    /* Prevent the text from wrapping */
+    overflow: hidden;
+    /* Hide the overflowed part */
+    text-overflow: ellipsis;
+    /* Add an ellipsis for long text */
+}
+
+.custom-modal p:hover {
+    white-space: normal;
+    /* On hover, show the full content */
+    overflow: visible;
+}
+
+
+
+
+.small-image {
+    max-width: 200px; /* Set your desired max width */
+    max-height: 200px; /* Set your desired max height */
+  }
+  
+  .icon-size {
+    width: 20px; /* Set the icon width */
+    height: 20px; /* Set the icon height */
+  }
+  
+  .dashboard_form_desing {
+    margin-bottom: 1.5rem; /* Space between form groups */
+  }
+  
+  .position-relative {
+    position: relative; /* Ensure the button positions correctly */
+  }
+  
+
+  /* src/css/dashboard.css */
+.image-preview-container {
+    margin: 5px;
+    position: relative;
+    display: inline-block;
+}
+
+.image-preview {
+    width: 100px;
+    max-width: 200px;
+    border-radius: 5px;
+}
+
+.remove-image-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+
+
+.description-field {
+    max-height: 150px; /* Sets fixed height */
+    overflow-y: auto; /* Enables scrolling */
+    resize: none; /* Disables resizing by the user */
+}
+
+
+.cards-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Even spacing */
+}
+
+.equal-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space between content to equalize height */
+    height: 100%; /* Ensures all cards fill the space */
+}

@@ -1,0 +1,66 @@
+/* General Styling for Navbar */
+/* Highlight the active link */
+.navbar .nav-link.active p {
+    font-weight: bold;
+    color: #ff6600;/* Example active color */
+    /* text-decoration: underline;  */
+}
+
+
+
+.nav_bar {
+    background-color: #faf0e7; /* Dark background for the navbar */
+}
+
+.navbar_text_color {
+    color: #000000; /* Keep text white */
+    font-size: 1.1rem;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.navbar-brand img {
+    max-width: 50px;
+    max-height: 40px;
+}
+
+/* Navbar Links Styling */
+.nav-link {
+    font-size: 1.1rem;
+    padding: 10px;
+}
+
+.nav-link:hover {
+    color: #ffcc00 !important; /* Highlight on hover */
+}
+
+/* Mobile Toggle Button */
+.navbar-toggler {
+    border-color: transparent;
+}
+
+.navbar-toggler-icon {
+    background-color: #ffc107;
+    border-radius: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    .navbar-brand p {
+        font-size: 1.2rem;
+    }
+    .nav-link {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-brand p {
+        font-size: 1rem;
+    }
+    .nav-link {
+        font-size: 0.9rem;
+    }
+}

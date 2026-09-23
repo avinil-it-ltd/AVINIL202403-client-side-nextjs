@@ -154,6 +154,76 @@
   transform: translateX(4px);
 }
 
+/* Subcategory Filter Bar */
+.interior-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 6px 0 16px;
+  border-bottom: 1px solid #e7e3da;
+}
+
+.interior-subcat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  color: #3f4756;
+  border: 1px solid #dfd9ce;
+  border-radius: 9999px;
+  padding: 8px 18px;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(18, 19, 22, 0.04);
+}
+
+.interior-subcat-btn:hover {
+  background-color: #f7f5f0;
+  border-color: #c85a17;
+  color: #121316;
+  transform: translateY(-1px);
+}
+
+.interior-subcat-btn.active {
+  background-color: #121316;
+  border-color: #121316;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(18, 19, 22, 0.15);
+}
+
+.interior-subcat-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 9999px;
+  background-color: #ebe6dc;
+  color: #4b5563;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.interior-subcat-btn.active .interior-subcat-count {
+  background-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.interior-empty-state {
+  background: #ffffff;
+  border: 1px dashed #dfd9ce;
+  border-radius: 12px;
+  padding: 48px 24px;
+}
+
 /* Responsive */
 @media (max-width: 991px) {
   .editorial-title {
@@ -181,4 +251,24 @@
   .project-photo-frame {
     height: 210px;
   }
+
+  .interior-filter-bar {
+    gap: 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .interior-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .interior-subcat-btn {
+    white-space: nowrap;
+    padding: 7px 14px;
+    font-size: 0.8rem;
+  }
 }
+

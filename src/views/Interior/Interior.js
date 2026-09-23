@@ -12,6 +12,7 @@ import './interior.css';
 
 const Interior = () => {
   const [projects, setProjects] = useState([]);
+  const [selectedSubcategory, setSelectedSubcategory] = useState('All');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -32,6 +33,28 @@ const Interior = () => {
 
     fetchProjects();
   }, []);
+
+  // Dynamically extract unique subcategories from loaded projects with live counts
+  const subcategories = React.useMemo(() => {
+    const counts = {};
+    projects.forEach(p => {
+      const sub = p.subcategory || 'General';
+      counts[sub] = (counts[sub] || 0) + 1;
+    });
+    const list = [{ name: 'All', label: 'All Projects', count: projects.length }];
+    Object.keys(counts).sort().forEach(sub => {
+      list.push({ name: sub, label: sub, count: counts[sub] });
+    });
+    return list;
+  }, [projects]);
+
+  // Filter projects by active subcategory
+  const filteredProjects = React.useMemo(() => {
+    if (selectedSubcategory === 'All') return projects;
+    return projects.filter(
+      p => (p.subcategory || 'General').toLowerCase() === selectedSubcategory.toLowerCase()
+    );
+  }, [projects, selectedSubcategory]);
 
   const handleMoreDetails = (id) => {
     navigate(`/details/${id}`);
@@ -94,45 +117,78 @@ const Interior = () => {
             </p>
           </div>
 
-          <Row className="g-4">
-            {projects.map((project) => (
-              <Col lg={4} md={6} key={project._id} className="d-flex">
-                <div 
-                  className="project-editorial-card w-100"
-                  onClick={() => handleMoreDetails(project._id)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === 'Enter' && handleMoreDetails(project._id)}
+          {/* Subcategory Filter Bar */}
+          <div className="interior-filter-bar mb-4" role="tablist" aria-label="Filter projects by subcategory">
+            {subcategories.map((sub) => {
+              const isActive = selectedSubcategory.toLowerCase() === sub.name.toLowerCase();
+              return (
+                <button
+                  key={sub.name}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`interior-subcat-btn ${isActive ? 'active' : ''}`}
+                  onClick={() => setSelectedSubcategory(sub.name)}
                 >
-                  <div className="project-photo-frame">
-                    <img 
-                      src={project.mainImage} 
-                      alt={project.title} 
-                      className="project-photo" 
-                      loading="lazy"
-                    />
-                    <div className="project-tag-overlay">
-                      <span>{project.subcategory || 'Interior Architecture'}</span>
+                  <span className="interior-subcat-label">{sub.label}</span>
+                  <span className="interior-subcat-count">{sub.count}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {filteredProjects.length === 0 ? (
+            <div className="interior-empty-state text-center py-5">
+              <p className="text-muted m-0">No projects currently listed under "{selectedSubcategory}".</p>
+              <button 
+                type="button" 
+                className="btn btn-sm btn-outline-secondary mt-3 rounded-pill px-3"
+                onClick={() => setSelectedSubcategory('All')}
+              >
+                View All Projects
+              </button>
+            </div>
+          ) : (
+            <Row className="g-4">
+              {filteredProjects.map((project) => (
+                <Col lg={4} md={6} key={project._id} className="d-flex">
+                  <div 
+                    className="project-editorial-card w-100"
+                    onClick={() => handleMoreDetails(project._id)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && handleMoreDetails(project._id)}
+                  >
+                    <div className="project-photo-frame">
+                      <img 
+                        src={project.mainImage} 
+                        alt={project.title} 
+                        className="project-photo" 
+                        loading="lazy"
+                      />
+                      <div className="project-tag-overlay">
+                        <span>{project.subcategory || 'Interior Architecture'}</span>
+                      </div>
+                    </div>
+                    <div className="project-card-meta">
+                      <h3 className="project-card-title">{project.title}</h3>
+                      <p className="project-card-cat">{project.category}</p>
+                      <button 
+                        type="button" 
+                        className="project-detail-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleMoreDetails(project._id);
+                        }}
+                      >
+                        View Project Details &rarr;
+                      </button>
                     </div>
                   </div>
-                  <div className="project-card-meta">
-                    <h3 className="project-card-title">{project.title}</h3>
-                    <p className="project-card-cat">{project.category}</p>
-                    <button 
-                      type="button" 
-                      className="project-detail-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleMoreDetails(project._id);
-                      }}
-                    >
-                      View Project Details &rarr;
-                    </button>
-                  </div>
-                </div>
-              </Col>
-            ))}
-          </Row>
+                </Col>
+              ))}
+            </Row>
+          )}
         </Container>
       </section>
 

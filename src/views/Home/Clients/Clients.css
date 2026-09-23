@@ -8,7 +8,7 @@
 
 .clients-header {
   text-align: center;
-  margin-bottom: 45px;
+  margin-bottom: 40px;
 }
 
 .clients-eyebrow {
@@ -39,52 +39,52 @@
   line-height: 1.6;
 }
 
-/* Marquee wrapper */
+/* Marquee wrapper with generous vertical room for the glow shadows */
 .clients-marquee-wrapper {
   position: relative;
-  padding: 10px 0;
+  padding: 24px 0;
 }
 
-/* Client Card */
+/* Glowing Client Card */
 .client-logo-card {
   display: flex;
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  border: 1px solid rgba(220, 210, 200, 0.6);
-  border-radius: 12px;
-  padding: 14px 26px;
-  margin: 10px 14px;
-  height: 84px;
-  width: 190px;
-  min-width: 190px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+  border: 1.5px solid rgba(255, 140, 60, 0.72);
+  border-radius: 14px;
+  padding: 14px 24px;
+  margin: 12px 16px;
+  height: 88px;
+  width: 195px;
+  min-width: 195px;
+  box-shadow: 0 8px 24px rgba(255, 120, 30, 0.18), 0 2px 10px rgba(255, 140, 50, 0.12);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 }
 
 .client-logo-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(255, 102, 0, 0.12);
-  border-color: rgba(255, 102, 0, 0.4);
+  transform: translateY(-5px);
+  border-color: #ff6600;
+  box-shadow: 0 14px 34px rgba(255, 102, 0, 0.28), 0 0 20px rgba(255, 140, 60, 0.22);
 }
 
-/* Client Image */
+/* Client Image - crisp full color & uncropped */
 .client-logo-img {
-  max-width: 140px;
-  max-height: 52px;
+  max-width: 145px;
+  max-height: 54px;
   width: auto;
   height: auto;
   object-fit: contain !important;
-  filter: grayscale(100%) opacity(0.7);
+  filter: none;
+  opacity: 1;
   mix-blend-mode: multiply;
-  transition: all 0.35s ease;
+  transition: transform 0.35s ease;
   user-select: none;
 }
 
 .client-logo-card:hover .client-logo-img {
-  filter: grayscale(0%) opacity(1);
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 /* Responsive */
@@ -102,16 +102,21 @@
     padding: 0 15px;
   }
 
+  .clients-marquee-wrapper {
+    padding: 16px 0;
+  }
+
   .client-logo-card {
-    height: 72px;
-    width: 155px;
-    min-width: 155px;
+    height: 74px;
+    width: 160px;
+    min-width: 160px;
     padding: 10px 18px;
     margin: 8px 10px;
+    box-shadow: 0 6px 18px rgba(255, 120, 30, 0.16);
   }
 
   .client-logo-img {
-    max-width: 115px;
-    max-height: 42px;
+    max-width: 120px;
+    max-height: 44px;
   }
 }

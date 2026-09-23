@@ -21,10 +21,24 @@ const IndexHome = () => {
   const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setModalShow(true);
-    }, 4500);
-    return () => clearTimeout(timer);
+    // Show consultation modal at most once per 24 hours per device
+    if (typeof window !== 'undefined') {
+      try {
+        const lastShown = localStorage.getItem('3p_contact_modal_last_shown');
+        const now = Date.now();
+        const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+
+        if (!lastShown || now - parseInt(lastShown, 10) > ONE_DAY_MS) {
+          const timer = setTimeout(() => {
+            setModalShow(true);
+            localStorage.setItem('3p_contact_modal_last_shown', String(Date.now()));
+          }, 4500);
+          return () => clearTimeout(timer);
+        }
+      } catch (err) {
+        console.error('Error with contact modal frequency check:', err);
+      }
+    }
   }, []);
 
   return (

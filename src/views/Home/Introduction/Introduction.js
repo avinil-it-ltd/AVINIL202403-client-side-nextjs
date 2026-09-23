@@ -15,15 +15,15 @@ function Introduction() {
         {/* Row 1: Interior Focus */}
         <Row className="align-items-center g-5 mb-5 pb-lg-4">
           <Col lg={6} md={12} className="intro-text-col">
-            <span className="intro-eyebrow">01 / INTERIOR ARCHITECTURE &amp; FITOUTS</span>
+            <span className="intro-eyebrow">01 / INTERIOR DESIGN &amp; FITOUTS</span>
             <h2 className="intro-title">
-              Bespoke Spaces Crafted with Purpose &amp; Tactile Rigor
+              Beautiful Spaces Designed with Quality &amp; Care
             </h2>
             <p className="intro-body">
-              At 3P Communication, interior architecture is treated as a physical extension of living. We synthesize spatial flow, natural daylighting, and custom joinery to craft residences and workplaces that balance comfort with lasting aesthetic poise.
+              At 3P Communication, we believe good interior design makes everyday life and work better. We combine smart room layouts, pleasant natural light, and custom wooden furniture to create homes and offices that feel welcoming, practical, and durable.
             </p>
             <p className="intro-body">
-              From our dedicated woodworking shop in Dhaka, our master craftsmen produce tailored cabinetry, acoustic paneling, and architectural finishes under rigorous on-site project management.
+              From our dedicated furniture workshop in Dhaka, our skilled carpenters produce custom cabinets, wall panels, and interior finishes with strict on-site quality control.
             </p>
             <div className="pt-2">
               <Link href="/interior" className="intro-action-link">
@@ -42,7 +42,7 @@ function Introduction() {
                 loading="lazy"
               />
               <div className="intro-image-caption">
-                <span>Modern Residential Interior • Turnkey Millwork Execution</span>
+                <span>Modern Residential &amp; Office Interior Design</span>
               </div>
             </div>
           </Col>
@@ -51,15 +51,15 @@ function Introduction() {
         {/* Row 2: Exterior Focus */}
         <Row className="align-items-center g-5 flex-lg-row-reverse pt-lg-4">
           <Col lg={6} md={12} className="intro-text-col">
-            <span className="intro-eyebrow">02 / EXTERIOR FAÇADES &amp; CIVIL ENGINEERING</span>
+            <span className="intro-eyebrow">02 / EXTERIOR FAÇADES &amp; CONSTRUCTION</span>
             <h2 className="intro-title">
-              Enduring Structural Envelopes Built for Bangladesh's Climate
+              Durable Building Facades Built for Bangladesh's Climate
             </h2>
             <p className="intro-body">
-              An architectural envelope must resist tropical weather while asserting an iconic civic presence. We engineer building elevations using weatherproof composite cladding, precision aluminum louvers, and structural glazing.
+              Building exteriors must handle heavy rain and tropical heat while looking modern and impressive. We design and install durable building elevations using weather-resistant cladding, aluminum louvers, and modern glasswork.
             </p>
             <p className="intro-body">
-              Our turnkey civil team handles boundary gate architecture, facade retrofitting, and structural landscaping with meticulous waterproofing and safety standards.
+              Our experienced team handles main gates, building exterior renovations, and front landscaping with proper waterproofing and safety standards.
             </p>
             <div className="pt-2">
               <Link href="/exterior" className="intro-action-link">

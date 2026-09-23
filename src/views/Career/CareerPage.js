@@ -15,12 +15,12 @@ import './CSS/CareerPage.css';
 
 const MANIFESTO = [
   {
-    index: "01 / TACTILE RIGOR",
+    index: "01 / QUALITY MATERIALS",
     title: "Materials Over Gimmicks",
-    body: "We design for human touch, daylight, spatial acoustic balance, and genuine physical durability — not fleeting 3D screen illusions."
+    body: "We design for real people, natural daylight, comfortable acoustics, and lasting physical durability — not just nice 3D renders."
   },
   {
-    index: "02 / TURNKEY OWNERSHIP",
+    index: "02 / REAL PROJECT EXPERIENCE",
     title: "From Sketch to Handover",
     body: "Our designers don't just sit behind desks. You work directly with master carpenters, metal fabricators, and site engineers on live construction sites."
   },
@@ -79,13 +79,13 @@ const CareerPage = () => {
             {/* Left: Manifesto Headline */}
             <div className="col-12 col-lg-7">
               <div className="hero-micro-label">
-                3P Communication Atelier &bull; Recruitment &bull; Dhaka
+                3P Communication &bull; Careers &bull; Dhaka
               </div>
               <h1 className="hero-editorial-headline">
                 Crafting Spaces That Endure.
               </h1>
               <p className="hero-editorial-subtext">
-                We are assembling a deliberate, multidisciplinary collective of interior architects, visualizers, and project supervisors who take genuine pride in craftsmanship, materials, and built environments.
+                We are building a talented team of interior designers, 3D visualizers, and site supervisors who take genuine pride in craftsmanship, quality materials, and great spaces.
               </p>
               <div className="hero-telemetry-strip">
                 <div className="telemetry-item">
@@ -103,7 +103,7 @@ const CareerPage = () => {
               <div className="hero-visual-frame">
                 <img
                   src={studioPhoto?.src || studioPhoto}
-                  alt="3P Communication Design Atelier"
+                  alt="3P Communication Design Office"
                   className="hero-visual-img"
                 />
                 <div className="hero-visual-caption">
@@ -144,7 +144,7 @@ const CareerPage = () => {
           <div className="directory-header-row">
             <div>
               <span className="manifesto-section-num">Available Opportunities</span>
-              <h2 className="directory-title">Open Atelier Positions</h2>
+              <h2 className="directory-title">Open Positions</h2>
             </div>
             <div>
               <input
@@ -179,7 +179,7 @@ const CareerPage = () => {
                     <div className="row-primary-cell">
                       <h3 className="row-job-title">{career.title}</h3>
                       <span className="row-job-category">
-                        {career.employmentStatus || 'Full-Time'} &bull; Interior &amp; Exterior Atelier
+                        {career.employmentStatus || 'Full-Time'} &bull; Interior &amp; Exterior Design
                       </span>
                     </div>
 

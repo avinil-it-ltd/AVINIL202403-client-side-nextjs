@@ -72,12 +72,12 @@ function Testimonial() {
           {/* Right: Editorial Context */}
           <Col lg={7} md={12}>
             <div className="testimonial-header-content">
-              <span className="testimonial-eyebrow">CLIENT ENDORSEMENTS</span>
+              <span className="testimonial-eyebrow">CLIENT FEEDBACK</span>
               <h2 className="testimonial-title">
-                Trusted by Homeowners &amp; Leading Corporations
+                Trusted by Homeowners &amp; Corporate Clients
               </h2>
               <p className="testimonial-desc">
-                Our clients value our disciplined adherence to transparent BOQ budgeting, durable natural materials, and stress-free turnkey execution across Bangladesh.
+                Our clients trust us for clear pricing, durable materials, clean finishing, and reliable on-time handover across Bangladesh.
               </p>
               <div className="testimonial-cta-row">
                 <Link href="/interior" className="testimonial-explore-btn">

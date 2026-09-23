@@ -8,20 +8,20 @@ import './FAQ.css';
 
 const defaultFaqs = [
   {
-    question: "What is your turnkey delivery process?",
-    answer: "Our turnkey service encompasses initial spatial 3D visualization, material specification, civil construction, custom workshop joinery, and final quality snagging with a single accountable point of contact."
+    question: "What is your complete design and setup process?",
+    answer: "We handle the entire project from start to finish: initial 3D design, material selection, electrical and civil work, custom furniture making in our workshop, and final quality inspection before handing over the keys."
   },
   {
     question: "How do you estimate project budgets and timelines?",
-    answer: "Following the initial site audit, we prepare an itemized Bill of Quantities (BOQ) with transparent material costs, labor schedules, and committed completion milestones before any construction commences."
+    answer: "Following the site visit, we prepare a clear, itemized cost estimate with transparent material prices, labor costs, and committed delivery milestones before any work begins."
   },
   {
-    question: "Do you manufacture bespoke furniture and millwork in-house?",
-    answer: "Yes. 3P Communication operates a dedicated carpentry and joinery workshop in Dhaka, ensuring strict quality control over wood treatment, hardware precision, and custom finishings."
+    question: "Do you make custom furniture in your own workshop?",
+    answer: "Yes. 3P Communication operates a dedicated carpentry and woodworking workshop in Dhaka. This ensures high quality wood treatment, precise fittings, and durable finishing."
   },
   {
-    question: "Can we visit past completed projects or your atelier?",
-    answer: "Absolutely. We welcome clients to our studio at Asad Gate, Mohammadpur to inspect material samples and review working architectural drawings, as well as schedule visits to ongoing site works."
+    question: "Can we visit your office or see ongoing project sites?",
+    answer: "Absolutely. We welcome you to our office at Asad Gate, Mohammadpur, Dhaka to check material samples, view designs, and schedule visits to completed or ongoing project sites."
   }
 ];
 
@@ -57,12 +57,12 @@ function FAQ() {
           {/* Left Column: FAQ Accordion */}
           <Col lg={7}>
             <div className="faq-section-header mb-4">
-              <span className="faq-eyebrow">SPECIFICATIONS & TRANSPARENCY</span>
+              <span className="faq-eyebrow">QUESTIONS &amp; ANSWERS</span>
               <h2 className="faq-main-title">
-                Frequently Inquired Questions
+                Frequently Asked Questions
               </h2>
               <p className="faq-lead-text">
-                Direct insights regarding our architectural methodology, material specifications, transparent BOQ pricing, and turnkey delivery.
+                Clear answers about our design process, pricing, materials, and project timelines.
               </p>
             </div>
 
@@ -110,7 +110,7 @@ function FAQ() {
               <div className="faq-photo-caption">
                 <div className="caption-marker"></div>
                 <div className="caption-text">
-                  <strong>3P Studio Atelier</strong> — Asad Gate, Mohammadpur, Dhaka. Material samples & working CAD drawings.
+                  <strong>3P Design Office</strong> — Asad Gate, Mohammadpur, Dhaka. Material samples & floor plan consultations.
                 </div>
               </div>
             </div>

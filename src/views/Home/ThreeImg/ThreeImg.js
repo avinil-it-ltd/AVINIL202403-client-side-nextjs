@@ -12,33 +12,33 @@ import './ThreeImg.css';
 const featureCards = [
   {
     id: 1,
-    number: '01 / INNOVATION',
-    title: 'Interior Design For The Future',
-    subtitle: 'Contemporary Living',
-    description: 'Crafting bespoke, future-ready living spaces that integrate sustainable elegance and contemporary residential aesthetics.',
+    number: '01 / RESIDENTIAL',
+    title: 'Modern Living Rooms & Bedrooms',
+    subtitle: 'Comfortable Homes',
+    description: 'Designing beautiful, relaxing home interiors with warm lighting, functional storage, and durable materials.',
     image: imgFuture.src || imgFuture,
     link: '/interior',
-    actionText: 'Explore Interior'
+    actionText: 'Explore Home Interiors'
   },
   {
     id: 2,
     number: '02 / WORKPLACE',
-    title: 'Executive Office & Corporate Interiors',
-    subtitle: 'High-Efficiency Workspaces',
-    description: 'Acoustic zoning, ergonomic corporate suites, and monumental executive boardrooms engineered for productivity and modern enterprise culture.',
+    title: 'Modern Office & Commercial Interiors',
+    subtitle: 'Productive Workspaces',
+    description: 'Workstations, conference rooms, and private cabins designed for everyday comfort, team focus, and professional presentation.',
     image: imgErgonomic.src || imgErgonomic,
     link: '/interior?sub=Office',
     actionText: 'Explore Office Portfolio'
   },
   {
     id: 3,
-    number: '03 / SPATIAL VISION',
-    title: 'Introduce Vision To Your Space',
-    subtitle: 'Transformative Design',
-    description: 'Elevating environments with dramatic architectural lighting, sculptural forms, and transformative spatial flow.',
+    number: '03 / LIGHTING & DETAILS',
+    title: 'Creative Ceiling & Wall Design',
+    subtitle: 'Clean Finishing',
+    description: 'Enhancing every room with hidden warm ceiling lights, modern wooden wall panels, and open, clutter-free layouts.',
     image: imgVision.src || imgVision,
     link: '/interior',
-    actionText: 'View Portfolio'
+    actionText: 'View Interior Projects'
   }
 ];
 
@@ -49,13 +49,13 @@ function ThreeImg() {
         {/* Section Header */}
         <div className="three-img-header text-center mb-5">
           <div className="three-img-eyebrow">
-            SPATIAL RIGOR & MATERIAL HONESTY
+            QUALITY CRAFTSMANSHIP & HONEST PRICING
           </div>
           <h2 className="three-img-main-title">
-            Spaces Conceived for Human Living
+            Spaces Designed for Real Life &amp; Work
           </h2>
           <p className="three-img-subtitle">
-            Harmonizing structural acoustics, natural illumination, and bespoke millwork craftsmanship across residential and corporate environments.
+            Combining smart room layouts, natural lighting, and custom wooden furniture for homes and office spaces across Bangladesh.
           </p>
         </div>
 

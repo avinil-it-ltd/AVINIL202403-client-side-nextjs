@@ -57,7 +57,7 @@ const Event = () => {
               <div className="editorial-bio-frame">
                 <img 
                   src={bioImg?.src || bioImg} 
-                  alt="3P Communication Stage & Event Scenography" 
+                  alt="3P Communication Stage & Event Setup" 
                   className="editorial-bio-img" 
                 />
               </div>
@@ -66,13 +66,13 @@ const Event = () => {
               <div className="editorial-bio-content">
                 <span className="editorial-eyebrow">03 / STAGE &amp; EVENT PRODUCTIONS</span>
                 <h1 className="editorial-title">
-                  Experiential Scenography &amp; Monumental Event Stages
+                  Modern Event Stages &amp; Corporate Exhibitions
                 </h1>
                 <p className="editorial-lead">
-                  Live corporate environments require architectural grandeur executed with absolute structural precision. At 3P Communication, we design and build immersive stages, exhibition pavilions, and corporate AGM venues that elevate brand authority.
+                  A successful event needs an impressive stage and reliable setup. At 3P Communication, we design and build custom stages, exhibition pavilions, and corporate AGM venues that make your brand stand out.
                 </p>
                 <p className="editorial-text">
-                  From high-security corporate conventions to monumental brand reveals across Bangladesh, our in-house staging engineers coordinate trussing, architectural lighting arrays, high-resolution LED backdrops, and acoustic calibration under zero-margin timelines.
+                  From annual general meetings (AGMs) to product launches and brand events across Bangladesh, our production team handles trussing, stage lighting, high-resolution LED screens, and sound setup delivered on schedule.
                 </p>
               </div>
             </Col>

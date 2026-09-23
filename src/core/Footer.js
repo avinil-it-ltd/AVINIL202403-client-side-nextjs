@@ -105,7 +105,7 @@ const Footer = () => {
             </div>
 
             <p className="footer-brand-bio">
-              Pioneering luxury interior architecture, bespoke exterior facades, and experiential event production across Bangladesh. Transforming vision into iconic spaces.
+              Modern interior design, building exterior facades, and corporate event stage setup across Bangladesh. Delivering quality work on time.
             </p>
 
             <a 
@@ -174,7 +174,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link href="/interior" className="footer-nav-link">
-                  Turnkey Execution
+                  Full Setup &amp; Execution
                 </Link>
               </li>
             </ul>

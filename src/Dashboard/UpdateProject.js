@@ -420,7 +420,7 @@ const UpdateProject = ({ projectId }) => {
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline-info rounded-3 d-inline-flex align-items-center gap-2"
-            title="Open Live Public Monograph View"
+            title="Open Live Public Project View"
           >
             <FaExternalLinkAlt /> Live Showcase
           </a>
@@ -603,9 +603,9 @@ const UpdateProject = ({ projectId }) => {
                   <FaAlignLeft />
                 </div>
                 <div>
-                  <h5 className="m-0 fw-bold">Architectural Narrative & Case Study</h5>
+                  <h5 className="m-0 fw-bold">Project Description &amp; Details</h5>
                   <small className="text-muted">
-                    Describe design concepts, spatial flow, lighting strategy, and materials
+                    Describe the design concept, room layout, lighting, and materials used
                   </small>
                 </div>
               </div>
@@ -615,7 +615,7 @@ const UpdateProject = ({ projectId }) => {
                   theme="snow"
                   value={project.description}
                   onChange={handleDescriptionChange}
-                  placeholder="Draft architectural overview, key features, and material specifications..."
+                  placeholder="Write project overview, key features, and material details..."
                   style={{ minHeight: '200px' }}
                 />
               </div>

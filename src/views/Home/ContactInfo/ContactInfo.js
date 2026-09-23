@@ -47,12 +47,12 @@ function ContactInfo() {
             {/* Header / Intro Column */}
             <Col lg={4} md={12}>
               <div className="contact-strip-header">
-                <span className="contact-strip-eyebrow">DIRECT STUDIO LINE</span>
+                <span className="contact-strip-eyebrow">GET IN TOUCH</span>
                 <h3 className="contact-strip-title">
-                  Initiate a Project Consultation
+                  Talk to Our Design Team
                 </h3>
                 <p className="contact-strip-desc">
-                  Have architectural drawings or an upcoming commercial fitout? Connect with our project directors directly.
+                  Planning an office or home interior? Connect with our team today for a free project estimate.
                 </p>
                 <button 
                   type="button" 
@@ -138,9 +138,9 @@ function ContactInfo() {
                       <FaMapMarkerAlt />
                     </div>
                     <div className="touch-card-info">
-                      <div className="touch-card-label">VISIT OUR ATELIER</div>
+                      <div className="touch-card-label">VISIT OUR OFFICE</div>
                       <div className="touch-card-value">Asad Gate, Dhaka</div>
-                      <div className="touch-card-sub">CAD review & material library</div>
+                      <div className="touch-card-sub">Design consultation & material samples</div>
                     </div>
                     <FaArrowRight className="touch-card-arrow" />
                   </Link>

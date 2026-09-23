@@ -12,32 +12,32 @@ import './Services.css';
 const disciplines = [
   {
     id: 'interior',
-    index: '01 / INTERIOR ARCHITECTURE',
-    title: 'Residential & Commercial Living',
-    tagline: 'Custom Millwork & Turnkey Fitouts',
-    description: 'Bespoke apartment interiors, executive office workspaces, modular kitchen joinery, and architectural ambient lighting.',
+    index: '01 / INTERIOR DESIGN',
+    title: 'Homes & Corporate Workplaces',
+    tagline: 'Custom Furniture & Complete Interior Setup',
+    description: 'Modern apartment interiors, corporate office setups, custom kitchen cabinets, and stylish room lighting.',
     image: imgInterior.src || imgInterior,
     link: '/interior',
-    scope: ['Luxury Apartments', 'Corporate Offices', 'Joinery Fabrication', 'Lighting Design'],
+    scope: ['Modern Apartments', 'Corporate Offices', 'Custom Furniture', 'Ceiling & Lighting'],
     cta: 'Explore Interior Projects'
   },
   {
     id: 'exterior',
     index: '02 / EXTERIOR & FAÇADES',
-    title: 'Architectural Envelopes & Elevations',
-    tagline: 'Modern Facades & Civil Craft',
-    description: 'Contemporary building front elevations, weatherproof composite cladding, custom gate architecture, and structural landscaping.',
+    title: 'Modern Elevations & Building Fronts',
+    tagline: 'Building Facades & Exterior Design',
+    description: 'Modern building front elevations, weather-resistant wall panels, decorative main gates, and front landscaping.',
     image: imgExterior.src || imgExterior,
     link: '/exterior',
-    scope: ['Modern Elevations', 'Glass & Louver Facades', 'Gate Architecture', 'Landscape Integration'],
+    scope: ['Building Elevations', 'Glass & Louver Work', 'Main Gate Design', 'Front Landscaping'],
     cta: 'Explore Exterior Projects'
   },
   {
     id: 'event',
-    index: '03 / STAGE & EVENT PRODUCTIONS',
-    title: 'Experiential Brand Scenography',
-    tagline: 'Corporate Productions & Pavilions',
-    description: 'High-impact corporate AGMs, monumental exhibition stalls, brand launches, and structural stage engineering.',
+    index: '03 / EVENTS & BRAND STAGES',
+    title: 'Corporate Events & Exhibition Stalls',
+    tagline: 'Stage Setup & Event Design',
+    description: 'Corporate AGMs, creative exhibition stalls, product launches, and strong stage setups built on schedule.',
     image: imgEvent.src || imgEvent,
     link: '/event',
     scope: ['Corporate AGMs', 'Exhibition Pavilions', 'Brand Activations', 'Stage Engineering'],
@@ -51,12 +51,12 @@ function Services() {
       <Container className="py-4">
         {/* Section Header */}
         <div className="services-section-header mb-5">
-          <div className="services-eyebrow">CORE DESIGN DISCIPLINES</div>
+          <div className="services-eyebrow">OUR CORE SERVICES</div>
           <h2 className="services-main-title">
-            Crafted for Living, Structure, and Experience.
+            Interior, Exterior, and Event Design Services
           </h2>
           <p className="services-lead-text">
-            Three dedicated divisions executing turnkey design with rigorous attention to honest materials, structural safety, and lasting aesthetic poise across Bangladesh.
+            Three dedicated service teams providing complete design and execution with quality materials, safe construction, and reliable support across Bangladesh.
           </p>
         </div>
 

@@ -9,18 +9,18 @@ import './Banner.css';
 
 const DEFAULT_HERO = {
   bgImage: '',
-  provenance: 'DHAKA ARCHITECTURAL ATELIER • COMMERCIAL & RESIDENTIAL',
-  title: 'Architecture for Living. Workplaces Crafted with Purpose.',
-  subtitle: 'Turnkey corporate office interiors, bespoke executive headquarters, and luxury residential living spaces engineered with ergonomic spatial flow, acoustic zoning, and disciplined timelines.',
-  primaryCtaText: 'Explore Disciplines',
+  provenance: '3P COMMUNICATION • INTERIOR & EXTERIOR DESIGN • DHAKA',
+  title: 'Modern Office & Home Interior Design in Dhaka',
+  subtitle: 'Complete office interiors, modern corporate workplaces, and comfortable home design — crafted with quality materials and delivered on time.',
+  primaryCtaText: 'View Our Projects',
   primaryCtaLink: '#services',
-  secondaryCtaText: 'Book Consultation',
+  secondaryCtaText: 'Book Free Consultation',
   metric1Number: '10+ Years',
-  metric1Label: 'Turnkey Delivery',
+  metric1Label: 'Design Experience',
   metric2Number: '100+ Projects',
   metric2Label: 'Completed Across BD',
   metric3Number: 'In-House',
-  metric3Label: 'Joinery Workshop'
+  metric3Label: 'Furniture Workshop'
 };
 
 function Banner() {
@@ -33,7 +33,21 @@ function Banner() {
         const saved = localStorage.getItem('3p_hero_settings');
         if (saved) {
           const parsed = JSON.parse(saved);
+          // If stored settings contain old jargon, clean them up
+          if (parsed.subtitle && (parsed.subtitle.includes('Turnkey') || parsed.subtitle.includes('spatial') || parsed.subtitle.includes('bespoke'))) {
+            parsed.subtitle = DEFAULT_HERO.subtitle;
+          }
+          if (parsed.provenance && parsed.provenance.includes('ATELIER')) {
+            parsed.provenance = DEFAULT_HERO.provenance;
+          }
+          if (parsed.metric1Label && parsed.metric1Label.includes('Turnkey')) {
+            parsed.metric1Label = DEFAULT_HERO.metric1Label;
+          }
+          if (parsed.metric3Label && parsed.metric3Label.includes('Joinery')) {
+            parsed.metric3Label = DEFAULT_HERO.metric3Label;
+          }
           setHeroData((prev) => ({ ...prev, ...parsed }));
+          localStorage.setItem('3p_hero_settings', JSON.stringify({ ...DEFAULT_HERO, ...parsed }));
         }
       } catch (err) {
         console.error('Failed reading hero settings from storage:', err);

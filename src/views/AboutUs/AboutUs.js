@@ -21,9 +21,9 @@ const DISCIPLINES_TRIPTYCH = [
     index: "01 / INTERIOR",
     title: "Interior Architecture & Styling",
     image: heroSpacePhoto,
-    desc: "Bespoke residential sanctuaries, luxury duplex homes, executive corporate suites, and experiential retail environments crafted with harmonious materials and refined lighting.",
+    desc: "Modern homes, duplex apartments, executive corporate suites, and retail environments designed with quality materials and refined lighting.",
     specs: [
-      "Custom Millwork & Living Ergonomics",
+      "Custom Furniture & Living Space Design",
       "Modular Kitchens & Acoustic Ceilings",
       "Full Material & FF&E Procurement"
     ]
@@ -32,7 +32,7 @@ const DISCIPLINES_TRIPTYCH = [
     index: "02 / EXTERIOR",
     title: "Exterior & Facade Engineering",
     image: exteriorPhoto,
-    desc: "Monumental building facades, commercial entrance landmarks, and landscape architectural integrations engineered to withstand weathering while projecting bold modern identity.",
+    desc: "Modern building facades, main entrance gates, and front landscaping built to handle weather while giving buildings a clean, bold look.",
     specs: [
       "Modern Facade Cladding & Glass Paneling",
       "Architectural Canopy & Gate Architecture",
@@ -41,13 +41,13 @@ const DISCIPLINES_TRIPTYCH = [
   },
   {
     index: "03 / EVENTS",
-    title: "Event Scenography & Production",
+    title: "Event Stages & Production",
     image: eventPhoto,
-    desc: "High-caliber corporate summits, brand activations, international expo pavilions, and thematic stages executed with uncompromising theatrical and acoustic precision.",
+    desc: "Corporate conferences, brand launch events, exhibition pavilions, and custom stage setups built with strong structures and clear sound.",
     specs: [
       "Structural Truss & Custom Stage Fabrication",
       "Smart Interactive Visual AV Integration",
-      "Turnkey Production & Protocol Coordination"
+      "Complete Event Setup & Management"
     ]
   }
 ];
@@ -70,13 +70,13 @@ const ARCHITECTURAL_STANDARDS = [
   },
   {
     num: "04",
-    title: "End-to-End Turnkey Execution",
-    desc: "From initial demolition and masonry to final lighting polish and handover, we handle every permit and site coordination detail."
+    title: "Complete Setup From Start to Finish",
+    desc: "From initial civil and masonry work to final lighting, cleaning, and key handover, we manage every on-site detail."
   },
   {
     num: "05",
-    title: "Rigorous Handover Timelines",
-    desc: "Disciplined project schedules and daily site progress logs guarantee you receive your keys on the contractually agreed date."
+    title: "Reliable On-Time Handover",
+    desc: "Clear work schedules and daily site progress updates guarantee you receive your keys on the agreed date."
   },
   {
     num: "06",
@@ -161,13 +161,13 @@ const AboutUs = () => {
               <div className="about-hero-visual-card">
                 <img
                   src={heroSpacePhoto?.src || heroSpacePhoto}
-                  alt="3P Communication Spatial Philosophy"
+                  alt="3P Communication Design Studio"
                   className="about-hero-img"
                 />
                 <div className="about-hero-caption">
                   <div>
-                    <p className="about-caption-title">3P Communication Design Atelier</p>
-                    <span className="about-caption-sub">Spatial Architecture &bull; Dhaka, Bangladesh</span>
+                    <p className="about-caption-title">3P Communication Design Studio</p>
+                    <span className="about-caption-sub">Interior &bull; Exterior &bull; Dhaka, Bangladesh</span>
                   </div>
                 </div>
               </div>
@@ -341,9 +341,9 @@ const AboutUs = () => {
         <div className="container">
           <div className="about-consult-card">
             <div>
-              <h3 className="consult-title">Ready to Review Your Space with Our Architects?</h3>
+              <h3 className="consult-title">Ready to Discuss Your Project with Us?</h3>
               <p className="consult-desc">
-                Visit our design studio at Asad Avenue, Mohammadpur, Dhaka, or schedule a consultation with our senior project team to review your architectural drawings, spatial layouts, and budget parameters.
+                Visit our design office at Asad Avenue, Mohammadpur, Dhaka, or schedule a consultation with our team to review your floor plans, room layouts, and project budget estimate.
               </p>
             </div>
             <div className="consult-actions">

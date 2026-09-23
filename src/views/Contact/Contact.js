@@ -23,7 +23,7 @@ const DISCIPLINES = [
   "Commercial / Office",
   "Building Exterior Facade",
   "Corporate Event Production",
-  "Full Turnkey Fit-out"
+  "Complete Interior Fit-out"
 ];
 
 const Contact = () => {
@@ -91,8 +91,8 @@ const Contact = () => {
       if (response.status === 201 || response.status === 200) {
         Swal.fire({
           icon: "success",
-          title: "Project Brief Received",
-          text: "Thank you. One of our project architects will review your drawings/scope and contact you within 24 hours.",
+          title: "Message Received",
+          text: "Thank you. Our design team will review your project details and contact you within 24 hours.",
           confirmButtonColor: "#141414",
           background: "#ffffff",
         });
@@ -107,8 +107,8 @@ const Contact = () => {
       console.error("Contact submission error:", err);
       Swal.fire({
         icon: "error",
-        title: "Transmission Error",
-        text: "We could not transmit your brief online. Please contact our studio directly at " + contactDetails.mobile,
+        title: "Sending Failed",
+        text: "Could not send your message online. Please call us directly at " + contactDetails.mobile,
         confirmButtonColor: "#141414",
       });
     } finally {
@@ -125,13 +125,13 @@ const Contact = () => {
         <div className="container">
           <div className="hero-content-col">
             <div className="contact-micro-tag">
-              3P Communication &bull; Studio Consultation &bull; Dhaka
+              3P Communication &bull; Design Consultation &bull; Dhaka
             </div>
             <h1 className="contact-editorial-headline">
-              Initiate a Project. Visit Our Studio.
+              Start a Project. Visit Our Office.
             </h1>
             <p className="contact-editorial-subtext">
-              Whether you are planning a residential renovation, corporate office fit-out, building exterior facade, or an upcoming event in Dhaka — let's review your floor plans, budget parameters, and timeline together.
+              Whether you are planning a home renovation, corporate office setup, building exterior facade, or an upcoming event in Dhaka — let's review your floor plans, budget, and timeline together.
             </p>
             <div className="contact-telemetry-strip">
               <div className="contact-telemetry-item">
@@ -158,12 +158,12 @@ const Contact = () => {
                 {/* The Design Studio Card */}
                 <div className="studio-info-card">
                   <span className="studio-card-tag">Principal Design Office</span>
-                  <h3 className="studio-card-title">Our Atelier &amp; Meeting Space</h3>
+                  <h3 className="studio-card-title">Our Office &amp; Meeting Space</h3>
                   <p className="studio-address-text">
                     {contactDetails.address}
                   </p>
                   <p className="small text-muted mb-3">
-                    Walk-ins and scheduled appointments welcome. Bring your AutoCAD drawings or sketch blueprints for an immediate on-the-spot review with our senior architects.
+                    Walk-ins and scheduled appointments welcome. Bring your floor plans or drawings for an immediate review with our design team.
                   </p>
                   <div className="studio-hours-row">
                     <FaClock className="text-secondary" />
@@ -342,10 +342,10 @@ const Contact = () => {
 
                   {/* Project Scope & Requirements */}
                   <div className="brief-field-group">
-                    <label className="brief-field-label">Project Scope &amp; Aspirations *</label>
+                    <label className="brief-field-label">Project Details &amp; Requirements *</label>
                     <textarea
                       className="brief-textarea"
-                      placeholder="Outline your spatial goals, number of rooms, target start date, material preferences, or architectural vision..."
+                      placeholder="Tell us about your project, number of rooms or workstations, target start date, material preferences, or ideas..."
                       rows="4"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
@@ -360,10 +360,10 @@ const Contact = () => {
                     disabled={submitting}
                   >
                     {submitting ? (
-                      <span>Transmitting Project Brief...</span>
+                      <span>Sending Message...</span>
                     ) : (
                       <>
-                        <span>Submit Project Brief</span>
+                        <span>Send Inquiry</span>
                         <FaArrowRight />
                       </>
                     )}

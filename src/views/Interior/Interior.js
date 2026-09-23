@@ -117,15 +117,15 @@ const Interior = () => {
             </Col>
             <Col lg={6}>
               <div className="editorial-bio-content">
-                <span className="editorial-eyebrow">01 / INTERIOR ARCHITECTURE</span>
+                <span className="editorial-eyebrow">01 / INTERIOR DESIGN</span>
                 <h1 className="editorial-title">
-                  Bespoke Living Spaces &amp; Commercial Workplaces
+                  Modern Living Spaces &amp; Commercial Workplaces
                 </h1>
                 <p className="editorial-lead">
-                  Every room tells a story of spatial harmony. At 3P Communication, our interior architects synthesize ergonomic movement, natural illumination, and custom timber joinery to create environments of effortless poise.
+                  Every room should be comfortable, functional, and beautiful. At 3P Communication, our interior designers combine smart room layouts, natural light, and custom wooden furniture to create spaces you love living and working in.
                 </p>
                 <p className="editorial-text">
-                  From luxury residences in Gulshan, Banani, and Uttara to high-efficiency corporate headquarters across Dhaka, our in-house millwork workshop delivers exact joinery tolerances with zero guesswork.
+                  From apartments and houses in Gulshan, Banani, and Uttara to corporate office setups across Dhaka, our in-house furniture workshop ensures clean finishing and exact measurements with zero guesswork.
                 </p>
               </div>
             </Col>

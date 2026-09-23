@@ -122,20 +122,20 @@ function ProjectsDetails() {
   // Back link category destination
   const backRoute = useMemo(() => {
     const cat = (project?.category || '').toLowerCase();
-    if (cat.includes('exterior')) return { label: 'Exterior Architecture', href: '/exterior' };
-    if (cat.includes('event')) return { label: 'Event Scenography', href: '/event' };
-    return { label: 'Interior Architecture', href: '/interior' };
+    if (cat.includes('exterior')) return { label: 'Exterior Design', href: '/exterior' };
+    if (cat.includes('event')) return { label: 'Event & Stage Design', href: '/event' };
+    return { label: 'Interior Design', href: '/interior' };
   }, [project?.category]);
 
   // Format dates cleanly
   const formatPeriod = (start, end) => {
-    if (!start && !end) return 'Turnkey Delivery';
+    if (!start && !end) return 'Completed Project';
     try {
       const s = start ? new Date(start).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '';
       const e = end ? new Date(end).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Present';
       return s ? `${s} — ${e}` : e;
     } catch {
-      return 'Turnkey Delivery';
+      return 'Completed Project';
     }
   };
 
@@ -145,7 +145,7 @@ function ProjectsDetails() {
         <TopMenu />
         <Container className="text-center py-5 my-5">
           <Spinner animation="border" variant="warning" className="mb-3" />
-          <p className="text-muted">Loading architectural archive monograph...</p>
+          <p className="text-muted">Loading project details...</p>
         </Container>
         <Footer />
       </div>
@@ -157,8 +157,8 @@ function ProjectsDetails() {
       <div className="project-details-root">
         <TopMenu />
         <Container className="text-center py-5 my-5">
-          <h2 className="mb-3" style={{ fontFamily: 'Cinzel, serif' }}>Project Not Located</h2>
-          <p className="text-muted mb-4">The architectural monograph you are seeking may have been archived or reassigned.</p>
+          <h2 className="mb-3" style={{ fontFamily: 'Cinzel, serif' }}>Project Not Found</h2>
+          <p className="text-muted mb-4">The project you are looking for may have been moved or is no longer available.</p>
           <Link href="/interior" className="btn btn-outline-dark px-4 py-2">
             Return to Portfolio
           </Link>
@@ -185,7 +185,7 @@ function ProjectsDetails() {
             </Link>
 
             <div className="project-category-tag">
-              <span>{project.category || 'Architectural Design'}</span>
+              <span>{project.category || 'Interior Design'}</span>
               {project.subcategory && <span>• {project.subcategory}</span>}
             </div>
           </div>
@@ -229,7 +229,7 @@ function ProjectsDetails() {
 
               {/* Photo Index Counter */}
               <div className="stage-counter-pill">
-                {String(activeImageIndex + 1).padStart(2, '0')} / {String(allImages.length).padStart(2, '0')} PHOTOGRAPHS
+                {String(activeImageIndex + 1).padStart(2, '0')} / {String(allImages.length).padStart(2, '0')} PHOTOS
               </div>
 
               {/* Floating Previous & Next Chevrons */}
@@ -315,8 +315,8 @@ function ProjectsDetails() {
           <Row className="g-5">
             {/* Left: Narrative & Case Study Content */}
             <Col lg={8}>
-              <span className="narrative-eyebrow">01 / DESIGN BRIEF & SPATIAL EXECUTION</span>
-              <h2 className="narrative-heading">Architectural Overview</h2>
+              <span className="narrative-eyebrow">01 / PROJECT DETAILS &amp; OVERVIEW</span>
+              <h2 className="narrative-heading">Project Overview</h2>
 
               {project.description ? (
                 <div 
@@ -326,10 +326,10 @@ function ProjectsDetails() {
               ) : (
                 <div className="narrative-body-text">
                   <p>
-                    Commissioned as a bespoke spatial environment by 3P Communication, this project represents our disciplined methodology of combining material honesty, ergonomic spatial flow, and enduring architectural craftsmanship.
+                    Designed and completed by 3P Communication, this project combines practical room layouts, quality materials, and clean finishing.
                   </p>
                   <p>
-                    Every junction, millwork profile, and lighting axis was calibrated to elevate the human experience within the space while adhering to turnkey delivery schedules.
+                    Every detail — from custom furniture and wall finishes to lighting — was planned carefully to make the space comfortable, functional, and finished on time.
                   </p>
                 </div>
               )}
@@ -348,7 +348,7 @@ function ProjectsDetails() {
                   )}
 
                   <blockquote className="review-quote-content">
-                    "{project.review.comment || 'Outstanding spatial transformation delivered with professional rigor.'}"
+                    "{project.review.comment || 'Outstanding work delivered with great care and attention to detail.'}"
                   </blockquote>
 
                   <div className="review-client-footer">
@@ -357,7 +357,7 @@ function ProjectsDetails() {
                         {project.client?.name || 'Verified Client'}
                       </div>
                       <div className="review-client-role">
-                        {project.title} • {project.category || 'Turnkey Project'}
+                        {project.title} • {project.category || 'Completed Project'}
                       </div>
                     </div>
                   </div>
@@ -381,10 +381,10 @@ function ProjectsDetails() {
 
                     <div className="specs-row">
                       <span className="specs-key">
-                        <FaLayerGroup /> Discipline
+                        <FaLayerGroup /> Category
                       </span>
                       <span className="specs-val">
-                        {project.category || 'Architecture'}
+                        {project.category || 'Interior Design'}
                         {project.subcategory ? ` (${project.subcategory})` : ''}
                       </span>
                     </div>
@@ -400,7 +400,7 @@ function ProjectsDetails() {
                       <span className="specs-key">
                         <FaRulerCombined /> Scope
                       </span>
-                      <span className="specs-val">{project.areaSize || 'Turnkey Scale'}</span>
+                      <span className="specs-val">{project.areaSize || 'Full Project'}</span>
                     </div>
 
                     <div className="specs-row">
@@ -425,16 +425,16 @@ function ProjectsDetails() {
 
                 {/* Commission CTA Card */}
                 <div className="commission-card-box">
-                  <h4 className="commission-title">Commission a Space</h4>
+                  <h4 className="commission-title">Start Your Project</h4>
                   <p className="commission-desc">
-                    Inspired by this architectural execution? Book an initial spatial consultation with our principal design directors.
+                    Looking for a similar design for your office or home? Contact our design team for a consultation and free estimate.
                   </p>
                   <button 
                     type="button" 
                     className="commission-btn"
                     onClick={() => setModalShow(true)}
                   >
-                    <span>Book Studio Consultation</span>
+                    <span>Book a Consultation</span>
                     <FaArrowRight />
                   </button>
                 </div>

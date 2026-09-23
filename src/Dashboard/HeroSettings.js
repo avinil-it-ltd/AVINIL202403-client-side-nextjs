@@ -20,18 +20,18 @@ import {
 
 const DEFAULT_HERO_SETTINGS = {
   bgImage: '',
-  provenance: 'DHAKA ARCHITECTURAL ATELIER • COMMERCIAL & RESIDENTIAL',
-  title: 'Architecture for Living. Workplaces Crafted with Purpose.',
-  subtitle: 'Turnkey corporate office interiors, bespoke executive headquarters, and luxury residential living spaces engineered with ergonomic spatial flow, acoustic zoning, and disciplined timelines.',
-  primaryCtaText: 'Explore Disciplines',
+  provenance: '3P COMMUNICATION • INTERIOR & EXTERIOR DESIGN • DHAKA',
+  title: 'Modern Office & Home Interior Design in Dhaka',
+  subtitle: 'Complete office interiors, modern corporate workplaces, and comfortable home design — crafted with quality materials and delivered on time.',
+  primaryCtaText: 'View Our Projects',
   primaryCtaLink: '#services',
-  secondaryCtaText: 'Book Consultation',
+  secondaryCtaText: 'Book Free Consultation',
   metric1Number: '10+ Years',
-  metric1Label: 'Turnkey Delivery',
+  metric1Label: 'Design Experience',
   metric2Number: '100+ Projects',
   metric2Label: 'Completed Across BD',
   metric3Number: 'In-House',
-  metric3Label: 'Joinery Workshop'
+  metric3Label: 'Furniture Workshop'
 };
 
 const RECOMMENDED_LIMITS = {
@@ -59,6 +59,18 @@ const HeroSettings = () => {
         const saved = localStorage.getItem('3p_hero_settings');
         if (saved) {
           const parsed = JSON.parse(saved);
+          if (parsed.subtitle && (parsed.subtitle.includes('Turnkey') || parsed.subtitle.includes('spatial') || parsed.subtitle.includes('bespoke'))) {
+            parsed.subtitle = DEFAULT_HERO_SETTINGS.subtitle;
+          }
+          if (parsed.provenance && parsed.provenance.includes('ATELIER')) {
+            parsed.provenance = DEFAULT_HERO_SETTINGS.provenance;
+          }
+          if (parsed.metric1Label && parsed.metric1Label.includes('Turnkey')) {
+            parsed.metric1Label = DEFAULT_HERO_SETTINGS.metric1Label;
+          }
+          if (parsed.metric3Label && parsed.metric3Label.includes('Joinery')) {
+            parsed.metric3Label = DEFAULT_HERO_SETTINGS.metric3Label;
+          }
           setFormData((prev) => ({ ...prev, ...parsed }));
           if (parsed.bgImage) {
             setImagePreview(parsed.bgImage);
@@ -422,7 +434,7 @@ const HeroSettings = () => {
                 name="provenance"
                 value={formData.provenance}
                 onChange={handleChange}
-                placeholder="e.g. DHAKA ARCHITECTURAL ATELIER • COMMERCIAL & RESIDENTIAL"
+                placeholder="e.g. 3P COMMUNICATION • INTERIOR & EXTERIOR DESIGN • DHAKA"
                 className="form-control"
               />
             </div>
@@ -430,7 +442,7 @@ const HeroSettings = () => {
             {/* Master Headline */}
             <div className="mb-3">
               <div className="d-flex align-items-center mb-1">
-                <label className="form-label-custom m-0">Master Monograph Headline</label>
+                <label className="form-label-custom m-0">Hero Headline</label>
                 {renderCharBadge(
                   formData.title.length,
                   RECOMMENDED_LIMITS.title.min,
@@ -467,7 +479,7 @@ const HeroSettings = () => {
                 rows="3"
                 value={formData.subtitle}
                 onChange={handleChange}
-                placeholder="Explain turnkey commercial fit-outs, acoustic zoning, and luxury residences..."
+                placeholder="Describe your office and home interior services in clear, simple words..."
                 className="form-control"
               ></textarea>
               <small className="text-muted mt-1 d-block" style={{ fontSize: '11px' }}>
@@ -537,7 +549,7 @@ const HeroSettings = () => {
                   value={formData.metric1Label}
                   onChange={handleChange}
                   className="form-control form-control-sm text-muted"
-                  placeholder="Turnkey Delivery"
+                  placeholder="Design Experience"
                 />
               </div>
               {/* Metric 2 */}

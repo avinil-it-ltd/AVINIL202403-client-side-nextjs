@@ -14,34 +14,34 @@ import './Process.css';
 const processSteps = [
   {
     step: '01',
-    phase: 'DISCOVERY & FEASIBILITY',
-    title: 'Site Audit & Spatial Brief',
-    description: 'Laser-accurate on-site dimensioning, structural feasibility inspections, and in-depth consultations to define functional and aesthetic objectives.',
-    deliverable: 'Dimensional Survey & Spatial Zoning',
+    phase: 'FIRST STEP',
+    title: 'Site Measurement & Requirements',
+    description: 'Accurate room measurements, on-site structural check, and discussing your exact style and functional needs.',
+    deliverable: 'Accurate Floor Plan & Layout',
     icon: FaRulerCombined
   },
   {
     step: '02',
-    phase: 'DESIGN & MATERIAL SPEC',
-    title: '3D Visualization & BOQ',
-    description: 'Photorealistic architectural modeling, physical sample reviews (natural marble, treated timber, brass hardware), and transparent itemized costing.',
-    deliverable: 'Approved 3D CAD Renders & BOQ',
+    phase: 'DESIGN & BUDGET',
+    title: '3D Design & Detailed Cost Estimate',
+    description: 'Realistic 3D views of your rooms, real material samples (tiles, wood, paint colors), and clear itemized cost estimates.',
+    deliverable: 'Approved 3D Views & Budget',
     icon: FaCube
   },
   {
     step: '03',
-    phase: 'FABRICATION & CIVIL',
-    title: 'Workshop Joinery & Build',
-    description: 'Precision woodworking executed in our specialized joinery shop alongside on-site civil fabrication and MEP engineering under licensed supervision.',
-    deliverable: 'Joinery Millwork & Structural Fitout',
+    phase: 'PRODUCTION & SETUP',
+    title: 'Workshop Furniture & On-Site Work',
+    description: 'Custom wood furniture made in our own workshop, alongside electrical, lighting, and interior fitting work done by experienced technicians.',
+    deliverable: 'Finished Furniture & Interior Setup',
     icon: FaTools
   },
   {
     step: '04',
-    phase: 'COMMISSIONING',
-    title: 'Quality Audit & Handover',
-    description: 'Comprehensive snag-list clearance, architectural illumination testing, acoustic adjustments, and white-glove turnkey handover.',
-    deliverable: 'Key Handover & Craft Warranty',
+    phase: 'COMPLETION',
+    title: 'Final Inspection & Project Handover',
+    description: 'Careful final checks, testing all lights and electrical points, deep cleaning, and on-time key handover.',
+    deliverable: 'Key Handover & Workmanship Warranty',
     icon: FaKey
   }
 ];
@@ -52,12 +52,12 @@ function Process() {
       <Container className="py-4">
         {/* Section Header */}
         <div className="process-section-header mb-5">
-          <div className="process-eyebrow">EXECUTION PROTOCOL</div>
+          <div className="process-eyebrow">HOW WE WORK</div>
           <h2 className="process-main-title">
-            The Architectural Delivery Process
+            Our Step-by-Step Project Process
           </h2>
           <p className="process-lead-text">
-            From initial spatial measurements to in-house joinery fabrication and white-glove handover, every phase is engineered for zero surprises and disciplined timelines.
+            From first room measurements to custom furniture making and final cleaning, every step is planned to avoid surprises and finish on time.
           </p>
         </div>
 

@@ -57,22 +57,22 @@ const Exterior = () => {
               <div className="editorial-bio-frame">
                 <img 
                   src={bioImg?.src || bioImg} 
-                  alt="3P Communication Exterior Architecture" 
+                  alt="3P Communication Exterior Design" 
                   className="editorial-bio-img" 
                 />
               </div>
             </Col>
             <Col lg={6}>
               <div className="editorial-bio-content">
-                <span className="editorial-eyebrow">02 / EXTERIOR &amp; FAÇADES</span>
+                <span className="editorial-eyebrow">02 / EXTERIOR &amp; FACADES</span>
                 <h1 className="editorial-title">
-                  Modern Building Envelopes &amp; Structural Architecture
+                  Modern Building Facades &amp; Exterior Design
                 </h1>
                 <p className="editorial-lead">
-                  A building’s exterior is its lasting architectural statement. At 3P Communication, we engineer front elevations, gate architectures, and exterior envelopes that endure Bangladesh’s tropical monsoons while maximizing curb presence.
+                  A building's exterior creates the first impression. At 3P Communication, we design and build front elevations, modern gates, and durable building facades that look great and stand strong against Bangladesh’s weather.
                 </p>
                 <p className="editorial-text">
-                  Our civil engineering specialists execute aluminum composite panels, exterior louvers, boundary gate structures, and perimeter landscape illumination with guaranteed structural durability and waterproofing.
+                  Our team works with aluminum composite panels (ACP), modern louvers, boundary gates, and outdoor lighting with durable materials and proper waterproofing.
                 </p>
               </div>
             </Col>

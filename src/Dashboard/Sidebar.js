@@ -19,7 +19,8 @@ import {
   FaShieldAlt,
   FaCogs,
   FaTimes,
-  FaExternalLinkAlt
+  FaExternalLinkAlt,
+  FaImages
 } from 'react-icons/fa';
 
 const navSections = [
@@ -49,6 +50,7 @@ const navSections = [
   {
     title: 'Content & CMS',
     items: [
+      { href: '/dashboard/hero-settings', label: 'Hero Banner', icon: FaImages },
       { href: '/dashboard/headlineDashboard', label: 'Headlines', icon: FaBullhorn },
       { href: '/dashboard/testimonialDashboard', label: 'Testimonials', icon: FaComments },
       { href: '/dashboard/faqDashboard', label: 'FAQs', icon: FaQuestionCircle },

@@ -16,6 +16,27 @@ const Interior = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
+  // Read query parameter on mount (e.g. ?sub=Office or ?subcategory=Office)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const subParam = params.get('sub') || params.get('subcategory');
+      if (subParam) {
+        setSelectedSubcategory(subParam);
+      }
+    }
+  }, []);
+
+  const handleSubcategorySelect = (subName) => {
+    setSelectedSubcategory(subName);
+    if (typeof window !== 'undefined') {
+      const url = subName === 'All'
+        ? window.location.pathname
+        : `${window.location.pathname}?sub=${encodeURIComponent(subName)}`;
+      window.history.replaceState(null, '', url);
+    }
+  };
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -48,12 +69,21 @@ const Interior = () => {
     return list;
   }, [projects]);
 
-  // Filter projects by active subcategory
+  // Filter projects by active subcategory, prioritizing Office projects in "All" view
   const filteredProjects = React.useMemo(() => {
-    if (selectedSubcategory === 'All') return projects;
-    return projects.filter(
-      p => (p.subcategory || 'General').toLowerCase() === selectedSubcategory.toLowerCase()
+    if (selectedSubcategory !== 'All') {
+      return projects.filter(
+        p => (p.subcategory || 'General').toLowerCase() === selectedSubcategory.toLowerCase()
+      );
+    }
+    // High-priority curation: showcase commercial Office workplaces at the top of the directory
+    const officeProjects = projects.filter(
+      p => (p.subcategory || '').toLowerCase() === 'office'
     );
+    const otherProjects = projects.filter(
+      p => (p.subcategory || '').toLowerCase() !== 'office'
+    );
+    return [...officeProjects, ...otherProjects];
   }, [projects, selectedSubcategory]);
 
   const handleMoreDetails = (id) => {
@@ -128,7 +158,7 @@ const Interior = () => {
                   role="tab"
                   aria-selected={isActive}
                   className={`interior-subcat-btn ${isActive ? 'active' : ''}`}
-                  onClick={() => setSelectedSubcategory(sub.name)}
+                  onClick={() => handleSubcategorySelect(sub.name)}
                 >
                   <span className="interior-subcat-label">{sub.label}</span>
                   <span className="interior-subcat-count">{sub.count}</span>
@@ -143,7 +173,7 @@ const Interior = () => {
               <button 
                 type="button" 
                 className="btn btn-sm btn-outline-secondary mt-3 rounded-pill px-3"
-                onClick={() => setSelectedSubcategory('All')}
+                onClick={() => handleSubcategorySelect('All')}
               >
                 View All Projects
               </button>

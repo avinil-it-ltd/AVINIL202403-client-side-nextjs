@@ -22,13 +22,13 @@ const featureCards = [
   },
   {
     id: 2,
-    number: '02 / ERGONOMICS',
-    title: 'Lots Of Flexible Functionalities',
-    subtitle: 'Adaptive Spaces',
-    description: 'Custom joinery, adaptive open plans, and smart interior layouts designed for seamless flow between everyday life and entertaining.',
+    number: '02 / WORKPLACE',
+    title: 'Executive Office & Corporate Interiors',
+    subtitle: 'High-Efficiency Workspaces',
+    description: 'Acoustic zoning, ergonomic corporate suites, and monumental executive boardrooms engineered for productivity and modern enterprise culture.',
     image: imgErgonomic.src || imgErgonomic,
-    link: '/interior',
-    actionText: 'Discover Concepts'
+    link: '/interior?sub=Office',
+    actionText: 'Explore Office Portfolio'
   },
   {
     id: 3,

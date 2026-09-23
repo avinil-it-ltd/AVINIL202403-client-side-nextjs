@@ -1,0 +1,354 @@
+/* ==========================================================================
+   3P Communication - Luxury Architectural Footer (footer.css)
+   ========================================================================== */
+
+.luxury-footer {
+  background: #111215;
+  color: #94a3b8;
+  border-top: 2px solid #ff6600;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+}
+
+/* Subtle architectural top glow */
+.luxury-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 102, 0, 0.8), transparent);
+  box-shadow: 0 0 25px rgba(255, 102, 0, 0.6);
+}
+
+.footer-main-content {
+  padding-top: 75px;
+  padding-bottom: 50px;
+}
+
+/* Column 1: Brand Info */
+.footer-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.footer-brand-logo {
+  width: 44px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.footer-brand-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.footer-brand-tagline {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #ff6600;
+  text-transform: uppercase;
+}
+
+.footer-brand-bio {
+  font-size: 13.5px;
+  color: #94a3b8;
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+
+/* WhatsApp Quick Chat CTA */
+.footer-whatsapp-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(37, 211, 102, 0.12);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  color: #25d366;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  margin-bottom: 24px;
+}
+
+.footer-whatsapp-cta:hover {
+  background: #25d366;
+  color: #ffffff;
+  border-color: #25d366;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+
+/* Social Circles */
+.footer-social-cluster {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.footer-social-btn:hover {
+  background: #ff6600;
+  border-color: #ff6600;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.4);
+}
+
+/* Column Headings */
+.footer-heading {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.8px;
+  margin-bottom: 22px;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 28px;
+  height: 2px;
+  background: #ff6600;
+  border-radius: 2px;
+}
+
+/* Link Lists */
+.footer-link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.footer-nav-link {
+  font-size: 13.5px;
+  color: #94a3b8;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.footer-nav-link:hover {
+  color: #ff8833;
+  transform: translateX(4px);
+}
+
+.footer-hiring-pill {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  letter-spacing: 0.5px;
+  margin-left: 6px;
+}
+
+/* Column 4: Contact & Studio Info */
+.footer-contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-bottom: 24px;
+}
+
+.footer-contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #94a3b8;
+}
+
+.footer-contact-icon {
+  color: #ff6600;
+  font-size: 14px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.footer-contact-row a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-contact-row a:hover {
+  color: #ff8833;
+}
+
+/* Newsletter Box */
+.footer-newsletter-box {
+  margin-top: 10px;
+}
+
+.footer-newsletter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.footer-newsletter-form {
+  display: flex;
+  position: relative;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  transition: border-color 0.2s ease;
+}
+
+.footer-newsletter-form:focus-within {
+  border-color: #ff6600;
+  box-shadow: 0 0 10px rgba(255, 102, 0, 0.25);
+}
+
+.footer-newsletter-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 10px 16px;
+  font-size: 12.5px;
+  color: #ffffff;
+  outline: none;
+}
+
+.footer-newsletter-input::placeholder {
+  color: #64748b;
+}
+
+.footer-newsletter-btn {
+  background: #ff6600;
+  border: none;
+  color: #ffffff;
+  padding: 0 18px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.2s ease;
+}
+
+.footer-newsletter-btn:hover {
+  background: #e65100;
+}
+
+/* Bottom Bar */
+.footer-bottom-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 22px 0;
+  background: #0d0e10;
+}
+
+.footer-bottom-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.footer-copyright {
+  font-size: 12.5px;
+  color: #64748b;
+  margin: 0;
+}
+
+.footer-attribution {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.footer-attribution a {
+  color: #ff6600;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.footer-attribution a:hover {
+  color: #ffa34d;
+}
+
+.footer-back-to-top {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-back-to-top:hover {
+  background: #ff6600;
+  border-color: #ff6600;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .footer-main-content {
+    padding-top: 55px;
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-bottom-flex {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-heading::after {
+    left: 0;
+  }
+}

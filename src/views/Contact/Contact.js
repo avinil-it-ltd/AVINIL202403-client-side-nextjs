@@ -14,25 +14,26 @@ import {
   FaYoutube,
   FaPaperPlane,
   FaClock,
-  FaSparkles,
-  FaCheckCircle
+  FaCheckCircle,
+  FaLock
 } from "react-icons/fa";
 import "./contact.css";
 
-const DISCIPLINES = [
-  "Interior Design",
-  "Exterior & Facade",
-  "Event Management",
-  "Complete Turnkey",
-  "Custom Fabrication"
+const SERVICES = [
+  "Home & Apartment Interior",
+  "Office & Commercial Interior",
+  "Exterior & Building Facade",
+  "Corporate Event Management",
+  "Complete Turnkey Renovation"
 ];
 
 const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [spaceSize, setSpaceSize] = useState("");
   const [message, setMessage] = useState("");
-  const [selectedDiscipline, setSelectedDiscipline] = useState("Interior Design");
+  const [selectedService, setSelectedService] = useState("Home & Apartment Interior");
   const [submitting, setSubmitting] = useState(false);
 
   // State to hold contact details
@@ -44,7 +45,6 @@ const Contact = () => {
     whatsappLink: "https://wa.me/+8801722728272",
     youtubeLink: "https://www.youtube.com/@3pcommunication569"
   });
-  const [loadingDetails, setLoadingDetails] = useState(true);
 
   useEffect(() => {
     const fetchContactDetails = async () => {
@@ -58,8 +58,6 @@ const Contact = () => {
         }
       } catch (error) {
         console.error("Error fetching contact details:", error);
-      } finally {
-        setLoadingDetails(false);
       }
     };
 
@@ -72,21 +70,22 @@ const Contact = () => {
     if (!name.trim() || !phoneNumber.trim()) {
       Swal.fire({
         icon: "warning",
-        title: "Required Fields",
-        text: "Please provide your name and contact phone number.",
-        confirmButtonColor: "#ff6600",
+        title: "Please Fill Required Fields",
+        text: "Please provide your name and phone number so we can reach you.",
+        confirmButtonColor: "#ea580c",
       });
       return;
     }
 
     setSubmitting(true);
 
-    const fullMessage = `[Project Discipline: ${selectedDiscipline}]\n\n${message}`;
+    const sizeNote = spaceSize.trim() ? `\nApproximate Size / Area: ${spaceSize.trim()}` : "";
+    const fullMessage = `[Service: ${selectedService}]${sizeNote}\n\nClient Note:\n${message}`;
 
     try {
       const response = await axios.post("https://3pcommunicationsserver.vercel.app/api/contacts", {
         name,
-        email,
+        email: email.trim() || undefined,
         phoneNumber,
         message: fullMessage,
       });
@@ -94,9 +93,9 @@ const Contact = () => {
       if (response.status === 201 || response.status === 200) {
         Swal.fire({
           icon: "success",
-          title: "Inquiry Received",
-          text: "Thank you for reaching out. An architectural lead will connect with you within 24 hours.",
-          confirmButtonColor: "#ff6600",
+          title: "Thank You!",
+          text: "We have received your request. One of our design coordinators will call or WhatsApp you within 24 hours.",
+          confirmButtonColor: "#ea580c",
           background: "#ffffff",
         });
 
@@ -104,15 +103,16 @@ const Contact = () => {
         setName("");
         setEmail("");
         setPhoneNumber("");
+        setSpaceSize("");
         setMessage("");
       }
     } catch (err) {
-      console.error("Backend contact submission error:", err);
+      console.error("Contact form submission error:", err);
       Swal.fire({
         icon: "error",
-        title: "Submission Error",
-        text: "We could not transmit your inquiry right now. Please call or WhatsApp us directly.",
-        confirmButtonColor: "#ff6600",
+        title: "Message Not Sent",
+        text: "We could not submit your request online. Please call or WhatsApp us directly at " + contactDetails.mobile,
+        confirmButtonColor: "#ea580c",
       });
     } finally {
       setSubmitting(false);
@@ -127,13 +127,13 @@ const Contact = () => {
       <section className="contact-hero-banner">
         <div className="container">
           <div className="contact-hero-tag">
-            <span>✦</span> CONNECT &amp; COLLABORATE
+            Get In Touch
           </div>
           <h1 className="contact-hero-title">
-            Let's Bring Your Spatial Vision <span>To Reality</span>
+            Let's Talk About Your <span>Next Project</span>
           </h1>
           <p className="contact-hero-subtitle">
-            Whether it's bespoke residential interiors, commercial exterior elevations, or premium brand event productions, our multidisciplinary team is here to engineer perfection.
+            Planning a home interior, modern office renovation, building exterior, or corporate event in Dhaka? Visit our studio, call our team, or send a quick message for a free consultation and project estimate.
           </p>
         </div>
       </section>
@@ -142,38 +142,39 @@ const Contact = () => {
       <section className="contact-main-section">
         <div className="container">
           <div className="row g-4 align-items-start">
-            {/* Left Column: Studio Telemetry */}
+            
+            {/* Left Column: Direct Studio Information */}
             <div className="col-12 col-lg-5">
               <div className="contact-info-column">
                 
-                {/* Headquarters Card */}
+                {/* Design Studio Address */}
                 <div className="contact-card">
                   <div className="contact-card-header">
                     <div className="contact-card-icon-box">
                       <FaMapMarkerAlt />
                     </div>
                     <div>
-                      <h3 className="contact-card-title">Studio Headquarters</h3>
-                      <p className="contact-card-subtitle">Principal Design Office</p>
+                      <h3 className="contact-card-title">Our Design Studio</h3>
+                      <p className="contact-card-subtitle">Head Office &amp; Meeting Space</p>
                     </div>
                   </div>
                   <div className="contact-card-body">
-                    <p className="mb-3 text-secondary">{contactDetails.address}</p>
+                    <p className="mb-3 text-dark">{contactDetails.address}</p>
                     <div className="d-flex align-items-center gap-2 text-muted pt-2 border-top border-light-subtle">
                       <FaClock className="text-warning" />
-                      <span>Sat &ndash; Thu: 10:00 AM &ndash; 8:00 PM</span>
+                      <span>Saturday &ndash; Thursday: 10:00 AM &ndash; 8:00 PM</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Quick Channels Row */}
+                {/* Direct Phone & Email Cards */}
                 <div className="contact-quick-channels">
                   <a href={`tel:${contactDetails.mobile}`} className="contact-mini-channel">
                     <div className="channel-icon">
                       <FaPhoneAlt />
                     </div>
                     <div className="channel-text-group">
-                      <span className="channel-label">Direct Hotline</span>
+                      <span className="channel-label">Call Directly</span>
                       <span className="channel-val">{contactDetails.mobile}</span>
                     </div>
                   </a>
@@ -183,13 +184,13 @@ const Contact = () => {
                       <FaEnvelope />
                     </div>
                     <div className="channel-text-group">
-                      <span className="channel-label">Email Inquiries</span>
+                      <span className="channel-label">Send Email</span>
                       <span className="channel-val" style={{ wordBreak: 'break-all' }}>{contactDetails.email}</span>
                     </div>
                   </a>
                 </div>
 
-                {/* WhatsApp Banner Card */}
+                {/* WhatsApp Direct Chat Banner */}
                 <a
                   href={contactDetails.whatsappLink}
                   target="_blank"
@@ -199,17 +200,17 @@ const Contact = () => {
                   <div className="whatsapp-banner-left">
                     <FaWhatsapp className="whatsapp-banner-icon" />
                     <div>
-                      <h4 className="whatsapp-banner-title">Instant WhatsApp Consultation</h4>
-                      <p className="whatsapp-banner-sub">Chat directly with a project consultant</p>
+                      <h4 className="whatsapp-banner-title">Chat with Us on WhatsApp</h4>
+                      <p className="whatsapp-banner-sub">Quick answers &amp; instant photo sharing</p>
                     </div>
                   </div>
                   <span className="whatsapp-banner-btn">Chat Now ↗</span>
                 </a>
 
-                {/* Google Maps Card */}
+                {/* Studio Location Map */}
                 <div className="contact-map-card">
                   <iframe
-                    title="3P Communication Office Location"
+                    title="3P Communication Office Location in Mohammadpur Dhaka"
                     className="contact-map-iframe"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.8488349474744!2d90.3683884!3d23.7527663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b09337b587%3A0xe54d6ec555a1d9a2!2sAsad%20Ave%2C%20Dhaka%201207!5e0!3m2!1sen!2sbd!4v1714500000000!5m2!1sen!2sbd"
                     allowFullScreen=""
@@ -220,10 +221,10 @@ const Contact = () => {
 
                 {/* Social Networks Connect */}
                 <div className="contact-card">
-                  <div className="d-flex align-items-center justify-content-between">
+                  <div className="d-flex align-items-center justify-content-between flex-wrap gap-2">
                     <div>
-                      <h4 className="contact-card-title mb-1" style={{ fontSize: '1rem' }}>Studio Socials</h4>
-                      <p className="contact-card-subtitle">Follow our live architectural portfolio</p>
+                      <h4 className="contact-card-title mb-1" style={{ fontSize: '1rem' }}>See Our Latest Projects</h4>
+                      <p className="contact-card-subtitle">Follow our work on social media</p>
                     </div>
                     <div className="contact-social-row">
                       {contactDetails.fbLink && (
@@ -266,29 +267,30 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Right Column: Inquiry Studio Form */}
+            {/* Right Column: Inquiry Form */}
             <div className="col-12 col-lg-7">
               <div className="contact-form-card">
                 <div className="contact-form-header">
-                  <h2 className="contact-form-title">Consultation &amp; Project Inquiry</h2>
+                  <h2 className="contact-form-title">Request a Free Consultation &amp; Estimate</h2>
                   <p className="contact-form-desc">
-                    Tell us about your residential, commercial, or event ambitions. Our senior architects and coordinators will review your requirements and provide tailored spatial guidance.
+                    Tell us what you are looking to build or renovate. We will review your ideas, guide you on materials and layout, and share an initial estimate with no obligation.
                   </p>
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                  {/* Discipline Pill Selector */}
+                  
+                  {/* Service Selector Pills */}
                   <div className="discipline-selector-group">
-                    <label className="discipline-selector-label">Select Project Discipline</label>
+                    <label className="discipline-selector-label">What service are you looking for?</label>
                     <div className="discipline-pills-row">
-                      {DISCIPLINES.map((disc) => (
+                      {SERVICES.map((srv) => (
                         <button
-                          key={disc}
+                          key={srv}
                           type="button"
-                          className={`discipline-pill-btn ${selectedDiscipline === disc ? 'active' : ''}`}
-                          onClick={() => setSelectedDiscipline(disc)}
+                          className={`discipline-pill-btn ${selectedService === srv ? 'active' : ''}`}
+                          onClick={() => setSelectedService(srv)}
                         >
-                          {disc}
+                          {srv}
                         </button>
                       ))}
                     </div>
@@ -296,12 +298,12 @@ const Contact = () => {
 
                   {/* Name Input */}
                   <div className="contact-field-group">
-                    <label className="contact-field-label">Full Name *</label>
+                    <label className="contact-field-label">Your Full Name *</label>
                     <div className="contact-input-wrapper">
                       <input
                         type="text"
                         className="contact-input-field"
-                        placeholder="e.g. Architect Abrar Ahmed"
+                        placeholder="e.g. Tanvir Hossain"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
@@ -309,30 +311,16 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  {/* Email & Phone 2-Col */}
+                  {/* Phone & Email 2-Col */}
                   <div className="row g-3">
                     <div className="col-12 col-md-6">
                       <div className="contact-field-group">
-                        <label className="contact-field-label">Email Address</label>
-                        <div className="contact-input-wrapper">
-                          <input
-                            type="email"
-                            className="contact-input-field"
-                            placeholder="abrar@example.com"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-6">
-                      <div className="contact-field-group">
-                        <label className="contact-field-label">Phone / WhatsApp *</label>
+                        <label className="contact-field-label">Phone / WhatsApp Number *</label>
                         <div className="contact-input-wrapper">
                           <input
                             type="tel"
                             className="contact-input-field"
-                            placeholder="+880 17..."
+                            placeholder="017XXXXXXXX"
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
                             required
@@ -340,14 +328,42 @@ const Contact = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="col-12 col-md-6">
+                      <div className="contact-field-group">
+                        <label className="contact-field-label">Email Address (Optional)</label>
+                        <div className="contact-input-wrapper">
+                          <input
+                            type="email"
+                            className="contact-input-field"
+                            placeholder="tanvir@gmail.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Space Size / Dimensions */}
+                  <div className="contact-field-group">
+                    <label className="contact-field-label">Space Size or Location (Optional)</label>
+                    <div className="contact-input-wrapper">
+                      <input
+                        type="text"
+                        className="contact-input-field"
+                        placeholder="e.g. 1,650 sq ft flat in Dhanmondi, or 3,000 sq ft office in Gulshan"
+                        value={spaceSize}
+                        onChange={(e) => setSpaceSize(e.target.value)}
+                      />
+                    </div>
                   </div>
 
                   {/* Message Input */}
                   <div className="contact-field-group">
-                    <label className="contact-field-label">Project Scope &amp; Vision *</label>
+                    <label className="contact-field-label">Tell Us About Your Project *</label>
                     <textarea
                       className="contact-textarea-field"
-                      placeholder="Share details about your space, dimensions/sqft, site location, target timelines, or specific design preferences..."
+                      placeholder="Share what rooms or areas you want to design, your preferred style, timeline, or any specific questions..."
                       rows="4"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
@@ -362,14 +378,20 @@ const Contact = () => {
                     disabled={submitting}
                   >
                     {submitting ? (
-                      <span>Transmitting Inquiry...</span>
+                      <span>Sending Your Request...</span>
                     ) : (
                       <>
-                        <span>Submit Project Inquiry</span>
+                        <span>Request Free Consultation &amp; Estimate</span>
                         <FaPaperPlane />
                       </>
                     )}
                   </button>
+
+                  <div className="form-guarantee-note">
+                    <FaCheckCircle />
+                    <span>Free on-site visit &amp; initial consultation. We respect your privacy and never share your details.</span>
+                  </div>
+
                 </form>
               </div>
             </div>

@@ -1,37 +1,25 @@
 /* ==========================================================================
-   3P Communication - Luxury About Us Page (About.css)
+   3P Communication - Warm Editorial About Us Page (About.css)
+   Natural luxury, authentic human touch, and clean architectural elegance
    ========================================================================== */
 
 .about-page-wrapper {
-  background-color: #faf7f2;
+  background-color: #faf8f5;
   min-height: 100vh;
   font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
-  color: #1e293b;
+  color: #1f1e1d;
 }
 
 /* --------------------------------------------------------------------------
-   Hero Header Banner
+   Hero Header Banner (Warm, inviting, editorial)
    -------------------------------------------------------------------------- */
 .about-hero-banner {
-  background: #141518;
-  color: #ffffff;
-  padding: 85px 20px 75px;
+  background: #ffffff;
+  color: #1f1e1d;
+  padding: 75px 20px 60px;
   text-align: center;
   position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255, 102, 0, 0.2);
-}
-
-.about-hero-banner::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 850px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(255, 102, 0, 0.12) 0%, transparent 70%);
-  pointer-events: none;
+  border-bottom: 1px solid #ede8e1;
 }
 
 .about-hero-tag {
@@ -39,33 +27,36 @@
   align-items: center;
   gap: 8px;
   padding: 6px 18px;
-  background: rgba(255, 102, 0, 0.12);
-  border: 1px solid rgba(255, 102, 0, 0.3);
+  background: #fff4ed;
+  border: 1px solid #fed7aa;
   border-radius: 30px;
-  color: #ff8833;
-  font-size: 11px;
+  color: #c2410c;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1.4px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
   margin-bottom: 18px;
 }
 
 .about-hero-title {
   font-family: var(--font-cinzel, 'Cinzel', serif);
-  font-size: 3rem;
+  font-size: 2.9rem;
   font-weight: 700;
-  color: #ffffff;
-  line-height: 1.22;
+  color: #1f1e1d;
+  line-height: 1.25;
   margin-bottom: 16px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .about-hero-title span {
-  color: #ff6600;
+  color: #ea580c;
 }
 
 .about-hero-subtitle {
-  font-size: 1.08rem;
-  color: #94a3b8;
+  font-size: 1.1rem;
+  color: #5c5852;
   max-width: 720px;
   margin: 0 auto;
   line-height: 1.65;
@@ -75,21 +66,21 @@
    Section Common Utilities
    -------------------------------------------------------------------------- */
 .about-section {
-  padding: 80px 0;
+  padding: 75px 0;
 }
 
 .about-section-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 48px;
 }
 
 .about-section-tag {
   display: inline-block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: #ff6600;
+  color: #ea580c;
   margin-bottom: 8px;
 }
 
@@ -97,86 +88,80 @@
   font-family: var(--font-cinzel, 'Cinzel', serif);
   font-size: 2.2rem;
   font-weight: 700;
-  color: #111215;
+  color: #1f1e1d;
   margin-bottom: 12px;
 }
 
 .about-section-subtitle {
-  font-size: 14.5px;
-  color: #64748b;
+  font-size: 15px;
+  color: #5c5852;
   max-width: 620px;
   margin: 0 auto;
   line-height: 1.6;
 }
 
 /* --------------------------------------------------------------------------
-   Leadership Section (Director Philosophy)
+   Founder & Leadership Spotlight
    -------------------------------------------------------------------------- */
 .about-director-card {
   background: #ffffff;
-  border-radius: 24px;
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.04);
-  padding: 48px;
+  border-radius: 20px;
+  border: 1px solid #ebe5dc;
+  box-shadow: 0 8px 30px rgba(31, 30, 29, 0.04);
+  padding: 44px;
   overflow: hidden;
-  position: relative;
 }
 
 .director-img-wrapper {
   position: relative;
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-  border: 2px solid rgba(255, 102, 0, 0.3);
-  max-width: 380px;
+  box-shadow: 0 10px 24px rgba(31, 30, 29, 0.08);
+  border: 1px solid #e5ded5;
+  max-width: 360px;
   margin: 0 auto;
 }
 
 .director-portrait {
   width: 100%;
-  height: 420px;
+  height: 400px;
   object-fit: cover;
   object-position: top center;
   display: block;
-  transition: transform 0.5s ease;
-}
-
-.director-img-wrapper:hover .director-portrait {
-  transform: scale(1.03);
 }
 
 .director-experience-badge {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
-  background: rgba(20, 21, 24, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 102, 0, 0.35);
-  border-radius: 12px;
-  padding: 10px 16px;
-  color: #ffffff;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #fed7aa;
+  border-radius: 10px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
   gap: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .badge-number {
   font-family: var(--font-cinzel, 'Cinzel', serif);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #ff6600;
+  color: #ea580c;
   line-height: 1;
 }
 
 .badge-text {
   font-size: 11.5px;
   line-height: 1.35;
-  color: #cbd5e1;
-  font-weight: 600;
+  color: #44403c;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
 }
 
 .director-content {
@@ -184,47 +169,46 @@
 }
 
 .director-role-tag {
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: #ff6600;
-  margin-bottom: 8px;
+  color: #ea580c;
+  margin-bottom: 6px;
 }
 
 .director-name {
   font-family: var(--font-cinzel, 'Cinzel', serif);
-  font-size: 2.3rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  color: #111215;
+  color: #1f1e1d;
   margin-bottom: 4px;
 }
 
 .director-position {
   font-size: 14px;
   font-weight: 600;
-  color: #64748b;
-  margin-bottom: 24px;
+  color: #78716c;
+  margin-bottom: 20px;
 }
 
 .director-quote-box {
-  background: #f8fafc;
-  border-left: 4px solid #ff6600;
-  padding: 20px 24px;
-  border-radius: 0 14px 14px 0;
-  margin-bottom: 24px;
-  position: relative;
+  background: #faf8f5;
+  border-left: 4px solid #ea580c;
+  padding: 18px 22px;
+  border-radius: 0 12px 12px 0;
+  margin-bottom: 22px;
 }
 
 .quote-icon {
-  font-size: 24px;
-  color: rgba(255, 102, 0, 0.35);
-  margin-bottom: 8px;
+  font-size: 20px;
+  color: #ea580c;
+  margin-bottom: 6px;
 }
 
 .director-quote {
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 14.5px;
+  line-height: 1.65;
   color: #334155;
   font-style: italic;
   margin: 0;
@@ -234,7 +218,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 28px;
+  margin-bottom: 26px;
 }
 
 .philosophy-item {
@@ -242,26 +226,26 @@
   align-items: flex-start;
   gap: 12px;
   font-size: 13.5px;
-  color: #475569;
-  line-height: 1.5;
+  color: #44403c;
+  line-height: 1.55;
 }
 
 .philosophy-icon {
-  color: #ff6600;
-  font-size: 15px;
+  color: #ea580c;
+  font-size: 16px;
   margin-top: 3px;
   flex-shrink: 0;
 }
 
 /* --------------------------------------------------------------------------
-   KPI Impact Statistics Bar
+   KPI Impact Statistics Strip (Warm, clean, grounded)
    -------------------------------------------------------------------------- */
 .about-stats-section {
-  background: #141518;
-  color: #ffffff;
-  padding: 60px 0;
-  position: relative;
-  overflow: hidden;
+  background: #ffffff;
+  color: #1f1e1d;
+  padding: 55px 0;
+  border-top: 1px solid #ede8e1;
+  border-bottom: 1px solid #ede8e1;
 }
 
 .stats-grid {
@@ -271,90 +255,89 @@
 }
 
 .stat-metric-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  padding: 30px 20px;
+  background: #faf8f5;
+  border: 1px solid #ebe5dc;
+  border-radius: 16px;
+  padding: 28px 18px;
   text-align: center;
-  transition: all 0.3s ease;
-  position: relative;
+  transition: all 0.25s ease;
 }
 
 .stat-metric-card:hover {
-  background: rgba(255, 102, 0, 0.06);
-  border-color: rgba(255, 102, 0, 0.35);
-  transform: translateY(-4px);
+  border-color: #ea580c;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.08);
 }
 
 .stat-icon-circle {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: rgba(255, 102, 0, 0.12);
-  color: #ff6600;
+  background: #fff4ed;
+  color: #ea580c;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  margin-bottom: 14px;
+  font-size: 18px;
+  margin-bottom: 12px;
 }
 
 .stat-number {
   font-family: var(--font-cinzel, 'Cinzel', serif);
-  font-size: 2.6rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #1f1e1d;
   line-height: 1.1;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .stat-number span {
-  color: #ff6600;
+  color: #ea580c;
 }
 
 .stat-label {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: #e2e8f0;
+  letter-spacing: 0.5px;
+  color: #44403c;
   margin-bottom: 4px;
 }
 
 .stat-desc {
-  font-size: 11.5px;
-  color: #94a3b8;
+  font-size: 12px;
+  color: #78716c;
   margin: 0;
 }
 
 /* --------------------------------------------------------------------------
-   Core Disciplines (3P DNA)
+   Core Services (The 3 Core Offerings)
    -------------------------------------------------------------------------- */
 .disciplines-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 26px;
 }
 
 .discipline-card {
   background: #ffffff;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+  border: 1px solid #ebe5dc;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  transition: all 0.35s ease;
+  box-shadow: 0 4px 18px rgba(31, 30, 29, 0.03);
+  transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
 }
 
 .discipline-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-  border-color: rgba(255, 102, 0, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(31, 30, 29, 0.06);
+  border-color: #ea580c;
 }
 
 .discipline-card-header {
-  padding: 30px 28px 18px;
+  padding: 26px 24px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -362,41 +345,41 @@
 
 .discipline-badge {
   font-family: var(--font-cinzel, 'Cinzel', serif);
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  color: #ff6600;
+  color: #ea580c;
 }
 
 .discipline-icon-box {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(255, 102, 0, 0.1);
-  color: #ff6600;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #fff4ed;
+  color: #ea580c;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .discipline-card-body {
-  padding: 0 28px 28px;
+  padding: 0 24px 26px;
   flex: 1;
 }
 
 .discipline-title {
   font-family: var(--font-cinzel, 'Cinzel', serif);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: #111215;
-  margin-bottom: 12px;
+  color: #1f1e1d;
+  margin-bottom: 10px;
 }
 
 .discipline-desc {
   font-size: 13.5px;
-  color: #64748b;
+  color: #5c5852;
   line-height: 1.6;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .discipline-features {
@@ -411,42 +394,43 @@
 .discipline-features li {
   font-size: 12.5px;
   font-weight: 600;
-  color: #334155;
+  color: #44403c;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .discipline-features li::before {
-  content: '•';
-  color: #ff6600;
-  font-size: 16px;
+  content: '✓';
+  color: #ea580c;
+  font-weight: 700;
+  font-size: 13px;
 }
 
 /* --------------------------------------------------------------------------
-   Why Choose Us (6 Value Pillars Grid)
+   Why Choose 3P (6 Real Value Pillars)
    -------------------------------------------------------------------------- */
 .why-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 22px;
 }
 
 .why-pillar-card {
   background: #ffffff;
-  border-radius: 18px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  border: 1px solid #ebe5dc;
   overflow: hidden;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(31, 30, 29, 0.03);
+  transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
 }
 
 .why-pillar-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
-  border-color: rgba(255, 102, 0, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(31, 30, 29, 0.06);
+  border-color: #fed7aa;
 }
 
 .why-card-thumb-wrap {
@@ -454,38 +438,36 @@
   width: 100%;
   height: 190px;
   overflow: hidden;
-  background: #141518;
+  background: #f5efe6;
 }
 
 .why-card-thumb {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.4s ease;
 }
 
 .why-pillar-card:hover .why-card-thumb {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .why-pillar-num {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  background: rgba(20, 21, 24, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #ff8833;
+  top: 12px;
+  right: 12px;
+  background: #ffffff;
+  color: #ea580c;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.8px;
   padding: 4px 10px;
   border-radius: 20px;
-  border: 1px solid rgba(255, 102, 0, 0.3);
+  border: 1px solid #fed7aa;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .why-card-content {
-  padding: 22px;
+  padding: 20px;
   flex: 1;
 }
 
@@ -493,61 +475,49 @@
   font-family: var(--font-cinzel, 'Cinzel', serif);
   font-size: 1.15rem;
   font-weight: 700;
-  color: #111215;
+  color: #1f1e1d;
   margin-bottom: 8px;
 }
 
 .why-card-desc {
   font-size: 13px;
-  color: #64748b;
+  color: #5c5852;
   line-height: 1.55;
   margin: 0;
 }
 
 /* --------------------------------------------------------------------------
-   Executive Call to Action Banner
+   Warm Consultation Call to Action Banner
    -------------------------------------------------------------------------- */
 .about-cta-section {
-  padding: 40px 0 90px;
+  padding: 30px 0 80px;
 }
 
 .about-cta-card {
-  background: linear-gradient(135deg, #141518 0%, #1e2025 100%);
-  border: 1px solid rgba(255, 102, 0, 0.25);
-  border-radius: 24px;
-  padding: 50px 40px;
+  background: #292524;
+  border-radius: 20px;
+  padding: 46px 38px;
   color: #ffffff;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
-}
-
-.about-cta-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 400px;
-  height: 100%;
-  background: radial-gradient(circle, rgba(255, 102, 0, 0.12) 0%, transparent 70%);
-  pointer-events: none;
+  box-shadow: 0 12px 32px rgba(41, 37, 36, 0.15);
 }
 
 .cta-title {
   font-family: var(--font-cinzel, 'Cinzel', serif);
-  font-size: 2.1rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .cta-title span {
-  color: #ff6600;
+  color: #fb923c;
 }
 
 .cta-desc {
-  font-size: 14px;
-  color: #94a3b8;
+  font-size: 14.5px;
+  color: #d6d3d1;
   max-width: 580px;
   line-height: 1.6;
   margin-bottom: 0;
@@ -556,51 +526,50 @@
 .cta-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
 .cta-btn-primary {
-  background: linear-gradient(135deg, #ff6600 0%, #ea580c 100%);
+  background: #ea580c;
   color: #ffffff;
   border: none;
-  padding: 13px 26px;
-  border-radius: 12px;
+  padding: 13px 24px;
+  border-radius: 10px;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 6px 18px rgba(255, 102, 0, 0.35);
-  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+  transition: all 0.2s ease;
 }
 
 .cta-btn-primary:hover {
+  background: #c2410c;
   color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 102, 0, 0.45);
+  transform: translateY(-1px);
 }
 
 .cta-btn-secondary {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: #ffffff;
-  padding: 13px 22px;
-  border-radius: 12px;
+  padding: 13px 20px;
+  border-radius: 10px;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
 }
 
 .cta-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #ff8833;
-  border-color: rgba(255, 102, 0, 0.4);
+  background: rgba(255, 255, 255, 0.18);
+  color: #fb923c;
 }
 
 /* --------------------------------------------------------------------------
@@ -618,12 +587,12 @@
 
 @media (max-width: 991px) {
   .about-hero-title {
-    font-size: 2.3rem;
+    font-size: 2.2rem;
   }
 
   .director-content {
     padding-left: 0;
-    margin-top: 30px;
+    margin-top: 26px;
   }
 
   .disciplines-grid {
@@ -635,11 +604,11 @@
   }
 
   .about-director-card {
-    padding: 30px 20px;
+    padding: 26px 18px;
   }
 
   .about-cta-card {
-    padding: 36px 24px;
+    padding: 32px 20px;
   }
 }
 

@@ -6,7 +6,7 @@ import TopMenu from "../../core/TopMenu";
 import Footer from "../../core/Footer";
 import axios from "axios";
 import {
-  FaDraftingCompass,
+  FaHome,
   FaBuilding,
   FaGlassCheers,
   FaAward,
@@ -15,81 +15,76 @@ import {
   FaQuoteLeft,
   FaUsers,
   FaCalendarAlt,
-  FaArrowRight,
-  FaLightbulb,
-  FaLeaf,
-  FaShieldAlt,
-  FaBriefcase,
-  FaHeart
+  FaArrowRight
 } from "react-icons/fa";
 import ceoFallback from "../../assets/images/about/ceo.png";
 import "./About.css";
 
-const DISCIPLINES_SHOWCASE = [
+const CORE_SERVICES = [
   {
     badge: "01 / INTERIOR",
-    title: "Interior Architecture & Styling",
-    icon: <FaDraftingCompass />,
-    desc: "Bespoke residential sanctuaries, luxury executive corporate suites, and experiential retail environments crafted with harmonious materials and refined lighting.",
+    title: "Home & Apartment Interior Design",
+    icon: <FaHome />,
+    desc: "From modern living rooms and cozy master bedrooms to modular kitchens and smart duplex layouts, we design homes that balance elegance, comfort, and everyday functionality.",
     features: [
-      "Custom Millwork & Spatial Ergonomics",
-      "Lighting & Acoustic Optimization",
-      "Full Material & FF&E Sourcing"
+      "Custom Living & Bedroom Space Planning",
+      "Modular Kitchens & Built-in Wardrobes",
+      "Lighting, Ceiling & Wall Panel Design"
     ]
   },
   {
-    badge: "02 / EXTERIOR",
-    title: "Exterior & Structural Elevation",
+    badge: "02 / EXTERIOR & COMMERCIAL",
+    title: "Office Interiors & Building Facades",
     icon: <FaBuilding />,
-    desc: "Monumental building facades, commercial entryway landmarks, and landscape integrations engineered to withstand weathering while projecting bold architectural prestige.",
+    desc: "We transform commercial offices, retail showrooms, restaurants, and building exterior facades into modern, brand-defining spaces that impress clients and inspire teams.",
     features: [
-      "Modern Facade Cladding & Paneling",
-      "Architectural Canopy & Gate Architecture",
-      "Landscape & Illuminative Staging"
+      "Modern Office Workstations & Executive Cabins",
+      "Building Exterior Facade Cladding & Gates",
+      "Retail Showroom & Restaurant Fit-outs"
     ]
   },
   {
-    badge: "03 / EVENTS",
-    title: "Event Scenography & Production",
+    badge: "03 / EVENT MANAGEMENT",
+    title: "Corporate Events & Stage Production",
     icon: <FaGlassCheers />,
-    desc: "High-caliber corporate summits, brand activations, international expo pavilions, and thematic experiential stages executed with uncompromising theatrical precision.",
+    desc: "Complete end-to-end event management for corporate AGMs, brand launches, trade expos, and gala conferences with custom stage fabrication, sound, and lighting.",
     features: [
-      "Structural Truss & Custom Stage Fabrication",
-      "Smart Interactive Visual AV Integration",
-      "Turnkey Production & On-Site Protocol"
+      "Custom Stage Design & Pavilion Fabrication",
+      "Professional Sound, LED Screen & Lighting Setup",
+      "Complete On-Site Event Protocol & Coordination"
     ]
   }
 ];
 
 const DEFAULT_WHY_CHOOSE_US = [
   {
-    title: "Expert Architectural Designers",
-    description: "Our studio brings together veteran spatial designers, CAD technicians, and interior stylists with over a decade of proven excellence.",
+    title: "Custom 3D Design Before We Build",
+    description: "Preview your exact space in photorealistic 3D renders before construction starts, ensuring zero guesswork.",
     imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925067/3pcom/uploads/designer_re5rov.jpg"
   },
   {
-    title: "Custom Tailored Solutions",
-    description: "Every blueprint is personalized to the client's cultural, operational, and aesthetic aspirations—never recycled or templated.",
+    title: "Transparent Budgets, No Hidden Costs",
+    description: "Detailed, itemized quotations with clear material specifications so you stay comfortably in control of your budget.",
     imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925091/3pcom/uploads/soultion_ttcxbt.jpg"
   },
   {
-    title: "Sustainable & Enduring Materials",
-    description: "We prioritize ethically sourced timbers, energy-efficient fixtures, and low-VOC finishes that guarantee longevity and health.",
+    title: "Durable & Certified Materials",
+    description: "We use high-grade boards, genuine hardware, branded paints, and eco-friendly finishes built to last for decades.",
     imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925094/3pcom/uploads/sustainability_pgcrrf.jpg"
   },
   {
-    title: "Comprehensive Turnkey Services",
-    description: "From 3D photorealistic visualization to on-site civil fabrication and handover, we handle every detail end-to-end.",
+    title: "Complete Turnkey Solutions",
+    description: "From civil demolition, electrical and plumbing to woodwork, painting, and final cleaning — we handle it all.",
     imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925111/3pcom/uploads/service_pabyxm.jpg"
   },
   {
-    title: "Proven Milestone Track Record",
-    description: "Decades of successful handovers for Bangladesh's leading institutions, corporations, and discerning private homeowners.",
+    title: "On-Time Project Handover",
+    description: "Disciplined project schedules and daily supervision ensure we hand over your keys on the promised date.",
     imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925117/3pcom/uploads/track_zwmnab.jpg"
   },
   {
-    title: "Passion for Spatial Betterment",
-    description: "Continuous innovation in modern architecture, acoustic design, and ergonomic living ensures every finished space elevates human experience.",
+    title: "Dedicated After-Service Support",
+    description: "We stand firmly behind our workmanship with reliable ongoing maintenance and prompt customer care.",
     imageUrl: "https://res.cloudinary.com/avinilit/image/upload/v1729925846/3pcom/uploads/better_yisx6j.jpg"
   }
 ];
@@ -97,7 +92,6 @@ const DEFAULT_WHY_CHOOSE_US = [
 const AboutUs = () => {
   const [aboutData, setAboutData] = useState(null);
   const [contactData, setContactData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -114,9 +108,7 @@ const AboutUs = () => {
           setContactData(contactRes.value.data);
         }
       } catch (error) {
-        console.error("Error fetching about page datasets:", error);
-      } finally {
-        setLoading(false);
+        console.error("Error fetching about page data:", error);
       }
     };
 
@@ -133,8 +125,9 @@ const AboutUs = () => {
   const director = {
     name: aboutData?.profile?.name || "Prokash Banik",
     position: aboutData?.profile?.position || "CEO & Managing Director, 3P Communication",
-    introduction: aboutData?.profile?.introduction ||
-      "At 3P Communication, we blend creativity, structural engineering, and uncompromising aesthetic rigor to transform raw spaces into inspiring habitats. With an unwavering passion for innovative spatial design, we turn complex blueprints into enduring architectural legacies.",
+    introduction: aboutData?.profile?.introduction && aboutData.profile.introduction.length > 30
+      ? aboutData.profile.introduction
+      : "When we take on a project, we don't just see blueprints or empty rooms — we see a family's dream home, a business owner's ambitious future, or a brand's milestone moment. Our promise is simple: listen carefully, design thoughtfully, use honest materials, and deliver on time.",
     profilePicture: aboutData?.profile?.profilePicture || (ceoFallback?.src || ceoFallback)
   };
 
@@ -143,7 +136,6 @@ const AboutUs = () => {
     : DEFAULT_WHY_CHOOSE_US;
 
   const hotline = contactData?.mobile || "+8801722728272";
-  const email = contactData?.email || "3pcommunication@gmail.com";
 
   return (
     <div className="about-page-wrapper">
@@ -153,18 +145,18 @@ const AboutUs = () => {
       <section className="about-hero-banner">
         <div className="container">
           <div className="about-hero-tag">
-            <span>✦</span> ABOUT 3P COMMUNICATION
+            About 3P Communication
           </div>
           <h1 className="about-hero-title">
-            Crafting Spatial Legacies &amp; <span>Iconic Experiences</span>
+            Designing Spaces You Love, <span>Crafted with Care</span>
           </h1>
           <p className="about-hero-subtitle">
-            A premier multidisciplinary studio dedicated to elevating architectural interiors, monumental exteriors, and high-production event environments across Bangladesh.
+            From 3D concept designs to complete turnkey handover, 3P Communication is your trusted partner for home interiors, commercial office setups, building facades, and corporate events across Bangladesh.
           </p>
         </div>
       </section>
 
-      {/* Executive Leadership (Director Philosophy) */}
+      {/* Founder & Leadership Spotlight */}
       <section className="about-section">
         <div className="container">
           <div className="about-director-card">
@@ -183,7 +175,7 @@ const AboutUs = () => {
                   />
                   <div className="director-experience-badge">
                     <span className="badge-number">{stats.yearsInService}+</span>
-                    <span className="badge-text">Years of Visionary Spatial Leadership</span>
+                    <span className="badge-text">Years of Trusted Craftsmanship</span>
                   </div>
                 </div>
               </div>
@@ -191,7 +183,7 @@ const AboutUs = () => {
               {/* Right: Leadership Content */}
               <div className="col-12 col-lg-7">
                 <div className="director-content">
-                  <div className="director-role-tag">Director &amp; Principal Visionary</div>
+                  <div className="director-role-tag">Founder &amp; Managing Director</div>
                   <h2 className="director-name">{director.name}</h2>
                   <div className="director-position">{director.position}</div>
 
@@ -206,25 +198,25 @@ const AboutUs = () => {
                     <div className="philosophy-item">
                       <FaCheckCircle className="philosophy-icon" />
                       <span>
-                        <strong>Precision Engineering &amp; Aesthetic Harmony:</strong> Ensuring every millwork detail and lighting fixture serves both functional longevity and experiential beauty.
+                        <strong>Custom 3D Visualization Before Execution:</strong> You see every detail, material texture, and lighting plan in 3D before work starts on-site.
                       </span>
                     </div>
                     <div className="philosophy-item">
                       <FaCheckCircle className="philosophy-icon" />
                       <span>
-                        <strong>End-to-End Turnkey Execution:</strong> From 3D photorealistic renderings to turnkey site civil execution, eliminating client friction and unforeseen delays.
+                        <strong>Honest Budgets &amp; No Hidden Charges:</strong> Clear, itemized pricing so your project finishes smoothly without unexpected costs.
                       </span>
                     </div>
                     <div className="philosophy-item">
                       <FaCheckCircle className="philosophy-icon" />
                       <span>
-                        <strong>Client-First Transparent Collaboration:</strong> Direct access to lead architects and real-time fabrication updates throughout every phase.
+                        <strong>In-House Skilled Artisans &amp; Quality Control:</strong> Experienced carpenters, painters, and site supervisors ensuring top-notch durability.
                       </span>
                     </div>
                   </div>
 
                   <Link href="/contactus" className="btn cta-btn-primary">
-                    <span>Connect with Leadership</span>
+                    <span>Talk with Our Team</span>
                     <FaArrowRight />
                   </Link>
                 </div>
@@ -235,20 +227,20 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* KPI Impact Statistics Bar */}
+      {/* KPI Impact Statistics Strip */}
       <section className="about-stats-section">
         <div className="container">
           <div className="stats-grid">
             
             <div className="stat-metric-card">
               <div className="stat-icon-circle">
-                <FaDraftingCompass />
+                <FaHome />
               </div>
               <div className="stat-number">
                 {stats.projectsCompleted}<span>+</span>
               </div>
-              <div className="stat-label">Projects Completed</div>
-              <p className="stat-desc">Residential, corporate &amp; commercial landmarks</p>
+              <div className="stat-label">Major Projects Completed</div>
+              <p className="stat-desc">Homes, duplexes &amp; corporate offices</p>
             </div>
 
             <div className="stat-metric-card">
@@ -258,8 +250,8 @@ const AboutUs = () => {
               <div className="stat-number">
                 {stats.awardsReceived}<span>+</span>
               </div>
-              <div className="stat-label">Awards &amp; Honors</div>
-              <p className="stat-desc">Recognized architectural &amp; design excellence</p>
+              <div className="stat-label">Design &amp; Service Awards</div>
+              <p className="stat-desc">Recognized for customer satisfaction</p>
             </div>
 
             <div className="stat-metric-card">
@@ -270,7 +262,7 @@ const AboutUs = () => {
                 {stats.happyCustomers}<span>+</span>
               </div>
               <div className="stat-label">Delighted Clients</div>
-              <p className="stat-desc">Leading corporations, brands &amp; private homeowners</p>
+              <p className="stat-desc">Homeowners, corporations &amp; brands</p>
             </div>
 
             <div className="stat-metric-card">
@@ -280,27 +272,27 @@ const AboutUs = () => {
               <div className="stat-number">
                 {stats.yearsInService}<span>+</span>
               </div>
-              <div className="stat-label">Years In Service</div>
-              <p className="stat-desc">A decade of pioneering multidisciplinary execution</p>
+              <div className="stat-label">Years of Experience</div>
+              <p className="stat-desc">Serving clients in Dhaka since 2014</p>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* The 3 Core Disciplines (3P DNA) */}
+      {/* The 3 Core Services */}
       <section className="about-section">
         <div className="container">
           <div className="about-section-header">
-            <span className="about-section-tag">Multidisciplinary Practice</span>
-            <h2 className="about-section-title">The Three Pillars of 3P</h2>
+            <span className="about-section-tag">What We Do</span>
+            <h2 className="about-section-title">Our Core Design Services</h2>
             <p className="about-section-subtitle">
-              We seamlessly integrate architecture, facade engineering, and experiential production under one unified creative atelier.
+              Whether it's your personal sanctuary, a dynamic office workplace, or an unforgettable corporate event, we handle everything from start to finish.
             </p>
           </div>
 
           <div className="disciplines-grid">
-            {DISCIPLINES_SHOWCASE.map((item, idx) => (
+            {CORE_SERVICES.map((item, idx) => (
               <div key={idx} className="discipline-card">
                 <div className="discipline-card-header">
                   <span className="discipline-badge">{item.badge}</span>
@@ -321,14 +313,14 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* Why Choose 3P (6 Value Pillars Grid) */}
-      <section className="about-section" style={{ backgroundColor: "#f3ede3" }}>
+      {/* Why Choose 3P (6 Real Value Pillars) */}
+      <section className="about-section" style={{ backgroundColor: "#f6f2ec" }}>
         <div className="container">
           <div className="about-section-header">
-            <span className="about-section-tag">Studio Values &amp; Standards</span>
-            <h2 className="about-section-title">Why Discerning Clients Choose Us</h2>
+            <span className="about-section-tag">Why Work With Us</span>
+            <h2 className="about-section-title">Why Homeowners &amp; Businesses Choose 3P</h2>
             <p className="about-section-subtitle">
-              Built on uncompromising work ethics, sustainable materials, and a proven track record of architectural distinction.
+              We take the stress out of building and renovating with transparent budgets, quality craftsmanship, and reliable handovers.
             </p>
           </div>
 
@@ -354,23 +346,23 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* Executive Call to Action Banner */}
+      {/* Warm Consultation Call to Action Banner */}
       <section className="about-cta-section">
         <div className="container">
           <div className="about-cta-card">
             <div className="row align-items-center">
               <div className="col-12 col-lg-7 mb-4 mb-lg-0">
                 <h3 className="cta-title">
-                  Ready to Turn Your Dream Space Into <span>Reality?</span>
+                  Ready to Build or Renovate Your <span>Dream Space?</span>
                 </h3>
                 <p className="cta-desc">
-                  Schedule an on-site consultation or visit our Mohammadpur design studio to discuss your interior, exterior facade, or corporate event production with our principal leads.
+                  Visit our studio in Mohammadpur, Dhaka, or book a free consultation with our design team to discuss your project ideas, space layout, and budget.
                 </p>
               </div>
               <div className="col-12 col-lg-5 text-lg-end">
                 <div className="cta-actions justify-content-lg-end">
                   <Link href="/contactus" className="cta-btn-primary">
-                    <span>Book Consultation ↗</span>
+                    <span>Book Free Consultation ↗</span>
                   </Link>
                   <a href={`tel:${hotline}`} className="cta-btn-secondary">
                     <FaPhoneAlt />

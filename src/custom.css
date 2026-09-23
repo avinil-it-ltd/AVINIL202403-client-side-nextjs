@@ -360,69 +360,7 @@ html, body {
   /* Full width */
 }
 
-.client-row {
-  display: inline-flex;
-  /* Use inline-flex to keep items in one line */
-  animation: scroll-left 40s linear infinite;
-  /* Increase duration to slow down scrolling */
-}
-
-.client-item {
-  display: inline-block;
-  /* Each item should display inline */
-  text-align: center;
-  /* Center the image */
-  margin-right: 10px;
-  /* Space between images */
-}
-
-.client-image {
-  width: 150px;
-  /* Set a fixed width for images */
-  height: 100px;
-  /* Set a fixed height */
-  object-fit: cover;
-  /* Maintain aspect ratio and cover the specified dimensions */
-  transition: transform 0.3s, filter 0.3s;
-  /* Smooth transition */
-}
-
-.client-image:hover {
-  filter: grayscale(0%);
-  /* Remove grayscale on hover */
-  transform: scale(1.1);
-  /* Slight zoom effect on hover */
-}
-
-/* Animation for scrolling */
-@keyframes scroll-left {
-  0% {
-    transform: translateX(100%);
-    /* Start from the right */
-  }
-
-  100% {
-    transform: translateX(-100%);
-    /* End at the left */
-  }
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .client-image {
-    width: 80px;
-    /* Adjust size for smaller screens */
-    height: 60px;
-    /* Adjust height for smaller screens */
-  }
-
-  .client-item {
-    margin-right: 5px;
-    /* Reduce margin on smaller screens */
-  }
-}
-
-/* clients css end here */
+/* clients css moved to Clients.css */
 
 
 

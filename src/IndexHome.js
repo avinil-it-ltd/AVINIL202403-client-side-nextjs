@@ -35,13 +35,12 @@ import Testimonial from "./views/Home/Testimonial/Testimonial.js";
 import Headline from "./views/Home/Headline/Headline.js";
 
 
+const ZoomIn = styled.div`animation:3s ${keyframes`${zoomIn}`}`;
+
 const IndexHome = (props) => {
   const theme = '#191919'
 
   const [projects, setProjects] = useState([])
-
-
-  const ZoomIn = styled.div`animation:3s ${keyframes`${zoomIn}`}`
 
 
 

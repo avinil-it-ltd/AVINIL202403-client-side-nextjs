@@ -39,32 +39,50 @@
   line-height: 1.6;
 }
 
-/* Marquee wrapper with generous vertical room and smooth edge fades */
+/* Marquee wrapper */
 .clients-marquee-wrapper {
   position: relative;
   padding: 24px 0;
-  -webkit-mask-image: linear-gradient(
+  overflow: hidden;
+}
+
+/* B&W and Fade Overlays for Start (Left) and End (Right) Cards */
+.clients-marquee-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 290px;
+  height: 100%;
+  backdrop-filter: grayscale(100%);
+  -webkit-backdrop-filter: grayscale(100%);
+  background: linear-gradient(
     to right,
-    transparent 0%,
-    rgba(0, 0, 0, 0.25) 4%,
-    rgba(0, 0, 0, 0.75) 10%,
-    rgba(0, 0, 0, 1) 18%,
-    rgba(0, 0, 0, 1) 82%,
-    rgba(0, 0, 0, 0.75) 90%,
-    rgba(0, 0, 0, 0.25) 96%,
+    rgba(250, 243, 236, 0.95) 0%,
+    rgba(250, 243, 236, 0.6) 45%,
     transparent 100%
   );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0, 0, 0, 0.25) 4%,
-    rgba(0, 0, 0, 0.75) 10%,
-    rgba(0, 0, 0, 1) 18%,
-    rgba(0, 0, 0, 1) 82%,
-    rgba(0, 0, 0, 0.75) 90%,
-    rgba(0, 0, 0, 0.25) 96%,
+  pointer-events: none;
+  z-index: 5;
+}
+
+.clients-marquee-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 290px;
+  height: 100%;
+  backdrop-filter: grayscale(100%);
+  -webkit-backdrop-filter: grayscale(100%);
+  background: linear-gradient(
+    to left,
+    rgba(250, 243, 236, 0.95) 0%,
+    rgba(250, 243, 236, 0.6) 45%,
     transparent 100%
   );
+  pointer-events: none;
+  z-index: 5;
 }
 
 /* Glowing Client Card */
@@ -83,6 +101,7 @@
   box-shadow: 0 8px 24px rgba(255, 120, 30, 0.18), 0 2px 10px rgba(255, 140, 50, 0.12);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  position: relative;
 }
 
 .client-logo-card:hover {
@@ -98,8 +117,6 @@
   width: auto;
   height: auto;
   object-fit: contain !important;
-  filter: none;
-  opacity: 1;
   mix-blend-mode: multiply;
   transition: transform 0.35s ease;
   user-select: none;
@@ -126,6 +143,11 @@
 
   .clients-marquee-wrapper {
     padding: 16px 0;
+  }
+
+  .clients-marquee-wrapper::before,
+  .clients-marquee-wrapper::after {
+    width: 130px;
   }
 
   .client-logo-card {

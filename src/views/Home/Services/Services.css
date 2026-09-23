@@ -1,6 +1,6 @@
 /* Background Image */
 .service_bg {
-    background-image: url('/assets/images/servicesImg.jpeg'); /* Replace with your image path */
+    background-image: url('/assets/servicesImg.jpeg'); /* Replace with your image path */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

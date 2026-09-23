@@ -46,11 +46,10 @@ function Clients() {
 
       <div className="clients-marquee-wrapper">
         <Marquee
-          speed={40}
+          speed={38}
           pauseOnHover={true}
-          gradient={true}
-          gradientColor="250, 243, 236"
-          gradientWidth={60}
+          autoFill={true}
+          gradient={false}
         >
           {clientLogos.map((pic, index) => (
             <div key={index} className="client-logo-card">

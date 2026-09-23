@@ -1,62 +1,174 @@
-/* Contact Section with Background Image */
-.contact-section {
-    /* background-image: url('/src/assets/images/contact-bg.jpg'); Replace with the correct path to your background image */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-color: #000;
-    width: 100%;
-    height: auto;
+/* ==========================================================================
+   ContactInfo Section - Architectural Studio Consultation Strip
+   ========================================================================== */
+
+.atelier-contact-strip {
+  background-color: #faf7f2;
+  border-top: 1px solid #e7e3da;
+  border-bottom: 1px solid #e7e3da;
 }
 
-/* Custom Styling */
-.icon-circle {
-    background-color: #f0ad4e; /* Bootstrap warning color or change to fit design */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000;
-    font-size: 1.5rem;
+.contact-strip-inner {
+  background: #ffffff;
+  border: 1px solid #e7e3da;
+  border-radius: 14px;
+  padding: 36px 32px;
+  box-shadow: 0 4px 20px rgba(18, 19, 22, 0.04);
 }
 
-/* Text Styling */
-.text-warning {
-    font-weight: bold;
+.contact-strip-eyebrow {
+  display: inline-block;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c85a17;
+  margin-bottom: 8px;
 }
 
-h3 {
-    font-size: 2rem;
-    font-family: 'Aref Ruqaa', serif;
+.contact-strip-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 1.65rem;
+  font-weight: 600;
+  color: #121316;
+  line-height: 1.3;
+  margin-bottom: 10px;
 }
 
-/* Responsive Layout */
+.contact-strip-desc {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.92rem;
+  color: #555e6d;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.contact-brief-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background-color: #c85a17;
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 10px 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-brief-btn:hover {
+  background-color: #ad4b0f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(200, 90, 23, 0.28);
+}
+
+/* Touchpoint Cards */
+.contact-touch-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #faf7f2;
+  border: 1px solid #e7e3da;
+  border-radius: 10px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.contact-touch-card:hover {
+  background: #ffffff;
+  border-color: #c85a17;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(18, 19, 22, 0.07);
+}
+
+.touch-card-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e7e3da;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c85a17;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.touch-card-icon-box.whatsapp-box {
+  color: #25d366;
+}
+
+.contact-touch-card:hover .touch-card-icon-box {
+  background: #c85a17;
+  border-color: #c85a17;
+  color: #ffffff;
+}
+
+.contact-touch-card:hover .touch-card-icon-box.whatsapp-box {
+  background: #25d366;
+  border-color: #25d366;
+  color: #ffffff;
+}
+
+.touch-card-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.touch-card-label {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #7a8290;
+  margin-bottom: 2px;
+}
+
+.touch-card-value {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #121316;
+  line-height: 1.25;
+}
+
+.touch-card-sub {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.74rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.touch-card-arrow {
+  color: #cbd5e1;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.contact-touch-card:hover .touch-card-arrow {
+  color: #c85a17;
+  transform: translateX(4px);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    h3 {
-        font-size: 1.8rem;
-    }
+  .contact-strip-inner {
+    padding: 24px 18px;
+  }
 
-    .icon-circle {
-        width: 40px;
-        height: 40px;
-        font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 576px) {
-    h3 {
-        font-size: 1.5rem;
-    }
-
-    .icon-circle {
-        width: 35px;
-        height: 35px;
-        font-size: 1.2rem;
-    }
-
-    .contact-section {
-        padding: 20px 0;
-    }
+  .contact-strip-title {
+    font-size: 1.4rem;
+  }
 }

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Spinner, Button } from 'react-bootstrap';
 import Footer from '../../core/Footer';
 import TopMenu from '../../core/TopMenu';
+import ContactInfo from '../Home/ContactInfo/ContactInfo';
 import '../Exterior/Exterior.css';
 import axios from 'axios';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaStar } from 'react-icons/fa';
@@ -198,44 +199,7 @@ function ProjectsDetails() {
                 </Row> */}
 
 
-                <div className="w-100 bg-dark my-5 py-5">
-                    <div className="d-flex flex-column flex-md-row justify-content-around align-items-center text-center text-md-start text-black fw-bolder px-3 px-md-5 callNow_font">
-
-                        {/* Column 1 - Text */}
-                        <div className="col-md-4 mb-3 mb-md-0 text-white">
-                            <h3>CONTACT NOW FOR YOUR DREAM INTO REALITY</h3>
-                        </div>
-
-                        {/* Column 2 - Phone Number with Icon */}
-                        <div className="col-md-4 mb-3 mb-md-0 d-flex align-items-center justify-content-center">
-                            <div className="d-flex align-items-center justify-content-center">
-                                <div className="icon-circle">
-                                    <i className="bi bi-telephone-fill"></i> {/* Bootstrap phone icon */}
-                                </div>
-                                <div className="px-3 pt-3">
-                                    <p className="text-warning"> CALL US<br /><span className="text-white"> +88015846895</span> </p>
-                                    <p className="ms-2 fw-bold"></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Column 3 - Email with Icon */}
-                        <div className="col-md-4 d-flex align-items-center justify-content-center">
-                            <div>
-
-                                <div className="d-flex align-items-center justify-content-center">
-                                    <div className="icon-circle">
-                                        <i className="bi bi-envelope-fill"></i> {/* Bootstrap envelope icon */}
-                                    </div>
-                                    <div className="px-3 pt-3">
-                                        <p className="text-warning">PLEASE SEND EMAIL<br /> <span className="fw-bold text-white">info@example.com</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                <ContactInfo />
 
 
 

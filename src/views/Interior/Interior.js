@@ -1,35 +1,32 @@
-
 'use client';
 
 import React, { useState, useEffect } from "react";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import TopMenu from "../../core/TopMenu";
 import Footer from "../../core/Footer";
-import { Container, Col, Row } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom'; // To navigate between pages
-import '../../App.css';
-import './interior.css';
+import ContactInfo from "../Home/ContactInfo/ContactInfo";
+import { Container, Col, Row, Spinner } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 import bioImg from "../../../src/assets/images/interiorPage/bioImg.jpg";
-import axios from 'axios'; // Import axios to make API requests
+import axios from 'axios';
+import './interior.css';
 
 const Interior = () => {
   const [projects, setProjects] = useState([]);
-  const navigate = useNavigate(); // For navigation
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  // Fetch interior projects from the backend
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('https://3pcommunicationsserver.vercel.app/api/projects'); // Assuming your API route is '/api/projects'
-        const interiorProjects = response.data.projects.filter(project => project.category.toLowerCase() === 'interior design')?.reverse();
-
-        setProjects(interiorProjects);
-        console.log(interiorProjects);
+        const response = await axios.get('https://3pcommunicationsserver.vercel.app/api/projects');
+        const interiorProjects = response.data.projects.filter(
+          project => project.category?.toLowerCase() === 'interior design'
+        )?.reverse();
+        setProjects(interiorProjects || []);
       } catch (error) {
-        console.error('Error fetching projects:', error);
+        console.error('Error fetching interior projects:', error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     };
 
@@ -37,175 +34,109 @@ const Interior = () => {
   }, []);
 
   const handleMoreDetails = (id) => {
-    navigate(`/details/${id}`); // Navigate to the project details page
+    navigate(`/details/${id}`);
   };
 
-
-
-
-  // State to hold contact details, loading, and error
-  const [contactDetails, setContactDetails] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchContactDetails = async () => {
-      try {
-        const response = await fetch("https://3pcommunicationsserver.vercel.app/api/myContact"); // Adjust the URL as needed
-        if (!response.ok) {
-          throw new Error("Failed to fetch contact details");
-        }
-        const data = await response.json();
-        setContactDetails(data); // Set contact details
-      } catch (error) {
-        console.error("Error fetching contact details:", error);
-        setError("Failed to load contact details.");
-      } finally {
-        setLoading(false); // Set loading to false after fetching
-      }
-    };
-
-    fetchContactDetails();
-  }, []); // Empty dependency array to run only once
-
-
-
-
-  // Custom Loader JSX
-  const Loader = () => (
-    <div className="loader-container">
-      <div className="custom-loader"></div>
-    </div>
-  );
-
   if (loading) {
-    return <Loader />; // Use your custom loader here
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
+        <Spinner animation="border" variant="warning" />
+      </div>
+    );
   }
 
-
-  const BioSection = () => (
-    <Container className="my-5 py-5 px-2">
-      <Row>
-        <Col md={6}>
-          <img src={bioImg?.src || bioImg} alt="Example" className="img-fluid" />
-        </Col>
-        <Col className="ps-5 d-flex align-items-center " md={6}>
-          <div>
-
-
-            <h2
-              className="heading_color text-start"
-              style={{ fontFamily: "'Aref Ruqaa', serif" }}
-            >
-              {" "}
-              Our Interior Projects
-            </h2>
-            <p style={{ fontFamily: "'Aref Ruqaa', serif" }}>
-              Transforming Spaces into Homes
-            </p>
-            <p className="my-5" style={{ fontFamily: "'Aref Ruqaa', serif" }}>
-              At{" "}
-              <span style={{ color: "#FFB300", fontWeight: "bold" }}>
-                3P Communication
-              </span>
-              , we believe that every space tells a story. Our interior design
-              projects are meticulously crafted to enhance the beauty and
-              functionality of your home or office. From contemporary designs to
-              timeless classics, our team of expert designers works closely with
-              clients to bring their visions to life.
-            </p>
-          </div>
-        </Col>
-      </Row>
-    </Container>
-  );
-
-  const callNow = () => (
-    <div className="w-100 bg-dark my-5 py-5">
-      <div className="d-flex flex-column flex-md-row justify-content-around align-items-center text-center text-md-start text-black fw-bolder px-3 px-md-5 callNow_font">
-
-        {/* Column 1 - Text */}
-        <div className="col-md-4 mb-3 mb-md-0 text-white">
-          <h3>CONTACT NOW FOR YOUR DREAM INTO REALITY</h3>
-        </div>
-
-        {/* Column 2 - Phone Number with Icon */}
-        <div className="col-md-4 mb-3 mb-md-0 d-flex align-items-center justify-content-center">
-          <div className="d-flex align-items-center justify-content-center">
-            <div className="icon-circle">
-              <i className="bi bi-telephone-fill"></i> {/* Bootstrap phone icon */}
-            </div>
-            <div className="px-3 pt-5">
-              <p className="text-warning"> CALL US<br />
-                <span className="text-white"> {contactDetails ? contactDetails?.mobile : "+880000000000"}</span>
-              </p>
-              <p className="ms-2 fw-bold"></p>
-            </div>
-          </div>
-        </div>
-
-        {/* Column 3 - Email with Icon */}
-        <div className="col-md-4 d-flex align-items-center justify-content-center">
-          <div>
-            <div className="d-flex align-items-center justify-content-center">
-              <div className="icon-circle">
-                <i className="bi bi-envelope-fill"></i> {/* Bootstrap envelope icon */}
+  return (
+    <div className="interior-page-wrapper" style={{ backgroundColor: "#fbf9f6" }}>
+      <TopMenu />
+      
+      {/* Editorial Monograph Bio Section */}
+      <section className="py-5">
+        <Container className="py-4">
+          <Row className="align-items-center g-5">
+            <Col lg={6}>
+              <div className="editorial-bio-frame">
+                <img 
+                  src={bioImg?.src || bioImg} 
+                  alt="3P Communication Interior Architecture" 
+                  className="editorial-bio-img" 
+                />
               </div>
-              <div className="px-3 pt-3">
-                <p className="text-warning">PLEASE SEND EMAIL<br />
-                  <span className="fw-bold text-white">{contactDetails ? contactDetails?.email : "info@example.com"}</span>
+            </Col>
+            <Col lg={6}>
+              <div className="editorial-bio-content">
+                <span className="editorial-eyebrow">01 / INTERIOR ARCHITECTURE</span>
+                <h1 className="editorial-title">
+                  Bespoke Living Spaces &amp; Commercial Workplaces
+                </h1>
+                <p className="editorial-lead">
+                  Every room tells a story of spatial harmony. At 3P Communication, our interior architects synthesize ergonomic movement, natural illumination, and custom timber joinery to create environments of effortless poise.
+                </p>
+                <p className="editorial-text">
+                  From luxury residences in Gulshan, Banani, and Uttara to high-efficiency corporate headquarters across Dhaka, our in-house millwork workshop delivers exact joinery tolerances with zero guesswork.
                 </p>
               </div>
-            </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+      {/* Clickable Studio Direct Line Bar */}
+      <ContactInfo />
+
+      {/* Selected Projects Directory */}
+      <section className="py-5">
+        <Container className="pb-5">
+          <div className="projects-header mb-5">
+            <span className="editorial-eyebrow">PROJECT DIRECTORY</span>
+            <h2 className="editorial-title">Selected Interior Projects</h2>
+            <p className="editorial-lead">
+              Browse our completed residential apartments, duplexes, and commercial executive suites.
+            </p>
           </div>
-        </div>
 
-      </div>
-    </div>
-  );
-
-
-
-
-  const ProjectSection = () => (
-    <div className="container mb-5 px-3 pb-5">
-      <h1 className="my-5 py-5"><span className="bigText">Interior</span> <span className="smallText">Projects</span></h1>
-
-      <div className="row g-4">
-        {projects.map((project) => (
-          <div key={project._id} className="col-lg-4 col-md-6">
-            <div className="image-item">
-              <img src={project.mainImage} alt={project.title} className="img-fluid" />
-
-              <div className="overlay">
-                <div className="overlay-text">
-                  <button onClick={() => handleMoreDetails(project._id)} className="more-details-btn ">
-                    More Details
-                  </button>
+          <Row className="g-4">
+            {projects.map((project) => (
+              <Col lg={4} md={6} key={project._id} className="d-flex">
+                <div 
+                  className="project-editorial-card w-100"
+                  onClick={() => handleMoreDetails(project._id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === 'Enter' && handleMoreDetails(project._id)}
+                >
+                  <div className="project-photo-frame">
+                    <img 
+                      src={project.mainImage} 
+                      alt={project.title} 
+                      className="project-photo" 
+                      loading="lazy"
+                    />
+                    <div className="project-tag-overlay">
+                      <span>{project.subcategory || 'Interior Architecture'}</span>
+                    </div>
+                  </div>
+                  <div className="project-card-meta">
+                    <h3 className="project-card-title">{project.title}</h3>
+                    <p className="project-card-cat">{project.category}</p>
+                    <button 
+                      type="button" 
+                      className="project-detail-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleMoreDetails(project._id);
+                      }}
+                    >
+                      View Project Details &rarr;
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="imageTitle">
-              <h3 className="text-capitalize fs-5 fw-bold">{project.title}</h3>
-              <p>{project.subcategory}, {project.category}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
 
-  return (
-    <div className="g-0 " style={{ maxWidth: "100vw" }}>
-      <div><TopMenu /></div>
-      <div className="body_background">
-        <div className="container-fluid">
-          <div>{BioSection()}</div>
-          <div>{callNow()}</div>
-          <div>{ProjectSection()}</div>
-
-        </div>
-      </div>
-      <div id="contact"><Footer /></div>
+      <Footer />
     </div>
   );
 };

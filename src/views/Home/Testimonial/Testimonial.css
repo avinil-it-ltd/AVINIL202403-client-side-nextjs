@@ -1,92 +1,227 @@
-/* Main Testimonial Section Styling */
-.testimonial-section {
-    position: relative;
-    padding: 2rem 1rem;
+/* ==========================================================================
+   Testimonial Section - Architectural Endorsement Cards & Marquee
+   ========================================================================== */
+
+.testimonial-editorial-section {
+  background-color: #faf7f2;
+  border-top: 1px solid #e7e3da;
+  border-bottom: 1px solid #e7e3da;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left Photo Frame */
+.testimonial-frame {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e7e3da;
+  box-shadow: 0 10px 30px rgba(18, 19, 22, 0.07);
+}
+
+.testimonial-photo {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+}
+
+.testimonial-photo-tag {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  background: rgba(18, 19, 22, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #f7f5f0;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Right Content */
+.testimonial-eyebrow {
+  display: inline-block;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c85a17;
+  margin-bottom: 8px;
+}
+
+.testimonial-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 2.3rem;
+  font-weight: 600;
+  color: #121316;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+
+.testimonial-desc {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.02rem;
+  color: #555e6d;
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+
+.testimonial-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #121316;
+  color: #ffffff;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 12px 26px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.testimonial-explore-btn:hover {
+  background-color: #c85a17;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(200, 90, 23, 0.25);
+}
+
+/* Marquee Track */
+.testimonial-marquee-wrapper {
+  position: relative;
+  padding: 10px 0 20px 0;
+  overflow: hidden;
+}
+
+/* Quote Cards */
+.editorial-quote-card {
+  width: 380px;
+  min-width: 380px;
+  background: #ffffff;
+  border: 1px solid #e7e3da;
+  border-radius: 10px;
+  padding: 24px 22px 20px 22px;
+  margin: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 18px rgba(18, 19, 22, 0.04);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.editorial-quote-card:hover {
+  transform: translateY(-4px);
+  border-color: #c85a17;
+  box-shadow: 0 12px 28px rgba(18, 19, 22, 0.08);
+}
+
+.quote-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.quote-avatar-wrapper {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #e7e3da;
+  flex-shrink: 0;
+  background-color: #f0ebe1;
+}
+
+.quote-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quote-meta {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.quote-author-name {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #121316;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.quote-author-role {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quote-rating-stars {
+  display: flex;
+  gap: 2px;
+  color: #f59e0b;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+}
+
+.quote-card-body {
+  position: relative;
+  padding-left: 20px;
+}
+
+.quote-mark-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 0.82rem;
+  color: #c85a17;
+  opacity: 0.6;
+}
+
+.quote-body-text {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.88rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .testimonial-title {
+    font-size: 1.95rem;
   }
-  
-  .testimonial-section h2 {
-    font-size: 2rem;
-    font-weight: bold;
+
+  .testimonial-photo {
+    height: 300px;
   }
-  
-  .testimonial-section p {
-    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .testimonial-title {
+    font-size: 1.65rem;
   }
-  
-  /* Testimonial Carousel Wrapper Styling */
-  .testimonial-carousel-wrapper {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: rgb(229, 231, 235);
-    padding: 1.5rem;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 70%;
-    overflow: hidden;
-  }
-  
-  .testimonial-carousel {
-    display: flex;
-    gap: 1rem;
-    animation: scroll 15s linear infinite;
-  }
-  
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-  
-  /* Hide scrollbar */
-  .testimonial-carousel-wrapper::-webkit-scrollbar,
-  .testimonial-carousel::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .testimonial-card {
+
+  .editorial-quote-card {
+    width: 300px;
     min-width: 300px;
-    max-width: 400px;
-    width: 100%;
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
+    padding: 18px 16px;
   }
-  
-  .testimonial-card:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .testimonial-section h2 {
-      font-size: 1.5rem;
-    }
-    .testimonial-carousel-wrapper {
-      width: 100%;
-    }
-    .testimonial-card {
-      min-width: 250px;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .testimonial-section h2 {
-      font-size: 1.3rem;
-    }
-    .testimonial-section p {
-      font-size: 0.9rem;
-    }
-    /* Position carousel at the very bottom only on mobile */
-    .testimonial-carousel-wrapper {
-      /* position: fixed; */
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      max-width: 100%;
-      border-radius: 0;
-    }
-  }
-  
+}

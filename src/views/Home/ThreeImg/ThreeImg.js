@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Col, Container, Row } from 'react-bootstrap';
-import { FaArrowRight, FaGem } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
 import imgFuture from '../../../assets/images/interiorPage/feature-future-interior.jpg';
 import imgErgonomic from '../../../assets/images/interiorPage/feature-ergonomic-spaces.jpg';
 import imgVision from '../../../assets/images/interiorPage/feature-spatial-vision.jpg';
@@ -48,15 +48,14 @@ function ThreeImg() {
       <Container>
         {/* Section Header */}
         <div className="three-img-header text-center mb-5">
-          <div className="three-img-tag-pill">
-            <FaGem className="tag-sparkle-icon" />
-            <span>DESIGN PHILOSOPHY</span>
+          <div className="three-img-eyebrow">
+            SPATIAL RIGOR & MATERIAL HONESTY
           </div>
           <h2 className="three-img-main-title">
-            Spaces Conceived For <span className="title-accent">Modern Living</span>
+            Spaces Conceived for Human Living
           </h2>
           <p className="three-img-subtitle">
-            Harmonizing visionary architectural concepts, bespoke craftsmanship, and effortless functionality across residential and commercial spaces.
+            Harmonizing structural acoustics, natural illumination, and bespoke millwork craftsmanship across residential and corporate environments.
           </p>
         </div>
 

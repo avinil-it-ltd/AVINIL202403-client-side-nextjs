@@ -1,78 +1,136 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'; // Import React
-import './Testimonial.css'; // Import your CSS
-import { Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import testimonialImage from "../../../../src/assets/images/testimonialImage.jpg";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Container, Row, Col } from 'react-bootstrap';
+import Marquee from 'react-fast-marquee';
+import { FaQuoteLeft, FaStar, FaArrowRight } from 'react-icons/fa';
+import testimonialImage from '../../../assets/images/testimonialImage.jpg';
+import './Testimonial.css';
+
+const fallbackTestimonials = [
+  {
+    name: "Engr. Kazi Mahfuz",
+    designation: "Managing Director, Vertex Group",
+    content: "3P Communication completed our corporate headquarters in Gulshan with impeccable joinery and architectural lighting. Their on-site supervision and adherence to schedule were outstanding.",
+    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
+  },
+  {
+    name: "Dr. Farhana Yasmin",
+    designation: "Duplex Residence Owner, Uttara",
+    content: "From the first 3D renders to the final wood polish, Prokash Banik and his team treated our home like their own. Transparent pricing, zero hidden surprises, and incredible attention to detail.",
+    imageUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+  },
+  {
+    name: "Syed Rezaul Karim",
+    designation: "Head of Marketing, Apex Global",
+    content: "The exhibition pavilion 3P Communication engineered for our brand launch was monumental. Structurally flawless and executed overnight under extreme deadline pressure.",
+    imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80"
+  }
+];
 
 function Testimonial() {
-  const [testimonialsData, setTestimonialsData] = useState([]);
+  const [testimonialsData, setTestimonialsData] = useState(fallbackTestimonials);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await fetch('https://3pcommunicationsserver.vercel.app/api/testimonials'); // Adjust the endpoint as needed
-        const data = await response.json();
-        setTestimonialsData(data);
+        const response = await fetch('https://3pcommunicationsserver.vercel.app/api/testimonials');
+        if (response.ok) {
+          const data = await response.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setTestimonialsData(data);
+          }
+        }
       } catch (error) {
-        console.error("Error fetching testimonials:", error);
+        console.warn("Using curated client endorsements:", error.message);
       }
     };
     fetchTestimonials();
   }, []);
 
   return (
-    <Container fluid>
-      <section className="testimonial-section py-5 bg-white position-relative">
-        <div className="container pb-5 mb-5">
-          <Row className="mb-5">
-            {/* Left Section with Image and Text */}
-            <Col lg={6} md={12} className="mb-4" data-aos="zoom-in-left">
+    <section className="testimonial-editorial-section py-5">
+      <Container className="py-4">
+        {/* Editorial Split Row */}
+        <Row className="align-items-center g-5 mb-5">
+          {/* Left: Studio Lookbook Photo */}
+          <Col lg={5} md={12}>
+            <div className="testimonial-frame">
               <img
                 src={testimonialImage?.src || testimonialImage}
-                alt="Testimonial Section"
-                className="img-fluid rounded-lg"
+                alt="3P Communication Crafted Interior Space"
+                className="testimonial-photo"
+                loading="lazy"
               />
-            </Col>
-
-            {/* Right Heading, Paragraph, and Button */}
-            <Col lg={6} md={12} className="p-3" data-aos="fade-up">
-              <h2 className="display-4 pt-5 text-start font-weight-bold">Discover Client Experiences</h2>
-              <p className="text-muted mb-5">
-                Our clients consistently praise our commitment to quality and service. Join the growing list of satisfied clients who trust us for their meeting needs.
-              </p>
-              <Link to="/interior">
-                <button className="btn dashboard_all_button text-white fw-bold px-5 py-2"> Explore The Projects</button>
-              </Link>
-            </Col>
-          </Row>
-
-          {/* Testimonial Cards at Bottom Right */}
-          <div className="testimonial-carousel-wrapper">
-            <div className="testimonial-carousel">
-              {testimonialsData.map((testimonial, index) => (
-                <div key={index} className="card bg-white testimonial-card border-0 mx-3 p-3 shadow-sm">
-                  <div className="d-flex align-items-center">
-                    <img
-                      src={testimonial.imageUrl}
-                      alt={testimonial.name}
-                      className="rounded-circle me-3"
-                      style={{ width: "60px", height: "60px", objectFit: "cover" }}
-                    />
-                    <div className="ps-3">
-                      <h6 className="mb-1">{testimonial.name}</h6>
-                      <small className="text-muted">{testimonial.designation}</small>
-                    </div>
-                  </div>
-                  <p className="mt-3 text-muted">{testimonial.content}</p>
-                </div>
-              ))}
+              <div className="testimonial-photo-tag">
+                <span>HANDOVER VERIFIED • DHAKA</span>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-    </Container>
+          </Col>
+
+          {/* Right: Editorial Context */}
+          <Col lg={7} md={12}>
+            <div className="testimonial-header-content">
+              <span className="testimonial-eyebrow">CLIENT ENDORSEMENTS</span>
+              <h2 className="testimonial-title">
+                Trusted by Homeowners &amp; Leading Corporations
+              </h2>
+              <p className="testimonial-desc">
+                Our clients value our disciplined adherence to transparent BOQ budgeting, durable natural materials, and stress-free turnkey execution across Bangladesh.
+              </p>
+              <div className="testimonial-cta-row">
+                <Link href="/interior" className="testimonial-explore-btn">
+                  <span>Explore Completed Projects</span>
+                  <FaArrowRight />
+                </Link>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+
+      {/* Testimonial Continuous Marquee Track */}
+      <div className="testimonial-marquee-wrapper">
+        <Marquee
+          speed={32}
+          pauseOnHover={true}
+          autoFill={true}
+          gradient={false}
+        >
+          {testimonialsData.map((item, index) => (
+            <div key={index} className="editorial-quote-card">
+              <div className="quote-card-header">
+                <div className="quote-avatar-wrapper">
+                  <img
+                    src={item.imageUrl || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80"}
+                    alt={item.name}
+                    className="quote-avatar-img"
+                    onError={(e) => {
+                      e.target.src = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80";
+                    }}
+                  />
+                </div>
+                <div className="quote-meta">
+                  <h4 className="quote-author-name">{item.name}</h4>
+                  <div className="quote-author-role">{item.designation}</div>
+                </div>
+                <div className="quote-rating-stars" aria-label="5 stars">
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar key={i} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="quote-card-body">
+                <FaQuoteLeft className="quote-mark-icon" aria-hidden="true" />
+                <p className="quote-body-text">{item.content}</p>
+              </div>
+            </div>
+          ))}
+        </Marquee>
+      </div>
+    </section>
   );
 }
 

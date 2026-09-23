@@ -1,81 +1,135 @@
-/* General Styling */
-.intro-section {
-    background-size: cover;
-    background-position: center;
-    padding: 50px 0;
+/* ==========================================================================
+   Introduction Section - Architectural Overview
+   ========================================================================== */
+
+.intro-editorial-section {
+  background-color: #ffffff;
+  position: relative;
 }
 
-.body_background {
-    background-color: rgba(255, 255, 255, 0.95); /* Light background with opacity */
-    padding: 20px;
+.intro-text-col {
+  padding-right: 1.5rem;
 }
 
-/* Text Section */
-.text-section h2 {
-    font-family: "Times New Roman", serif;
-    font-size: 2rem;
-    color: #333;
+.intro-eyebrow {
+  display: inline-block;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c85a17;
+  margin-bottom: 10px;
 }
 
-.text-section p {
-    color: #666;
-    font-size: 1rem;
+.intro-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 2.15rem;
+  font-weight: 600;
+  color: #121316;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  letter-spacing: -0.3px;
 }
 
-.special_button {
-    background-color: #ff6600;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
+.intro-body {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.98rem;
+  color: #555e6d;
+  line-height: 1.7;
+  margin-bottom: 14px;
 }
 
-.special_button:hover {
-    background-color: #e65c00;
+/* Action Link */
+.intro-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #121316;
+  color: #ffffff;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 11px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-/* Image Section */
-.image-section img {
-    width: 100%;
-    height: auto;
-    margin-top: 20px;
-    border-radius: 8px;
-    border: 3px solid #ff6600;
+.intro-action-link:hover {
+  background-color: #c85a17;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(200, 90, 23, 0.25);
 }
 
-/* Responsive Adjustments */
+.intro-link-arrow {
+  font-size: 0.8rem;
+  transition: transform 0.25s ease;
+}
+
+.intro-action-link:hover .intro-link-arrow {
+  transform: translateX(4px);
+}
+
+/* Photo Framing */
+.intro-image-frame {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e7e3da;
+  box-shadow: 0 8px 28px rgba(18, 19, 22, 0.06);
+  background-color: #f7f5f0;
+}
+
+.intro-photo {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.intro-image-frame:hover .intro-photo {
+  transform: scale(1.04);
+}
+
+.intro-image-caption {
+  padding: 10px 16px;
+  background-color: #ffffff;
+  border-top: 1px solid #e7e3da;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .intro-title {
+    font-size: 1.85rem;
+  }
+
+  .intro-text-col {
+    padding-right: 0;
+  }
+
+  .intro-photo {
+    height: 300px;
+  }
+}
+
 @media (max-width: 768px) {
-    .text-section h2 {
-        font-size: 1.5rem;
-    }
+  .intro-title {
+    font-size: 1.6rem;
+  }
 
-    .text-section p {
-        font-size: 0.9rem;
-    }
+  .intro-body {
+    font-size: 0.92rem;
+  }
 
-    .special_button {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-    }
-}
-
-@media (max-width: 576px) {
-    .text-section h2 {
-        font-size: 1.2rem;
-    }
-
-    .text-section p {
-        font-size: 0.85rem;
-    }
-
-    .special_button {
-        font-size: 0.8rem;
-        padding: 6px 12px;
-    }
-
-    .image-section img {
-        margin-top: 15px;
-    }
+  .intro-photo {
+    height: 240px;
+  }
 }

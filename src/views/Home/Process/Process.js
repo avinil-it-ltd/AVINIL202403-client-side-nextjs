@@ -1,59 +1,103 @@
 'use client';
 
-// src/App.js
 import React from 'react';
-import './Process.css'; // Import your CSS
-import ideas from '../../../../src/assets/images/idea.png';
-import design from '../../../../src/assets/images/interior-design.png';
-import meeting from '../../../../src/assets/images/business-meeting.png';
-import delivery from '../../../../src/assets/images/delivery.png';
+import { Container, Row, Col } from 'react-bootstrap';
+import { 
+  FaRulerCombined, 
+  FaCube, 
+  FaTools, 
+  FaKey,
+  FaCheckCircle
+} from 'react-icons/fa';
+import './Process.css';
+
+const processSteps = [
+  {
+    step: '01',
+    phase: 'DISCOVERY & FEASIBILITY',
+    title: 'Site Audit & Spatial Brief',
+    description: 'Laser-accurate on-site dimensioning, structural feasibility inspections, and in-depth consultations to define functional and aesthetic objectives.',
+    deliverable: 'Dimensional Survey & Spatial Zoning',
+    icon: FaRulerCombined
+  },
+  {
+    step: '02',
+    phase: 'DESIGN & MATERIAL SPEC',
+    title: '3D Visualization & BOQ',
+    description: 'Photorealistic architectural modeling, physical sample reviews (natural marble, treated timber, brass hardware), and transparent itemized costing.',
+    deliverable: 'Approved 3D CAD Renders & BOQ',
+    icon: FaCube
+  },
+  {
+    step: '03',
+    phase: 'FABRICATION & CIVIL',
+    title: 'Workshop Joinery & Build',
+    description: 'Precision woodworking executed in our specialized joinery shop alongside on-site civil fabrication and MEP engineering under licensed supervision.',
+    deliverable: 'Joinery Millwork & Structural Fitout',
+    icon: FaTools
+  },
+  {
+    step: '04',
+    phase: 'COMMISSIONING',
+    title: 'Quality Audit & Handover',
+    description: 'Comprehensive snag-list clearance, architectural illumination testing, acoustic adjustments, and white-glove turnkey handover.',
+    deliverable: 'Key Handover & Craft Warranty',
+    icon: FaKey
+  }
+];
 
 function Process() {
-    return (
-        <>
-            <div className="process-section mt-0 mb-5">
-                <div className="process-background">
-                    <h1 className="text-center mt-0 p-5 heading_color" style={{ fontFamily: "'Aref Ruqaa', serif" }}>Our Process</h1>
-                    <div className="container">
-                        <div className="row g-4">
-                            {/* Idea & Concept */}
-                            <div className="col-12 col-sm-6 col-md-3 text-center process-step">
-                                <div className="image-container mx-auto">
-                                    <img src={ideas?.src || ideas} alt="Idea & Concept" />
-                                </div>
-                                <div className="h2 process-title">Idea & Concept</div>
-                            </div>
+  return (
+    <section className="process-editorial-section py-5" id="process">
+      <Container className="py-4">
+        {/* Section Header */}
+        <div className="process-section-header mb-5">
+          <div className="process-eyebrow">EXECUTION PROTOCOL</div>
+          <h2 className="process-main-title">
+            The Architectural Delivery Process
+          </h2>
+          <p className="process-lead-text">
+            From initial spatial measurements to in-house joinery fabrication and white-glove handover, every phase is engineered for zero surprises and disciplined timelines.
+          </p>
+        </div>
 
-                            {/* Design & Create */}
-                            <div className="col-12 col-sm-6 col-md-3 text-center process-step">
-                                <div className="image-container mx-auto">
-                                    <img src={design?.src || design} alt="Design & Create" />
-                                </div>
-                                <div className="h2 process-title">Design & Create</div>
-                            </div>
-
-                            {/* Meet & Agree */}
-                            <div className="col-12 col-sm-6 col-md-3 text-center process-step">
-                                <div className="image-container mx-auto">
-                                    <img src={meeting?.src || meeting} alt="Meet & Agree" />
-                                </div>
-                                <div className="h2 process-title">Meet & Agree</div>
-                            </div>
-
-                            {/* Deliver & Install */}
-                            <div className="col-12 col-sm-6 col-md-3 text-center process-step">
-                                <div className="image-container mx-auto">
-                                    <img src={delivery?.src || delivery} alt="Deliver & Install" />
-                                </div>
-                                <div className="h2 process-title">Deliver & Install</div>
-                            </div>
-                        </div>
+        {/* 4 Interactive Process Steps */}
+        <Row className="g-4 process-timeline-row">
+          {processSteps.map((item, idx) => {
+            const IconComp = item.icon;
+            return (
+              <Col lg={3} sm={6} key={item.step} className="d-flex">
+                <div className="process-milestone-card h-100 w-100">
+                  {/* Top Bar with Number & Icon */}
+                  <div className="milestone-top-bar">
+                    <span className="milestone-number">{item.step}</span>
+                    <div className="milestone-icon-wrapper" aria-hidden="true">
+                      <IconComp />
                     </div>
+                  </div>
+
+                  {/* Milestone Body */}
+                  <div className="milestone-content">
+                    <div className="milestone-phase">{item.phase}</div>
+                    <h3 className="milestone-title">{item.title}</h3>
+                    <p className="milestone-desc">{item.description}</p>
+                  </div>
+
+                  {/* Milestone Deliverable Badge */}
+                  <div className="milestone-footer">
+                    <div className="milestone-deliverable">
+                      <FaCheckCircle className="deliverable-check-icon" />
+                      <span>{item.deliverable}</span>
+                    </div>
+                  </div>
                 </div>
-            </div>
-        </>
-    );
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
+    </section>
+  );
 }
 
 export default Process;
-

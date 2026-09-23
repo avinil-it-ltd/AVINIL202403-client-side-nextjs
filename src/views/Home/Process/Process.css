@@ -1,78 +1,170 @@
-/* General Styling */
-.process-section {
-    background-color: rgba(255, 255, 255, 0.9); /* Light background with opacity */
+/* ==========================================================================
+   Process Section - Architectural Methodology
+   ========================================================================== */
+
+.process-editorial-section {
+  background-color: #ffffff;
+  position: relative;
 }
 
-.heading_color {
-    color: #333; /* Customize heading color */
+.process-section-header {
+  max-width: 800px;
 }
 
-/* Process Step Styles */
-.process-step {
-    padding: 20px;
+.process-eyebrow {
+  display: inline-block;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #c85a17;
+  margin-bottom: 10px;
 }
 
-.process-title {
-    font-family: "'Aref Ruqaa', serif";
-    font-size: 1.5rem;
-    margin-top: 15px;
+.process-main-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 2.35rem;
+  font-weight: 600;
+  color: #121316;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
 }
 
-/* Image Container */
-.image-container {
-    width: 150px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+.process-lead-text {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.05rem;
+  color: #555e6d;
+  line-height: 1.65;
+  margin: 0;
 }
 
-.image-container img {
-    max-width: 100%;
-    height: auto;
+/* Milestone Cards */
+.process-milestone-card {
+  background: #fbf9f6;
+  border: 1px solid #e7e3da;
+  border-radius: 12px;
+  padding: 26px 22px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  position: relative;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-    .process-title {
-        font-size: 1.3rem;
-    }
+.process-milestone-card:hover {
+  transform: translateY(-6px);
+  border-color: #c85a17;
+  background: #ffffff;
+  box-shadow: 0 14px 32px rgba(18, 19, 22, 0.08);
+}
 
-    .image-container {
-        width: 130px;
-        height: 130px;
-    }
+/* Top Bar */
+.milestone-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.milestone-number {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #c85a17;
+  line-height: 1;
+}
+
+.milestone-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #f0ebe1;
+  color: #121316;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.process-milestone-card:hover .milestone-icon-wrapper {
+  background: #c85a17;
+  color: #ffffff;
+}
+
+/* Content */
+.milestone-content {
+  flex-grow: 1;
+}
+
+.milestone-phase {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #7b8494;
+  margin-bottom: 6px;
+}
+
+.milestone-title {
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: #121316;
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+
+.milestone-desc {
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.88rem;
+  color: #555e6d;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Footer / Deliverable */
+.milestone-footer {
+  padding-top: 14px;
+  border-top: 1px solid #e7e3da;
+  margin-top: auto;
+}
+
+.milestone-deliverable {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #2e3440;
+  line-height: 1.4;
+}
+
+.deliverable-check-icon {
+  color: #c85a17;
+  font-size: 0.82rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .process-main-title {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .process-title {
-        font-size: 1.2rem;
-    }
+  .process-main-title {
+    font-size: 1.7rem;
+  }
 
-    .image-container {
-        width: 120px;
-        height: 120px;
-    }
-}
-
-@media (max-width: 576px) {
-    .process-title {
-        font-size: 1.1rem;
-    }
-
-    .image-container {
-        width: 100px;
-        height: 100px;
-    }
-
-    .row {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-
-    h1 {
-        font-size: 1.8rem;
-        padding: 10px;
-    }
+  .process-lead-text {
+    font-size: 0.95rem;
+  }
 }

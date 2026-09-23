@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { Navbar, Container, Nav } from "react-bootstrap";
@@ -13,9 +13,28 @@ const TopMenu = () => {
     const router = useRouter();
     const pathname = usePathname();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [navHeight, setNavHeight] = useState(96);
+    const navRef = useRef(null);
 
     useEffect(() => {
         setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
+
+        const updateHeight = () => {
+            const el = navRef.current || document.querySelector('.nav_bar');
+            if (el && el.offsetHeight) {
+                setNavHeight(el.offsetHeight);
+            }
+        };
+
+        // Measure immediately and after short delay for fonts/images to settle
+        updateHeight();
+        const timer = setTimeout(updateHeight, 200);
+
+        window.addEventListener('resize', updateHeight);
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener('resize', updateHeight);
+        };
     }, []);
 
     const handleLogout = () => {
@@ -30,7 +49,7 @@ const TopMenu = () => {
 
     const topNav = () => (
         <div>
-            <Navbar expand="lg" variant="dark" fixed="top" className="shadow-lg py-3 nav_bar p-0">
+            <Navbar ref={navRef} expand="lg" variant="dark" fixed="top" className="shadow-lg py-3 nav_bar p-0">
                 <Container fluid className="px-sm-2 px-md-5">
                     <Navbar.Brand as={Link} href="/" className="d-flex align-items-center">
                         <div className="d-flex align-items-center logo-container">
@@ -83,7 +102,7 @@ const TopMenu = () => {
     return (
         <div>
             {topNav()}
-            <div className="topmenu-spacer" aria-hidden="true" />
+            <div className="topmenu-spacer" style={{ height: `${navHeight}px` }} aria-hidden="true" />
         </div>
     );
 };

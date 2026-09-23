@@ -15,6 +15,7 @@
 .navbar_text_color {
     color: #000000; /* Keep text white */
     font-size: 1.1rem;
+    margin-bottom: 0 !important;
 }
 
 .navbar-brand {
@@ -67,11 +68,11 @@
 
 /* Standardized Navbar Spacing */
 .topmenu-spacer {
-    height: 74px;
+    height: 96px;
 }
 
 @media (max-width: 991px) {
     .topmenu-spacer {
-        height: 68px;
+        height: 76px;
     }
 }

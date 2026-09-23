@@ -106,7 +106,7 @@ const IndexHome = (props) => {
             {/* Left Section with Image and Text */}
             <div className="col-lg-6" data-aos="zoom-in-left">
               <img
-                src={testimonialImage}
+                src={testimonialImage?.src || testimonialImage}
                 alt="Testimonial Section"
                 className="img-fluid rounded-lg"
               />
@@ -222,7 +222,7 @@ const IndexHome = (props) => {
         <Col lg={6}>
           <div className="text-center ">
             <img
-              src={right} // Replace with your desired image link
+              src={right?.src || right} // Replace with your desired image link
               alt="FAQ Illustration"
               className="w-100 "
               style={{ borderRadius: '10px' }}

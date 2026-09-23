@@ -74,7 +74,7 @@ function FAQ() {
                     <Col lg={6}>
                         <div className="text-center ">
                             <img
-                                src={right} // Replace with your desired image link
+                                src={right?.src || right} // Replace with your desired image link
                                 alt="FAQ Illustration"
                                 className="w-100 "
                                 style={{ borderRadius: '10px' }}

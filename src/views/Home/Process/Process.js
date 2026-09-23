@@ -19,7 +19,7 @@ function Process() {
                             {/* Idea & Concept */}
                             <div className="col-12 col-sm-6 col-md-3 text-center process-step">
                                 <div className="image-container mx-auto">
-                                    <img src={ideas} alt="Idea & Concept" />
+                                    <img src={ideas?.src || ideas} alt="Idea & Concept" />
                                 </div>
                                 <div className="h2 process-title">Idea & Concept</div>
                             </div>
@@ -27,7 +27,7 @@ function Process() {
                             {/* Design & Create */}
                             <div className="col-12 col-sm-6 col-md-3 text-center process-step">
                                 <div className="image-container mx-auto">
-                                    <img src={design} alt="Design & Create" />
+                                    <img src={design?.src || design} alt="Design & Create" />
                                 </div>
                                 <div className="h2 process-title">Design & Create</div>
                             </div>
@@ -35,7 +35,7 @@ function Process() {
                             {/* Meet & Agree */}
                             <div className="col-12 col-sm-6 col-md-3 text-center process-step">
                                 <div className="image-container mx-auto">
-                                    <img src={meeting} alt="Meet & Agree" />
+                                    <img src={meeting?.src || meeting} alt="Meet & Agree" />
                                 </div>
                                 <div className="h2 process-title">Meet & Agree</div>
                             </div>
@@ -43,7 +43,7 @@ function Process() {
                             {/* Deliver & Install */}
                             <div className="col-12 col-sm-6 col-md-3 text-center process-step">
                                 <div className="image-container mx-auto">
-                                    <img src={delivery} alt="Deliver & Install" />
+                                    <img src={delivery?.src || delivery} alt="Deliver & Install" />
                                 </div>
                                 <div className="h2 process-title">Deliver & Install</div>
                             </div>

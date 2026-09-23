@@ -36,7 +36,7 @@ function Clients() {
                         <div className="client-row ">
                             {[picture1, picture2, picture3, picture4, picture5, picture6, picture7, picture8, picture9, picture10, picture11, picture12].map((pic, index) => (
                                 <div key={index} className="client-item">
-                                    <img src={pic} alt={`Client ${index + 1}`} className="client-image mx-2" />
+                                    <img src={pic?.src || pic} alt={`Client ${index + 1}`} className="client-image mx-2" />
                                 </div>
                             ))}
                         </div>

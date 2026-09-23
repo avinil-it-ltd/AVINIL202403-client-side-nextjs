@@ -19,21 +19,21 @@ function Services() {
                     <div className="container">
                         <div className="row p-4 pb-5">
                             <div className="col-12 col-sm-6 col-md-4 text-center mb-4">
-                                <img src={inte} className="imageBorder p-2 bg-white" width="200px" height="150px" alt="Interior" />
+                                <img src={inte?.src || inte} className="imageBorder p-2 bg-white" width="200px" height="150px" alt="Interior" />
                                 <div className="text-center h4 text-white p-2" style={{ fontFamily: "'Aref Ruqaa', serif" }}>
                                     Interior
                                 </div>
                             </div>
 
                             <div className="col-12 col-sm-6 col-md-4 text-center mb-4">
-                                <img src={india_gate} className="imageBorder p-2 bg-white" width="200px" height="150px" alt="Exterior" />
+                                <img src={india_gate?.src || india_gate} className="imageBorder p-2 bg-white" width="200px" height="150px" alt="Exterior" />
                                 <div className="text-center h4 text-white p-2" style={{ fontFamily: "'Aref Ruqaa', serif" }}>
                                     Exterior
                                 </div>
                             </div>
 
                             <div className="col-12 col-sm-6 col-md-4 text-center mb-4">
-                                <img src={wedding} className="imageBorder p-2 bg-white" width="200px" height="150px" alt="Event" />
+                                <img src={wedding?.src || wedding} className="imageBorder p-2 bg-white" width="200px" height="150px" alt="Event" />
                                 <div className="text-center h4 text-white p-2" style={{ fontFamily: "'Aref Ruqaa', serif" }}>
                                     Event
                                 </div>

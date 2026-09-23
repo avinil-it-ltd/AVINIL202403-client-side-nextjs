@@ -50,7 +50,7 @@ const Login = () => {
             <div
                 className="login-container"
                 style={{
-                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundImage: `url(${backgroundImage?.src || backgroundImage})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',

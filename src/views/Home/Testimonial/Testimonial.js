@@ -30,7 +30,7 @@ function Testimonial() {
             {/* Left Section with Image and Text */}
             <Col lg={6} md={12} className="mb-4" data-aos="zoom-in-left">
               <img
-                src={testimonialImage}
+                src={testimonialImage?.src || testimonialImage}
                 alt="Testimonial Section"
                 className="img-fluid rounded-lg"
               />

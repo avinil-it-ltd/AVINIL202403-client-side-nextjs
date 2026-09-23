@@ -40,25 +40,25 @@ const AboutUs = () => {
         <div className="row p-5">
           <div className="col-12 col-md-3 text-center p-2">
             <div className="mx-auto row align-items-center" style={{ height: "150px", width: "150px" }}>
-              <img src={projectComplete} alt="" />
+              <img src={projectComplete?.src || projectComplete} alt="" />
             </div>
             <div className="mt-4 h5 heading_color text-center" style={{ fontFamily: "'Aref Ruqaa', serif" }}>{aboutData?.statistics?.projectsCompleted}+ PROJECTS COMPLETED</div>
           </div>
           <div className="col-12 col-md-3 text-center p-2">
             <div className="mx-auto row align-items-center" style={{ height: "150px", width: "150px" }}>
-              <img src={award} alt="" />
+              <img src={award?.src || award} alt="" />
             </div>
             <div className="mt-4 h5 heading_color text-center" style={{ fontFamily: "'Aref Ruqaa', serif" }}>{aboutData?.statistics?.awardsReceived}+ AWARDS RECEIVED</div>
           </div>
           <div className="col-12 col-md-3 text-center p-2">
             <div className="mx-auto row align-items-center" style={{ height: "150px", width: "150px" }}>
-              <img src={client} alt="" />
+              <img src={client?.src || client} alt="" />
             </div>
             <div className="mt-4 h5 heading_color text-center" style={{ fontFamily: "'Aref Ruqaa', serif" }}>{aboutData?.statistics?.happyCustomers}+ HAPPY CUSTOMERS</div>
           </div>
           <div className="col-12 col-md-3 text-center p-2">
             <div className="mx-auto row align-items-center" style={{ height: "150px", width: "150px" }}>
-              <img src={servicespic} alt="" />
+              <img src={servicespic?.src || servicespic} alt="" />
             </div>
             <div className="mt-4 h5 heading_color text-center" style={{ fontFamily: "'Aref Ruqaa', serif" }}>{aboutData?.statistics?.yearsInService}+  YEARS IN SERVICE</div>
           </div>
@@ -278,7 +278,7 @@ const AboutUs = () => {
             <div className="col-md-4 text-center">
               <div className="profile-card  rounded bg-light p-4 shadow mx-auto">
                 <img
-                  src={profile} // Optionally replace with dynamic profile image from backend
+                  src={profile?.src || profile} // Optionally replace with dynamic profile image from backend
                   alt="Profile"
                   className="img-fluid rounded-circle border border-white mb-3 mt-3"
                   style={{ width: "100%", height: "270px", objectFit: "cover" }}

@@ -27,14 +27,14 @@ function Introduction() {
 
                             {/* Right Image Section */}
                             <div className="col-12 col-md-4 mx-auto image-section">
-                                <img src={banner1} className="rounded imageBorder" alt="Interior Design" />
+                                <img src={banner1?.src || banner1} className="rounded imageBorder" alt="Interior Design" />
                             </div>
                         </div>
 
                         <div className="row mt-5">
                             {/* Right Image Section */}
                             <div className="col-12 col-md-4 mx-auto image-section">
-                                <img src={banner3} className="rounded imageBorder" alt="Exterior Design" />
+                                <img src={banner3?.src || banner3} className="rounded imageBorder" alt="Exterior Design" />
                             </div>
 
                             {/* Left Text Section */}

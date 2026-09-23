@@ -88,7 +88,7 @@ const Exterior = () => {
     <Container className="my-5 px-2 py-5">
       <Row>
         <Col md={6}>
-          <img src={bioImg} alt="Example" className="img-fluid" />
+          <img src={bioImg?.src || bioImg} alt="Example" className="img-fluid" />
         </Col>
         <Col className="ps-5 d-flex align-items-center " md={6}>
           <div>

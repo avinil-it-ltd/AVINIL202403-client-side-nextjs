@@ -64,3 +64,14 @@
         font-size: 0.9rem;
     }
 }
+
+/* Standardized Navbar Spacing */
+.topmenu-spacer {
+    height: 74px;
+}
+
+@media (max-width: 991px) {
+    .topmenu-spacer {
+        height: 68px;
+    }
+}

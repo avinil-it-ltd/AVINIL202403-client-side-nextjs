@@ -83,7 +83,7 @@ const TopMenu = () => {
     return (
         <div>
             {topNav()}
-            <br /><br /><br />
+            <div className="topmenu-spacer" aria-hidden="true" />
         </div>
     );
 };

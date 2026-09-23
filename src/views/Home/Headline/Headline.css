@@ -1,7 +1,212 @@
-.headline{
-    position: relative;
-    font-size: 17px;
-    color: rgb(209, 126, 2);
-    margin-top: 30px;
-    margin-bottom: 10PX;
+/* ==========================================================================
+   3P Communication - Luxury Architectural Headline Broadcast Bar
+   ========================================================================== */
+
+.headline-broadcast-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: #141518;
+  border-top: 1px solid rgba(255, 102, 0, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  height: 44px;
+  overflow: hidden;
+  z-index: 99;
+  font-family: var(--font-jakarta, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* Fixed Badge Anchor on Left */
+.headline-badge-container {
+  flex-shrink: 0;
+  z-index: 10;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background: #141518;
+  padding-left: 24px;
+  padding-right: 16px;
+  box-shadow: 6px 0 18px rgba(20, 21, 24, 0.98);
+}
+
+.headline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, #ff6600 0%, #e65100 100%);
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(255, 102, 0, 0.35);
+  user-select: none;
+}
+
+.headline-badge-icon {
+  font-size: 11px;
+}
+
+/* Pulsing Live Broadcast Dot */
+.live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+  animation: pulseBroadcast 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseBroadcast {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+/* Marquee Track */
+.headline-marquee-track {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.headline-marquee {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Individual Headline Notice Item */
+.headline-item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 13.5px;
+  color: #f1f5f9;
+  font-weight: 500;
+  padding: 0 8px;
+  transition: color 0.2s ease;
+}
+
+.headline-item:hover {
+  color: #ffffff;
+}
+
+/* Micro-Tag Badges (OFFER, UPDATE, NOTICE) */
+.headline-type-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.6px;
+  margin-right: 10px;
+  text-transform: uppercase;
+  background: rgba(255, 102, 0, 0.15);
+  color: #ff9944;
+  border: 1px solid rgba(255, 102, 0, 0.3);
+  user-select: none;
+}
+
+.headline-type-tag.tag-offer {
+  background: rgba(255, 102, 0, 0.2);
+  color: #ffa34d;
+  border-color: rgba(255, 102, 0, 0.4);
+}
+
+.headline-type-tag.tag-update {
+  background: rgba(59, 130, 246, 0.18);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.headline-type-tag.tag-notice {
+  background: rgba(148, 163, 184, 0.16);
+  color: #cbd5e1;
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.headline-item-title {
+  color: #ff9944;
+  font-weight: 600;
+  margin-right: 7px;
+}
+
+.headline-item-text {
+  color: #f8fafc;
+  letter-spacing: 0.15px;
+}
+
+/* Glowing Diamond Separator Between Items */
+.headline-item-separator {
+  color: #ff6600;
+  font-size: 11px;
+  margin: 0 32px;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 5px rgba(255, 102, 0, 0.65));
+  user-select: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .headline-broadcast-bar {
+    height: 42px;
+  }
+
+  .headline-badge-container {
+    padding-left: 16px;
+    padding-right: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headline-broadcast-bar {
+    height: 38px;
+  }
+
+  .headline-badge-container {
+    padding-left: 10px;
+    padding-right: 8px;
+  }
+
+  .headline-badge {
+    padding: 3px 8px;
+    font-size: 10px;
+    gap: 5px;
+  }
+
+  .headline-item {
+    font-size: 12px;
+  }
+
+  .headline-item-separator {
+    margin: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .headline-badge-text {
+    display: none;
+  }
+
+  .headline-badge {
+    padding: 4px 6px;
+  }
 }

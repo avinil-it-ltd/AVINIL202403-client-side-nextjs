@@ -42,7 +42,7 @@ function Introduction() {
                 loading="lazy"
               />
               <div className="intro-image-caption">
-                <span>Modern Residential &amp; Office Interior Design</span>
+                <span>Modern Office &amp; Residential Interior Design</span>
               </div>
             </div>
           </Col>
@@ -78,7 +78,7 @@ function Introduction() {
                 loading="lazy"
               />
               <div className="intro-image-caption">
-                <span>Modern Exterior Envelope • Cladding &amp; Civil Architecture</span>
+                <span>Building Facade Design • Glass &amp; Louver Cladding</span>
               </div>
             </div>
           </Col>

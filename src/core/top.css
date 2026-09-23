@@ -2,14 +2,16 @@
    3P Communication - Luxury Architectural Header & Navigation (top.css)
    ========================================================================== */
 
-/* Main Fixed Navbar */
+/* Main Sticky Architectural Navbar */
 .nav_bar {
-  background-color: rgba(250, 240, 231, 0.94);
+  position: sticky !important;
+  top: 0;
+  background-color: rgba(250, 240, 231, 0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 14px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 12px 0;
   z-index: 1030;
 }
 
@@ -272,10 +274,10 @@
   box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3);
 }
 
-/* Standardized Spacer */
+/* Standardized Spacer - Deprecated in favor of native sticky flow */
 .topmenu-spacer {
-  height: 96px;
-  transition: height 0.2s ease;
+  display: none !important;
+  height: 0 !important;
 }
 
 /* ==========================================================================

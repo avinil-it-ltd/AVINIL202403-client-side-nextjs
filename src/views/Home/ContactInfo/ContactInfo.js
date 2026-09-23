@@ -40,8 +40,8 @@ function ContactInfo() {
   }, []);
 
   return (
-    <section className="atelier-contact-strip py-5">
-      <Container className="py-2">
+    <section className="atelier-contact-strip py-4 py-lg-5">
+      <Container>
         <div className="contact-strip-inner">
           <Row className="align-items-center g-4">
             {/* Header / Intro Column */}

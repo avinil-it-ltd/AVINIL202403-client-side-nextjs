@@ -8,7 +8,7 @@
 
 html, body {
   /* background-color: #343a40; */
-  overflow-x: hidden;
+  overflow-x: clip;
   -ms-overflow-style: none !important; /* IE and Edge */
   scrollbar-width: none !important; /* Firefox */
 }

@@ -37,9 +37,6 @@ const TopMenu = () => {
     email: "3pcommunication@gmail.com"
   });
 
-  const [navHeight, setNavHeight] = useState(96);
-  const navRef = useRef(null);
-
   useEffect(() => {
     setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
 
@@ -62,24 +59,10 @@ const TopMenu = () => {
       setIsScrolled(window.scrollY > 20);
     };
 
-    // Measure exact navbar height dynamically
-    const updateHeight = () => {
-      const el = navRef.current || document.querySelector('.nav_bar');
-      if (el && el.offsetHeight) {
-        setNavHeight(el.offsetHeight);
-      }
-    };
-
-    updateHeight();
-    const timer = setTimeout(updateHeight, 200);
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', updateHeight);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-      clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', updateHeight);
     };
   }, []);
 
@@ -98,9 +81,8 @@ const TopMenu = () => {
   return (
     <>
       <Navbar 
-        ref={navRef} 
         expand="xl" 
-        fixed="top" 
+        sticky="top" 
         className={`nav_bar ${isScrolled ? 'nav_scrolled' : ''}`}
       >
         <Container fluid className="px-3 px-lg-5">
@@ -225,12 +207,6 @@ const TopMenu = () => {
         </Container>
       </Navbar>
 
-      {/* Dynamic Spacer preventing any content from hiding behind the fixed navbar */}
-      <div 
-        className="topmenu-spacer" 
-        style={{ height: `${navHeight}px` }} 
-        aria-hidden="true" 
-      />
 
       {/* Luxury Mobile Offcanvas Drawer */}
       <Offcanvas 

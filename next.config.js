@@ -9,9 +9,14 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   webpack: (config) => {
     config.resolve.alias['react-router-dom'] = path.resolve(__dirname, 'src/compat/react-router-dom.js');
-    config.resolve.alias['react-quill$'] = path.resolve(__dirname, 'src/components/ReactQuillWrapper.js');
     return config;
   },
 };

@@ -4,8 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { FaTrash } from "react-icons/fa";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from '../Components/ReactQuillWrapper';
 
 
 

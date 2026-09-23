@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaTrash } from 'react-icons/fa';
-import ReactQuill from 'react-quill';
+import ReactQuill from '../Components/ReactQuillWrapper';
 
 const UpdateProject = () => {
   const { id } = useParams();

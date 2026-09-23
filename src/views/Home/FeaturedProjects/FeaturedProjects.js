@@ -109,7 +109,7 @@ function FeaturedProjects() {
             {displayed.map((project) => (
               <Link
                 key={project._id}
-                href={`/projectDetails/${project._id}`}
+                href={`/project/${project._id}`}
                 className="fp-card"
               >
                 <img

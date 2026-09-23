@@ -36,11 +36,22 @@ const DashboardHeader = ({ toggleSidebar, isSidebarOpen }) => {
   const [userEmail, setUserEmail] = useState('admin@3pcommunication.com');
 
   useEffect(() => {
-    // Try to load user data from AuthContext or fetch if needed
+    // Try to load user data from AuthContext or localStorage or fetch if needed
     if (user?.name) {
       setUserName(user.name);
       setUserEmail(user.email || '');
     } else {
+      if (typeof window !== 'undefined') {
+        const cached = localStorage.getItem('3p_admin_user');
+        if (cached) {
+          try {
+            const parsed = JSON.parse(cached);
+            if (parsed.name) setUserName(parsed.name);
+            if (parsed.email) setUserEmail(parsed.email);
+          } catch (e) {}
+        }
+      }
+
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
       if (token) {
         fetch('https://3pcommunicationsserver.vercel.app/api/auth/user', {

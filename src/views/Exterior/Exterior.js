@@ -5,14 +5,14 @@ import TopMenu from "../../core/TopMenu";
 import Footer from "../../core/Footer";
 import ContactInfo from "../Home/ContactInfo/ContactInfo";
 import { Container, Col, Row, Spinner } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
-import bioImg from "../../../src/assets/images/Exterior/Cantonment School Gate.jpg";
+import { useRouter } from 'next/navigation';
+import bioImg from "../../../src/assets/images/Exterior/residential-commercial-exterior-collage.jpg";
 import axios from 'axios';
 import '../Interior/interior.css';
 
 const Exterior = () => {
+  const router = useRouter();
   const [projects, setProjects] = useState([]);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Exterior = () => {
   }, []);
 
   const handleMoreDetails = (id) => {
-    navigate(`/details/${id}`);
+    router.push(`/details/${id}`);
   };
 
   if (loading) {
@@ -57,7 +57,7 @@ const Exterior = () => {
               <div className="editorial-bio-frame">
                 <img 
                   src={bioImg?.src || bioImg} 
-                  alt="3P Communication Exterior Design" 
+                  alt="3P Communication Exterior Architecture - Residential and Commercial Facade Collage" 
                   className="editorial-bio-img" 
                 />
               </div>

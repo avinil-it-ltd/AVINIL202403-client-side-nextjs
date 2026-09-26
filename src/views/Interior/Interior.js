@@ -6,7 +6,7 @@ import Footer from "../../core/Footer";
 import ContactInfo from "../Home/ContactInfo/ContactInfo";
 import { Container, Col, Row, Spinner } from "react-bootstrap";
 import { useRouter } from 'next/navigation';
-import bioImg from "../../../src/assets/images/interiorPage/bioImg.jpg";
+import bioImg from "../../../src/assets/images/interiorPage/home-office-decor-collage.jpg";
 import axios from 'axios';
 import './interior.css';
 
@@ -138,7 +138,7 @@ const Interior = () => {
               <div className="editorial-bio-frame">
                 <img 
                   src={bioImg?.src || bioImg} 
-                  alt="3P Communication Interior Architecture" 
+                  alt="3P Communication Interior Architecture - Home and Office Decor Collage" 
                   className="editorial-bio-img" 
                 />
               </div>

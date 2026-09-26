@@ -7,6 +7,7 @@ import ContactModal from "./views/Contact/ContactModal";
 import PageUpButton from "./PageUpButton/PageUpButton";
 import Headline from "./views/Home/Headline/Headline.js";
 import Banner from "./views/Home/Banner/Banner.js";
+import CorporateTrustBar from "./views/Home/CorporateTrustBar/CorporateTrustBar.js";
 import Introduction from "./views/Home/Introduction/Introduction.js";
 import Services from "./views/Home/Services/Services.js";
 import Process from "./views/Home/Process/Process.js";
@@ -48,6 +49,7 @@ const IndexHome = () => {
       
       <main>
         <Banner />
+        <CorporateTrustBar />
         <Introduction />
         <Services />
         <FeaturedProjects />

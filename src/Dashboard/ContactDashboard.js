@@ -11,6 +11,7 @@ const ContactDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [showShortlistedOnly, setShowShortlistedOnly] = useState(false);
+  const [selectedIds, setSelectedIds] = useState([]);
 
   const fetchContacts = async () => {
     try {
@@ -51,7 +52,8 @@ const ContactDashboard = () => {
         await axios.delete(
           `https://3pcommunicationsserver.vercel.app/api/contacts/${id}`
         );
-        fetchContacts();
+        setContacts(prev => prev.filter(c => c._id !== id));
+        setSelectedIds(prev => prev.filter(itemId => itemId !== id));
         Swal.fire({
           icon: "success",
           title: "Deleted",
@@ -68,6 +70,60 @@ const ContactDashboard = () => {
         });
       }
     }
+  };
+
+  const handleBulkDelete = () => {
+    if (selectedIds.length === 0) return;
+
+    Swal.fire({
+      title: `Delete ${selectedIds.length} inquiries?`,
+      text: "Are you sure you want to permanently delete all selected contact leads? This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#dc2626",
+      cancelButtonColor: "#64748b",
+      confirmButtonText: `Yes, delete ${selectedIds.length} inquiries`,
+      cancelButtonText: "Cancel",
+      background: "#ffffff",
+      customClass: {
+        popup: "rounded-4"
+      }
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleting...",
+          text: `Deleting ${selectedIds.length} inquiries...`,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+
+        try {
+          await Promise.allSettled(
+            selectedIds.map(id =>
+              axios.delete(`https://3pcommunicationsserver.vercel.app/api/contacts/${id}`)
+            )
+          );
+          setContacts(prev => prev.filter(c => !selectedIds.includes(c._id)));
+          setSelectedIds([]);
+          Swal.fire({
+            icon: "success",
+            title: "Deleted!",
+            text: "Selected inquiries have been successfully removed.",
+            timer: 1500,
+            showConfirmButton: false
+          });
+        } catch (err) {
+          console.error("Error during bulk delete:", err);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Failed to delete some inquiries. Please refresh and check.",
+          });
+        }
+      }
+    });
   };
 
   const handleShortlistToggle = async (contact) => {
@@ -101,6 +157,26 @@ const ContactDashboard = () => {
     }
     return matchesSearch;
   });
+
+  const handleToggleSelect = (id) => {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  const isAllSelected =
+    filteredContacts.length > 0 &&
+    filteredContacts.every(c => selectedIds.includes(c._id));
+
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      const filteredIds = new Set(filteredContacts.map(c => c._id));
+      setSelectedIds(prev => prev.filter(id => !filteredIds.has(id)));
+    } else {
+      const allFilteredIds = filteredContacts.map(c => c._id);
+      setSelectedIds(prev => Array.from(new Set([...prev, ...allFilteredIds])));
+    }
+  };
 
   const shortlistedCount = contacts.filter(c => c.shortlisted).length;
 
@@ -169,29 +245,81 @@ const ContactDashboard = () => {
         </div>
       )}
 
+      {/* Bulk Action Toolbar */}
+      {selectedIds.length > 0 && (
+        <div className="alert alert-primary d-flex justify-content-between align-items-center mb-3 shadow-sm rounded-3 py-2 px-3 border-0 bg-primary text-white">
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge bg-light text-primary rounded-pill px-2 py-1 fw-bold">
+              {selectedIds.length}
+            </span>
+            <span className="fw-semibold">
+              {selectedIds.length} {selectedIds.length === 1 ? 'lead' : 'leads'} selected
+            </span>
+          </div>
+          <div className="d-flex gap-2">
+            <button
+              type="button"
+              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1 rounded-2 shadow-sm"
+              onClick={handleBulkDelete}
+            >
+              <FaTrash /> Delete Selected ({selectedIds.length})
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-light rounded-2"
+              onClick={() => setSelectedIds([])}
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Contacts Table */}
       <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
         <div className="table-responsive">
           <table className="table table-hover align-middle mb-0">
             <thead className="table-light">
               <tr>
+                <th style={{ width: '4%' }} className="text-center">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={isAllSelected}
+                    ref={(el) => {
+                      if (el) {
+                        el.indeterminate = selectedIds.length > 0 && !isAllSelected;
+                      }
+                    }}
+                    onChange={handleSelectAll}
+                    title="Select all inquiries"
+                  />
+                </th>
                 <th style={{ width: '22%' }}>Client</th>
                 <th style={{ width: '24%' }}>Contact Details</th>
-                <th style={{ width: '34%' }}>Inquiry Message</th>
-                <th style={{ width: '10%' }} className="text-center">Shortlist</th>
+                <th style={{ width: '32%' }}>Inquiry Message</th>
+                <th style={{ width: '8%' }} className="text-center">Shortlist</th>
                 <th style={{ width: '10%' }} className="text-end pe-4">Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredContacts.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="text-center py-5 text-muted">
+                  <td colSpan="6" className="text-center py-5 text-muted">
                     No inquiries found matching your filter criteria.
                   </td>
                 </tr>
               ) : (
                 filteredContacts.map((contact) => (
-                  <tr key={contact._id}>
+                  <tr key={contact._id} className={selectedIds.includes(contact._id) ? 'table-active' : ''}>
+                    <td className="text-center">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        checked={selectedIds.includes(contact._id)}
+                        onChange={() => handleToggleSelect(contact._id)}
+                      />
+                    </td>
                     <td>
                       <div className="fw-bold text-dark">{contact.name || 'Anonymous'}</div>
                       <small className="text-muted">

@@ -12,6 +12,8 @@ const CareerList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [selectedIds, setSelectedIds] = useState([]);
+
   const fetchCareers = async () => {
     setLoading(true);
     try {
@@ -47,6 +49,7 @@ const CareerList = () => {
         try {
           await axios.delete(`https://3pcommunicationsserver.vercel.app/api/careers/${id}`);
           setCareers(prev => prev.filter(c => c._id !== id));
+          setSelectedIds(prev => prev.filter(itemId => itemId !== id));
           Swal.fire({
             icon: 'success',
             title: 'Deleted',
@@ -63,6 +66,75 @@ const CareerList = () => {
         }
       }
     });
+  };
+
+  const handleBulkDelete = () => {
+    if (selectedIds.length === 0) return;
+
+    Swal.fire({
+      title: `Delete ${selectedIds.length} career postings?`,
+      text: "Are you sure you want to permanently delete all selected career openings? This action cannot be undone.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#64748b',
+      confirmButtonText: `Yes, delete ${selectedIds.length} openings`,
+      cancelButtonText: 'Cancel',
+      background: '#ffffff',
+      customClass: { popup: 'rounded-4' },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Deleting...',
+          text: `Deleting ${selectedIds.length} career postings...`,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        try {
+          await Promise.allSettled(
+            selectedIds.map(id =>
+              axios.delete(`https://3pcommunicationsserver.vercel.app/api/careers/${id}`)
+            )
+          );
+          setCareers(prev => prev.filter(c => !selectedIds.includes(c._id)));
+          setSelectedIds([]);
+          Swal.fire({
+            icon: 'success',
+            title: 'Deleted!',
+            text: 'Selected career postings have been removed.',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } catch (err) {
+          console.error('Error during bulk delete:', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to delete some career postings.',
+          });
+        }
+      }
+    });
+  };
+
+  const handleToggleSelect = (id) => {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  const isAllSelected =
+    careers.length > 0 && selectedIds.length === careers.length;
+
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(careers.map(c => c._id));
+    }
   };
 
   const handleStatusChange = async (id, currentStatus) => {
@@ -106,15 +178,59 @@ const CareerList = () => {
 
       {error && <Alert variant="danger" className="rounded-3 mb-4">{error}</Alert>}
 
+      {/* Bulk Action Toolbar */}
+      {selectedIds.length > 0 && (
+        <div className="alert alert-primary d-flex justify-content-between align-items-center mb-3 shadow-sm rounded-3 py-2 px-3 border-0 bg-primary text-white">
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge bg-light text-primary rounded-pill px-2 py-1 fw-bold">
+              {selectedIds.length}
+            </span>
+            <span className="fw-semibold">
+              {selectedIds.length} {selectedIds.length === 1 ? 'position' : 'positions'} selected
+            </span>
+          </div>
+          <div className="d-flex gap-2">
+            <button
+              type="button"
+              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1 rounded-2 shadow-sm"
+              onClick={handleBulkDelete}
+            >
+              <FaTrash /> Delete Selected ({selectedIds.length})
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-light rounded-2"
+              onClick={() => setSelectedIds([])}
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Careers Table */}
       <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
         <div className="table-responsive">
           <table className="table table-hover align-middle mb-0">
             <thead className="table-light">
               <tr>
-                <th style={{ width: '6%' }}>#</th>
-                <th style={{ width: '28%' }}>Position Title</th>
-                <th style={{ width: '38%' }}>Description / Role Summary</th>
+                <th style={{ width: '4%' }} className="text-center">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={isAllSelected}
+                    ref={(el) => {
+                      if (el) {
+                        el.indeterminate = selectedIds.length > 0 && !isAllSelected;
+                      }
+                    }}
+                    onChange={handleSelectAll}
+                    title="Select all career positions"
+                  />
+                </th>
+                <th style={{ width: '5%' }}>#</th>
+                <th style={{ width: '27%' }}>Position Title</th>
+                <th style={{ width: '36%' }}>Description / Role Summary</th>
                 <th style={{ width: '12%' }} className="text-center">Posting Status</th>
                 <th style={{ width: '16%' }} className="text-end pe-4">Actions</th>
               </tr>
@@ -122,13 +238,23 @@ const CareerList = () => {
             <tbody>
               {careers.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="text-center py-5 text-muted">
+                  <td colSpan="6" className="text-center py-5 text-muted">
                     No career postings active. Click "Post New Career" above to publish a job opening.
                   </td>
                 </tr>
               ) : (
-                careers.map((career, index) => (
-                  <tr key={career._id}>
+                careers.map((career, index) => {
+                  const isSelected = selectedIds.includes(career._id);
+                  return (
+                  <tr key={career._id} className={isSelected ? 'table-active' : ''}>
+                    <td className="text-center">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        checked={isSelected}
+                        onChange={() => handleToggleSelect(career._id)}
+                      />
+                    </td>
                     <td className="text-muted small">{index + 1}</td>
                     <td>
                       <div className="d-flex align-items-center gap-2">
@@ -192,7 +318,8 @@ const CareerList = () => {
                       </div>
                     </td>
                   </tr>
-                ))
+                  );
+                })
               )}
             </tbody>
           </table>

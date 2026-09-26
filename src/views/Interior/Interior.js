@@ -5,25 +5,38 @@ import TopMenu from "../../core/TopMenu";
 import Footer from "../../core/Footer";
 import ContactInfo from "../Home/ContactInfo/ContactInfo";
 import { Container, Col, Row, Spinner } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import bioImg from "../../../src/assets/images/interiorPage/bioImg.jpg";
 import axios from 'axios';
 import './interior.css';
 
 const Interior = () => {
+  const router = useRouter();
   const [projects, setProjects] = useState([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState('All');
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  // Read query parameter on mount (e.g. ?sub=Office or ?subcategory=Office)
+  // Synchronize subcategory with URL query parameters in real time
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const subParam = params.get('sub') || params.get('subcategory');
-      if (subParam) {
-        setSelectedSubcategory(subParam);
-      }
+      const syncSubFromUrl = () => {
+        const params = new URLSearchParams(window.location.search);
+        const subParam = params.get('sub') || params.get('subcategory');
+        if (subParam) {
+          setSelectedSubcategory(subParam);
+        } else {
+          setSelectedSubcategory('All');
+        }
+      };
+
+      syncSubFromUrl();
+      window.addEventListener('popstate', syncSubFromUrl);
+      const timer = setInterval(syncSubFromUrl, 350);
+
+      return () => {
+        window.removeEventListener('popstate', syncSubFromUrl);
+        clearInterval(timer);
+      };
     }
   }, []);
 
@@ -33,7 +46,7 @@ const Interior = () => {
       const url = subName === 'All'
         ? window.location.pathname
         : `${window.location.pathname}?sub=${encodeURIComponent(subName)}`;
-      window.history.replaceState(null, '', url);
+      window.history.pushState(null, '', url);
     }
   };
 
@@ -55,7 +68,7 @@ const Interior = () => {
     fetchProjects();
   }, []);
 
-  // Dynamically extract unique subcategories from loaded projects with live counts
+  // Dynamically extract unique subcategories, prioritizing Office and Home
   const subcategories = React.useMemo(() => {
     const counts = {};
     projects.forEach(p => {
@@ -63,8 +76,23 @@ const Interior = () => {
       counts[sub] = (counts[sub] || 0) + 1;
     });
     const list = [{ name: 'All', label: 'All Projects', count: projects.length }];
-    Object.keys(counts).sort().forEach(sub => {
-      list.push({ name: sub, label: sub, count: counts[sub] });
+    
+    // Sort so Office comes first, then Home, then others
+    const sortedSubs = Object.keys(counts).sort((a, b) => {
+      if (a.toLowerCase() === 'office') return -1;
+      if (b.toLowerCase() === 'office') return 1;
+      if (a.toLowerCase() === 'home') return -1;
+      if (b.toLowerCase() === 'home') return 1;
+      return a.localeCompare(b);
+    });
+
+    sortedSubs.forEach(sub => {
+      const isOffice = sub.toLowerCase() === 'office';
+      const isHome = sub.toLowerCase() === 'home';
+      let label = sub;
+      if (isOffice) label = '🏢 Office Interior';
+      else if (isHome) label = '🏡 Home Interior';
+      list.push({ name: sub, label, count: counts[sub] });
     });
     return list;
   }, [projects]);
@@ -87,7 +115,7 @@ const Interior = () => {
   }, [projects, selectedSubcategory]);
 
   const handleMoreDetails = (id) => {
-    navigate(`/details/${id}`);
+    router.push(`/details/${id}`);
   };
 
   if (loading) {

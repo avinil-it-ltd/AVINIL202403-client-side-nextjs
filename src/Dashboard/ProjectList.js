@@ -252,6 +252,10 @@ const ProjectList = () => {
     paginatedProjects.length > 0 &&
     paginatedProjects.every((p) => selectedIds.includes(p._id));
 
+  const handleSelectAllProjects = () => {
+    setSelectedIds(sortedProjects.map((p) => p._id));
+  };
+
   // Bulk delete
   const handleBulkDelete = () => {
     if (selectedIds.length === 0) return;
@@ -260,7 +264,7 @@ const ProjectList = () => {
       text: "All selected projects and their associated media will be permanently deleted.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, delete selected",
+      confirmButtonText: `Yes, delete ${selectedIds.length} projects`,
       cancelButtonText: "Cancel",
       confirmButtonColor: "#dc2626",
       cancelButtonColor: "#64748b",
@@ -268,8 +272,16 @@ const ProjectList = () => {
       customClass: { popup: "rounded-4" }
     }).then(async (result) => {
       if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleting Projects...",
+          text: `Deleting ${selectedIds.length} projects from database...`,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
         try {
-          await Promise.all(
+          await Promise.allSettled(
             selectedIds.map((id) =>
               axios.delete(`https://3pcommunicationsserver.vercel.app/api/projects/${id}`)
             )
@@ -652,6 +664,16 @@ const ProjectList = () => {
             </span>
           </div>
           <div className="d-flex gap-2">
+            {selectedIds.length < sortedProjects.length && (
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-warning text-white rounded-2"
+                onClick={handleSelectAllProjects}
+                title="Select all projects across all pages"
+              >
+                Select All ({sortedProjects.length})
+              </button>
+            )}
             <button
               type="button"
               className="btn btn-sm btn-light d-inline-flex align-items-center gap-1 rounded-2"
@@ -691,6 +713,9 @@ const ProjectList = () => {
                     type="checkbox"
                     className="form-check-input"
                     checked={isAllPageSelected}
+                    ref={(el) => {
+                      if (el) el.indeterminate = selectedIds.length > 0 && !isAllPageSelected;
+                    }}
                     onChange={handleSelectAllOnPage}
                     title="Select all on page"
                   />

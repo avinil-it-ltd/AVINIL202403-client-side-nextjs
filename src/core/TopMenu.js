@@ -72,7 +72,31 @@ const TopMenu = () => {
     router.push('/');
   };
 
-  const isActiveLink = (path) => {
+  const [currentSub, setCurrentSub] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const readSub = () => {
+        const params = new URLSearchParams(window.location.search);
+        setCurrentSub(params.get('sub') || params.get('subcategory'));
+      };
+      readSub();
+      window.addEventListener('popstate', readSub);
+      const timer = setInterval(readSub, 400);
+      return () => {
+        window.removeEventListener('popstate', readSub);
+        clearInterval(timer);
+      };
+    }
+  }, [pathname]);
+
+  const isActiveLink = (path, sub = null) => {
+    if (sub) {
+      return pathname === path && currentSub?.toLowerCase() === sub.toLowerCase() ? 'active-nav-link' : '';
+    }
+    if (path === '/interior') {
+      return pathname === '/interior' && !currentSub ? 'active-nav-link' : '';
+    }
     return pathname === path ? 'active-nav-link' : '';
   };
 
@@ -111,10 +135,17 @@ const TopMenu = () => {
             <div className="nav-discipline-wrapper">
               <Nav.Link 
                 as={Link} 
-                href="/interior" 
-                className={`nav-link-item nav-discipline-link ${isActiveLink('/interior')}`}
+                href="/interior?sub=Office" 
+                className={`nav-link-item nav-discipline-link nav-link-office ${isActiveLink('/interior', 'Office')}`}
               >
-                <span className="discipline-dot"></span> Interior
+                <span className="discipline-dot dot-office"></span> Office Interior
+              </Nav.Link>
+              <Nav.Link 
+                as={Link} 
+                href="/interior?sub=Home" 
+                className={`nav-link-item nav-discipline-link ${isActiveLink('/interior', 'Home')}`}
+              >
+                <span className="discipline-dot"></span> Home Interior
               </Nav.Link>
               <Nav.Link 
                 as={Link} 
@@ -238,14 +269,26 @@ const TopMenu = () => {
           <div className="drawer-section-label">CREATIVE DISCIPLINES</div>
           <div className="drawer-nav-group">
             <Link 
-              href="/interior" 
-              className={`drawer-nav-link ${isActiveLink('/interior')}`} 
+              href="/interior?sub=Office" 
+              className={`drawer-nav-link ${isActiveLink('/interior', 'Office')}`} 
+              onClick={closeOffcanvas}
+            >
+              <div className="drawer-link-icon-box"><FaBuilding /></div>
+              <div className="drawer-link-text">
+                <span className="drawer-link-main">Office Interior</span>
+                <span className="drawer-link-desc">Corporate HQs, Boardrooms & Commercial Fit-Outs</span>
+              </div>
+            </Link>
+
+            <Link 
+              href="/interior?sub=Home" 
+              className={`drawer-nav-link ${isActiveLink('/interior', 'Home')}`} 
               onClick={closeOffcanvas}
             >
               <div className="drawer-link-icon-box"><FaCouch /></div>
               <div className="drawer-link-text">
-                <span className="drawer-link-main">Interior Architecture</span>
-                <span className="drawer-link-desc">Luxury Residential & Commercial</span>
+                <span className="drawer-link-main">Home Interior</span>
+                <span className="drawer-link-desc">Luxury Residences, Living Spaces & Kitchens</span>
               </div>
             </Link>
 

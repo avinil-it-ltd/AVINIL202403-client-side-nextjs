@@ -19,6 +19,7 @@ const HeadlineDashboard = () => {
     isActive: false,
   });
   const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState([]);
 
   const fetchHeadlines = async () => {
     try {
@@ -91,6 +92,7 @@ const HeadlineDashboard = () => {
         try {
           await axios.delete(`https://3pcommunicationsserver.vercel.app/api/headlines/${id}`);
           setHeadlines(prev => prev.filter(h => h._id !== id));
+          setSelectedIds(prev => prev.filter(itemId => itemId !== id));
           Swal.fire({
             icon: 'success',
             title: 'Deleted',
@@ -103,6 +105,75 @@ const HeadlineDashboard = () => {
             icon: 'error',
             title: 'Error',
             text: 'Failed to delete headline.',
+          });
+        }
+      }
+    });
+  };
+
+  const handleToggleSelect = (id) => {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  const isAllSelected =
+    headlines.length > 0 && selectedIds.length === headlines.length;
+
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(headlines.map(h => h._id));
+    }
+  };
+
+  const handleBulkDelete = () => {
+    if (selectedIds.length === 0) return;
+
+    Swal.fire({
+      title: `Delete ${selectedIds.length} headlines?`,
+      text: 'Are you sure you want to permanently delete all selected headline updates?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#64748b',
+      confirmButtonText: `Yes, delete ${selectedIds.length} headlines`,
+      cancelButtonText: 'Cancel',
+      background: '#ffffff',
+      customClass: { popup: 'rounded-4' },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Deleting...',
+          text: `Deleting ${selectedIds.length} headlines...`,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        try {
+          await Promise.allSettled(
+            selectedIds.map(id =>
+              axios.delete(`https://3pcommunicationsserver.vercel.app/api/headlines/${id}`)
+            )
+          );
+          setHeadlines(prev => prev.filter(h => !selectedIds.includes(h._id)));
+          setSelectedIds([]);
+          Swal.fire({
+            icon: 'success',
+            title: 'Deleted!',
+            text: 'Selected headlines have been removed.',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } catch (err) {
+          console.error('Error during bulk delete:', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to delete some headlines.',
           });
         }
       }
@@ -132,14 +203,56 @@ const HeadlineDashboard = () => {
         </Button>
       </div>
 
+      {/* Bulk Action Toolbar */}
+      {selectedIds.length > 0 && (
+        <div className="alert alert-primary d-flex justify-content-between align-items-center mb-3 shadow-sm rounded-3 py-2 px-3 border-0 bg-primary text-white">
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge bg-light text-primary rounded-pill px-2 py-1 fw-bold">
+              {selectedIds.length}
+            </span>
+            <span className="fw-semibold">
+              {selectedIds.length} {selectedIds.length === 1 ? 'headline' : 'headlines'} selected
+            </span>
+          </div>
+          <div className="d-flex gap-2">
+            <button
+              type="button"
+              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1 rounded-2 shadow-sm"
+              onClick={handleBulkDelete}
+            >
+              <FaTrash /> Delete Selected ({selectedIds.length})
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-light rounded-2"
+              onClick={() => setSelectedIds([])}
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
         <div className="table-responsive">
           <Table hover className="align-middle mb-0">
             <thead className="table-light">
               <tr>
-                <th style={{ width: '6%' }}>#</th>
-                <th style={{ width: '24%' }}>Title</th>
-                <th style={{ width: '34%' }}>Content</th>
+                <th style={{ width: '4%' }} className="text-center">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={isAllSelected}
+                    ref={(el) => {
+                      if (el) el.indeterminate = selectedIds.length > 0 && !isAllSelected;
+                    }}
+                    onChange={handleSelectAll}
+                    title="Select all headlines"
+                  />
+                </th>
+                <th style={{ width: '5%' }}>#</th>
+                <th style={{ width: '23%' }}>Title</th>
+                <th style={{ width: '32%' }}>Content</th>
                 <th style={{ width: '12%' }}>Start Date</th>
                 <th style={{ width: '12%' }}>End Date</th>
                 <th style={{ width: '12%' }}>Status</th>
@@ -149,13 +262,23 @@ const HeadlineDashboard = () => {
             <tbody>
               {headlines.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="text-center py-5 text-muted">
+                  <td colSpan="8" className="text-center py-5 text-muted">
                     No active headlines found. Click "Add New Headline" to broadcast an update.
                   </td>
                 </tr>
               ) : (
-                headlines.map((headline, index) => (
-                  <tr key={headline._id}>
+                headlines.map((headline, index) => {
+                  const isSelected = selectedIds.includes(headline._id);
+                  return (
+                  <tr key={headline._id} className={isSelected ? 'table-active' : ''}>
+                    <td className="text-center">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        checked={isSelected}
+                        onChange={() => handleToggleSelect(headline._id)}
+                      />
+                    </td>
                     <td className="text-muted small">{index + 1}</td>
                     <td>
                       <div className="fw-bold text-dark">{headline.title}</div>
@@ -185,7 +308,8 @@ const HeadlineDashboard = () => {
                       </div>
                     </td>
                   </tr>
-                ))
+                  );
+                })
               )}
             </tbody>
           </Table>

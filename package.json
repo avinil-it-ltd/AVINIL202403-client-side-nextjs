@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:static": "node scripts/export-static.js",
+    "export": "node scripts/export-static.js",
     "start": "next start"
   },
   "dependencies": {

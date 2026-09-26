@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useRouter } from 'next/navigation';
 
 const UpdateCareer = () => {
     const { id } = useParams();
@@ -22,7 +22,7 @@ const UpdateCareer = () => {
         deadline: ''
     });
 
-    const navigate = useNavigate();
+    const router = useRouter();
 
     useEffect(() => {
         const fetchCareer = async () => {
@@ -92,7 +92,7 @@ const UpdateCareer = () => {
             }
 
             await response.json(); // Optionally handle the response
-            navigate('/dashboard/careers');
+            router.push('/dashboard/careers');
         } catch (error) {
             console.error('Error updating career:', error);
         }

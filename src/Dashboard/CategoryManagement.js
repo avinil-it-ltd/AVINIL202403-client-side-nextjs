@@ -17,10 +17,80 @@ const CategoryManagement = () => {
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState([]);
 
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  const handleToggleSelect = (id) => {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  const isAllSelected =
+    categories.length > 0 && selectedIds.length === categories.length;
+
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(categories.map(c => c._id));
+    }
+  };
+
+  const handleBulkDelete = () => {
+    if (selectedIds.length === 0) return;
+
+    Swal.fire({
+      title: `Delete ${selectedIds.length} categories?`,
+      text: "All selected categories and their subcategories will be permanently deleted.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#64748b',
+      confirmButtonText: `Yes, delete ${selectedIds.length} categories`,
+      cancelButtonText: 'Cancel',
+      background: '#ffffff',
+      customClass: { popup: 'rounded-4' },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Deleting...',
+          text: `Deleting ${selectedIds.length} categories...`,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        try {
+          await Promise.allSettled(
+            selectedIds.map(id =>
+              axios.delete(`https://3pcommunicationsserver.vercel.app/api/categories/${id}`)
+            )
+          );
+          setCategories(prev => prev.filter(c => !selectedIds.includes(c._id)));
+          setSelectedIds([]);
+          Swal.fire({
+            icon: 'success',
+            title: 'Deleted!',
+            text: 'Selected categories have been removed.',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } catch (err) {
+          console.error('Error during bulk delete:', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to delete some categories.',
+          });
+        }
+      }
+    });
+  };
 
   const fetchCategories = async () => {
     try {
@@ -233,11 +303,64 @@ const CategoryManagement = () => {
         </Form>
       </div>
 
+      {/* Bulk Action Toolbar */}
+      {selectedIds.length > 0 && (
+        <div className="alert alert-primary d-flex justify-content-between align-items-center mb-4 shadow-sm rounded-3 py-2 px-3 border-0 bg-primary text-white">
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge bg-light text-primary rounded-pill px-2 py-1 fw-bold">
+              {selectedIds.length}
+            </span>
+            <span className="fw-semibold">
+              {selectedIds.length} {selectedIds.length === 1 ? 'category' : 'categories'} selected
+            </span>
+          </div>
+          <div className="d-flex gap-2">
+            <button
+              type="button"
+              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1 rounded-2 shadow-sm"
+              onClick={handleBulkDelete}
+            >
+              <FaTrash /> Delete Selected ({selectedIds.length})
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-light rounded-2"
+              onClick={() => setSelectedIds([])}
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Select All Checkbox Bar */}
+      {categories.length > 0 && (
+        <div className="d-flex justify-content-between align-items-center mb-3 px-1">
+          <div className="form-check d-flex align-items-center gap-2">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="selectAllCategories"
+              checked={isAllSelected}
+              ref={(el) => {
+                if (el) el.indeterminate = selectedIds.length > 0 && !isAllSelected;
+              }}
+              onChange={handleSelectAll}
+            />
+            <label className="form-check-label small fw-semibold text-secondary user-select-none" htmlFor="selectAllCategories">
+              Select All Categories ({categories.length})
+            </label>
+          </div>
+        </div>
+      )}
+
       {/* Categories Cards Grid */}
       <div className="row g-4">
-        {categories.map((category) => (
+        {categories.map((category) => {
+          const isSelected = selectedIds.includes(category._id);
+          return (
           <div key={category._id} className="col-12 col-lg-6">
-            <div className="card h-100 border-0 shadow-sm rounded-4 p-4">
+            <div className={`card h-100 border-0 shadow-sm rounded-4 p-4 ${isSelected ? 'border border-2 border-primary bg-light' : ''}`}>
               {/* Category Header */}
               <div className="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3">
                 {editingCategoryId === category._id ? (
@@ -258,6 +381,12 @@ const CategoryManagement = () => {
                   </Form>
                 ) : (
                   <div className="d-flex align-items-center gap-2">
+                    <input
+                      type="checkbox"
+                      className="form-check-input me-1"
+                      checked={isSelected}
+                      onChange={() => handleToggleSelect(category._id)}
+                    />
                     <span className="p-2 rounded-3 bg-light text-primary">
                       <FaLayerGroup />
                     </span>
@@ -372,7 +501,8 @@ const CategoryManagement = () => {
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

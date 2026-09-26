@@ -20,6 +20,7 @@ const ApplicationList = () => {
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState([]);
 
   const fetchCareers = async () => {
     try {
@@ -89,6 +90,7 @@ const ApplicationList = () => {
         try {
           await axios.delete(`https://3pcommunicationsserver.vercel.app/api/applications/${id}`);
           setApplications(prev => prev.filter(app => app._id !== id));
+          setSelectedIds(prev => prev.filter(itemId => itemId !== id));
           Swal.fire({
             icon: 'success',
             title: 'Deleted',
@@ -106,6 +108,75 @@ const ApplicationList = () => {
         }
       }
     });
+  };
+
+  const handleBulkDelete = () => {
+    if (selectedIds.length === 0) return;
+
+    Swal.fire({
+      title: `Delete ${selectedIds.length} applications?`,
+      text: "Are you sure you want to permanently delete all selected job applications? This action cannot be undone.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#64748b',
+      confirmButtonText: `Yes, delete ${selectedIds.length} applications`,
+      cancelButtonText: 'Cancel',
+      background: '#ffffff',
+      customClass: { popup: 'rounded-4' },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Deleting...',
+          text: `Deleting ${selectedIds.length} applications...`,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        try {
+          await Promise.allSettled(
+            selectedIds.map(id =>
+              axios.delete(`https://3pcommunicationsserver.vercel.app/api/applications/${id}`)
+            )
+          );
+          setApplications(prev => prev.filter(app => !selectedIds.includes(app._id)));
+          setSelectedIds([]);
+          Swal.fire({
+            icon: 'success',
+            title: 'Deleted!',
+            text: 'Selected applications have been removed.',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } catch (err) {
+          console.error('Error during bulk delete:', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to delete some applications.',
+          });
+        }
+      }
+    });
+  };
+
+  const handleToggleSelect = (id) => {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  const isAllSelected =
+    applications.length > 0 && selectedIds.length === applications.length;
+
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(applications.map(app => app._id));
+    }
   };
 
   const handleViewResume = (url) => {
@@ -199,16 +270,60 @@ const ApplicationList = () => {
 
       {error && <div className="alert alert-danger rounded-3 mb-4">{error}</div>}
 
+      {/* Bulk Action Toolbar */}
+      {selectedIds.length > 0 && (
+        <div className="alert alert-primary d-flex justify-content-between align-items-center mb-3 shadow-sm rounded-3 py-2 px-3 border-0 bg-primary text-white">
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge bg-light text-primary rounded-pill px-2 py-1 fw-bold">
+              {selectedIds.length}
+            </span>
+            <span className="fw-semibold">
+              {selectedIds.length} {selectedIds.length === 1 ? 'application' : 'applications'} selected
+            </span>
+          </div>
+          <div className="d-flex gap-2">
+            <button
+              type="button"
+              className="btn btn-sm btn-danger d-inline-flex align-items-center gap-1 rounded-2 shadow-sm"
+              onClick={handleBulkDelete}
+            >
+              <FaTrash /> Delete Selected ({selectedIds.length})
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-light rounded-2"
+              onClick={() => setSelectedIds([])}
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Applications Table */}
       <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
         <div className="table-responsive">
           <table className="table table-hover align-middle mb-0">
             <thead className="table-light">
               <tr>
-                <th style={{ width: '6%' }}>#</th>
-                <th style={{ width: '24%' }}>Candidate</th>
-                <th style={{ width: '20%' }}>Position</th>
-                <th style={{ width: '16%' }}>Resume</th>
+                <th style={{ width: '4%' }} className="text-center">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={isAllSelected}
+                    ref={(el) => {
+                      if (el) {
+                        el.indeterminate = selectedIds.length > 0 && !isAllSelected;
+                      }
+                    }}
+                    onChange={handleSelectAll}
+                    title="Select all applications"
+                  />
+                </th>
+                <th style={{ width: '5%' }}>#</th>
+                <th style={{ width: '23%' }}>Candidate</th>
+                <th style={{ width: '19%' }}>Position</th>
+                <th style={{ width: '15%' }}>Resume</th>
                 <th style={{ width: '14%' }} className="text-center">Shortlist</th>
                 <th style={{ width: '20%' }} className="text-end pe-4">Actions</th>
               </tr>
@@ -216,13 +331,23 @@ const ApplicationList = () => {
             <tbody>
               {applications.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="text-center py-5 text-muted">
+                  <td colSpan="7" className="text-center py-5 text-muted">
                     No candidate applications found matching criteria.
                   </td>
                 </tr>
               ) : (
-                applications.map((app, index) => (
-                  <tr key={app._id}>
+                applications.map((app, index) => {
+                  const isSelected = selectedIds.includes(app._id);
+                  return (
+                  <tr key={app._id} className={isSelected ? 'table-active' : ''}>
+                    <td className="text-center">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        checked={isSelected}
+                        onChange={() => handleToggleSelect(app._id)}
+                      />
+                    </td>
                     <td className="text-muted small">{index + 1}</td>
                     <td>
                       <div className="d-flex align-items-center gap-2">
@@ -314,7 +439,8 @@ const ApplicationList = () => {
                       </div>
                     </td>
                   </tr>
-                ))
+                  );
+                })
               )}
             </tbody>
           </table>

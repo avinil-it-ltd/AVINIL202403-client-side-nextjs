@@ -6,14 +6,23 @@ import Footer from "../../core/Footer";
 import ContactInfo from "../Home/ContactInfo/ContactInfo";
 import { Container, Col, Row, Spinner } from "react-bootstrap";
 import { useRouter } from 'next/navigation';
-import bioImg from "../../../src/assets/images/interiorPage/home-office-decor-collage.jpg";
+import collageImg from "../../../src/assets/images/interiorPage/home-office-decor-collage.jpg";
+import officeImg from "../../../src/assets/images/interiorPage/office-interior-visual.jpg";
+import homeImg from "../../../src/assets/images/interiorPage/home-interior-visual.jpg";
 import axios from 'axios';
 import './interior.css';
 
 const Interior = () => {
   const router = useRouter();
   const [projects, setProjects] = useState([]);
-  const [selectedSubcategory, setSelectedSubcategory] = useState('All');
+  const [selectedSubcategory, setSelectedSubcategory] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const sub = params.get('sub') || params.get('subcategory');
+      if (sub) return sub;
+    }
+    return 'All';
+  });
   const [loading, setLoading] = useState(true);
 
   // Synchronize subcategory with URL query parameters in real time
@@ -114,6 +123,48 @@ const Interior = () => {
     return [...officeProjects, ...otherProjects];
   }, [projects, selectedSubcategory]);
 
+  const editorialContent = React.useMemo(() => {
+    const sub = (selectedSubcategory || '').toLowerCase();
+    if (sub === 'office') {
+      return {
+        image: officeImg,
+        alt: '3P Communication Commercial Office Interior Design - Modern Workplaces',
+        eyebrow: '01 / OFFICE INTERIOR DESIGN',
+        title: 'Modern Commercial Workplaces & Office Interiors',
+        lead: 'Designed for focus, productivity, and collaboration. At 3P Communication, our interior designers engineer contemporary corporate offices, executive suites, and ergonomic workstations tailored for high-performing teams.',
+        text: 'From corporate headquarters in Gulshan, Banani, and Motijheel to dynamic tech hubs across Dhaka, our in-house furniture workshop ensures clean finishing, acoustic comfort, and exact architectural measurements.',
+        directoryEyebrow: 'OFFICE PROJECT DIRECTORY',
+        directoryTitle: 'Selected Commercial & Office Projects',
+        directoryLead: 'Explore completed corporate headquarters, executive boardrooms, and functional office workstations across Dhaka.',
+      };
+    }
+    if (sub === 'home') {
+      return {
+        image: homeImg,
+        alt: '3P Communication Residential Home Interior Design - Modern Living Spaces',
+        eyebrow: '01 / HOME INTERIOR DESIGN',
+        title: 'Modern Living Spaces & Luxury Home Interiors',
+        lead: 'Every room should be comfortable, functional, and beautiful. At 3P Communication, our interior designers combine smart room layouts, natural light, and custom wooden furniture to create warm homes you love living in.',
+        text: 'From luxury apartments and duplexes in Gulshan, Banani, and Uttara to family residences across Dhaka, our in-house furniture workshop ensures bespoke cabinetry, warm ambient lighting, and flawless execution.',
+        directoryEyebrow: 'RESIDENTIAL PROJECT DIRECTORY',
+        directoryTitle: 'Selected Home & Residential Projects',
+        directoryLead: 'Browse our completed luxury apartments, duplex homes, custom kitchens, and contemporary living spaces.',
+      };
+    }
+    // Default: All / General Interior (Collage view)
+    return {
+      image: collageImg,
+      alt: '3P Communication Interior Architecture - Home and Office Decor Collage',
+      eyebrow: '01 / INTERIOR DESIGN',
+      title: 'Modern Living Spaces & Commercial Workplaces',
+      lead: 'Every room should be comfortable, functional, and beautiful. At 3P Communication, our interior designers combine smart room layouts, natural light, and custom wooden furniture to create spaces you love living and working in.',
+      text: 'From apartments and houses in Gulshan, Banani, and Uttara to corporate office setups across Dhaka, our in-house furniture workshop ensures clean finishing and exact measurements with zero guesswork.',
+      directoryEyebrow: 'PROJECT DIRECTORY',
+      directoryTitle: 'Selected Interior Projects',
+      directoryLead: 'Browse our completed residential apartments, duplexes, and commercial executive suites.',
+    };
+  }, [selectedSubcategory]);
+
   const handleMoreDetails = (id) => {
     router.push(`/details/${id}`);
   };
@@ -137,23 +188,24 @@ const Interior = () => {
             <Col lg={6}>
               <div className="editorial-bio-frame">
                 <img 
-                  src={bioImg?.src || bioImg} 
-                  alt="3P Communication Interior Architecture - Home and Office Decor Collage" 
+                  key={editorialContent.eyebrow}
+                  src={editorialContent.image?.src || editorialContent.image} 
+                  alt={editorialContent.alt} 
                   className="editorial-bio-img" 
                 />
               </div>
             </Col>
             <Col lg={6}>
               <div className="editorial-bio-content">
-                <span className="editorial-eyebrow">01 / INTERIOR DESIGN</span>
+                <span className="editorial-eyebrow">{editorialContent.eyebrow}</span>
                 <h1 className="editorial-title">
-                  Modern Living Spaces &amp; Commercial Workplaces
+                  {editorialContent.title}
                 </h1>
                 <p className="editorial-lead">
-                  Every room should be comfortable, functional, and beautiful. At 3P Communication, our interior designers combine smart room layouts, natural light, and custom wooden furniture to create spaces you love living and working in.
+                  {editorialContent.lead}
                 </p>
                 <p className="editorial-text">
-                  From apartments and houses in Gulshan, Banani, and Uttara to corporate office setups across Dhaka, our in-house furniture workshop ensures clean finishing and exact measurements with zero guesswork.
+                  {editorialContent.text}
                 </p>
               </div>
             </Col>
@@ -168,10 +220,10 @@ const Interior = () => {
       <section className="py-5">
         <Container className="pb-5">
           <div className="projects-header mb-5">
-            <span className="editorial-eyebrow">PROJECT DIRECTORY</span>
-            <h2 className="editorial-title">Selected Interior Projects</h2>
+            <span className="editorial-eyebrow">{editorialContent.directoryEyebrow}</span>
+            <h2 className="editorial-title">{editorialContent.directoryTitle}</h2>
             <p className="editorial-lead">
-              Browse our completed residential apartments, duplexes, and commercial executive suites.
+              {editorialContent.directoryLead}
             </p>
           </div>
 
